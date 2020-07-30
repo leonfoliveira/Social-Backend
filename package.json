@@ -5,7 +5,7 @@
   "description": "A social network backend web application",
   "author": "Leonardo Oliveira <leonfoliveira@gmail.com>",
   "scripts": {
-    "dev": "tsnd --no-notify --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "dev": "NODE_ENV=development tsnd --no-notify --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "test": "NODE_ENV=test jest --runInBand",
     "build": "tsc",
     "start": "node dist/server.js"
