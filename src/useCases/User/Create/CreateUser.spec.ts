@@ -161,29 +161,29 @@ describe('Create User', () => {
     expect(response.body.tag).toBe('sample');
   });
 
-  // it('Should NOT be able to create a new user with repeated email', async () => {
-  //   const response = await request(app).post('/api/users').send({
-  //     email: 'sample@mail.com',
-  //     name: 'name',
-  //     tag: 'sample2',
-  //     password: '12345678',
-  //   });
+  it('Should NOT be able to create a new user with repeated email', async () => {
+    const response = await request(app).post('/api/users').send({
+      email: 'sample@mail.com',
+      name: 'name',
+      tag: 'sample2',
+      password: '12345678',
+    });
 
-  //   expect(response.status).toBe(400);
-  //   expect(response.body.error).toBe('email already exists');
-  // });
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe('email already exists');
+  });
 
-  // it('Should NOT be able to create a new user with repeated tag', async () => {
-  //   const response = await request(app).post('/api/users').send({
-  //     email: 'sample2@mail.com',
-  //     name: 'name',
-  //     tag: 'sample',
-  //     password: '12345678',
-  //   });
+  it('Should NOT be able to create a new user with repeated tag', async () => {
+    const response = await request(app).post('/api/users').send({
+      email: 'sample2@mail.com',
+      name: 'name',
+      tag: 'sample',
+      password: '12345678',
+    });
 
-  //   expect(response.status).toBe(400);
-  //   expect(response.body.error).toBe('tag already exists');
-  // });
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe('tag already exists');
+  });
 
   it('Should be able to create a new user with different valid data', async () => {
     const response = await request(app).post('/api/users').send({
