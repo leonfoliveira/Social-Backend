@@ -1,7 +1,17 @@
 import request from 'supertest';
 import app from '../../../app';
+import knex from '../../../database';
 
 describe('Create User', () => {
+  beforeAll(async () => {
+    await knex.migrate.latest();
+  });
+
+  afterAll(async () => {
+    await knex.migrate.down();
+    await knex.destroy();
+  });
+
   it('Should NOT be able to create a new user without email', async () => {
     const response = await request(app).post('/api/users').send();
 

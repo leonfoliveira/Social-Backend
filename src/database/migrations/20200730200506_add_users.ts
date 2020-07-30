@@ -1,0 +1,19 @@
+import Knex from 'knex';
+
+export const up = async (knex: Knex): Promise<void> =>
+  knex.schema.createTable('users', (table) => {
+    table.string('id').unique().notNullable();
+
+    table.string('email', 50).unique().notNullable();
+    table.string('name', 50).notNullable();
+    table.string('tag', 30).unique().notNullable();
+    table.string('password', 64).notNullable();
+    table.string('salt', 32).notNullable();
+
+    table.timestamp('createdAt').notNullable().defaultTo(knex.fn.now());
+    table.timestamp('updatedAt');
+    table.timestamp('deletedAt');
+  });
+
+export const down = async (knex: Knex): Promise<void> =>
+  knex.schema.dropTable('users');

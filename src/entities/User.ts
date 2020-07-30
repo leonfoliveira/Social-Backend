@@ -10,7 +10,14 @@ export default class User {
   public password!: string;
   public salt!: string;
 
-  constructor(props: Omit<User, 'id' | 'salt'>, id?: string) {
+  public createdAt!: Date;
+  public updatedAt!: Date;
+  public deletedAt!: Date;
+
+  constructor(
+    props: Omit<User, 'id' | 'salt' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
+    id?: string,
+  ) {
     Object.assign(this, props);
 
     if (!id) {
