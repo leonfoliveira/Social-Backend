@@ -18,6 +18,8 @@ Developed just for academic reasons by a junior developer with little experience
 
 ## Endpoints
 
+**:lock::** Requires authentication
+
 <details>
 <summary><b>GET</b> &nbsp; • &nbsp; /api/users?page=# &nbsp; • &nbsp; Get a list of all users with 10 users per page</summary>
 
@@ -109,7 +111,7 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
-<summary><b>PUT</b> &nbsp; • &nbsp; /api/users/:id &nbsp; • &nbsp; Update a user searching for its id</summary>
+<summary><b>PUT</b> &nbsp; • &nbsp; /api/users/:id :lock: &nbsp; • &nbsp; Update a user searching for its id</summary>
 
 ### **Request**
 
