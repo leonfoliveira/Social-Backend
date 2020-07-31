@@ -109,6 +109,43 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
+<summary><b>PUT</b> &nbsp; • &nbsp; /api/users/:id &nbsp; • &nbsp; Update a user searching for its id</summary>
+
+### **Request**
+
+```json
+"params": {
+    "id": "<string required>"
+},
+
+"header": {
+    "authorization": "<string bearer token required>"
+},
+
+"body": {
+    "email": "<string email max(50) required>",
+    "password": "<string min(8) max(30) required>"
+}
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": {
+    "id": "<string>",
+    "email": "<string>",
+    "name": "<string>",
+    "tag": "<string>",
+    "createdAt": "<Date>",
+    "updatedAt": "<Date>"
+}
+```
+
+</details>
+
+<details>
 <summary><b>POST</b> &nbsp; • &nbsp; /api/sessions &nbsp; • &nbsp; Create a new session with user data provided</summary>
 
 ### **Request**
