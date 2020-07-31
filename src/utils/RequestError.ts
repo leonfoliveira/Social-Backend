@@ -12,4 +12,6 @@ export default class RequestError extends Error {
     401,
     'invalid email or incorrect password',
   );
+
+  static INVALID_TOKEN = new RequestError(401, 'invalid token');
 }
