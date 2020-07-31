@@ -49,6 +49,8 @@ Developed just for academic reasons by a junior developer with little experience
 ]
 ```
 
+</details>
+
 <details>
 <summary><b>GET</b> &nbsp; • &nbsp; /api/users/:id &nbsp; • &nbsp; Get list of users</summary>
 
