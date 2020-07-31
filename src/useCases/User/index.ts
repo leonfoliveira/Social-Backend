@@ -7,6 +7,7 @@ import { indexUserController } from './Index';
 import { findUserController } from './Find';
 import { createUserController } from './Create';
 import { updateUserController } from './Update';
+import { deleteUserController } from './Delete';
 
 const router = Router();
 
@@ -64,6 +65,21 @@ router.put(
   authParser,
   async (request: Request, response: Response, next: NextFunction) =>
     await updateUserController.handle(request, response, next),
+);
+
+router.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().max(36).required(),
+    },
+    [Segments.HEADERS]: Joi.object({
+      authorization: Joi.string().required(),
+    }).unknown(),
+  }),
+  authParser,
+  async (request: Request, response: Response, next: NextFunction) =>
+    await deleteUserController.handle(request, response, next),
 );
 
 export default router;

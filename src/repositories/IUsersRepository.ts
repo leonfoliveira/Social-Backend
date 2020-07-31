@@ -10,4 +10,6 @@ export default interface IUsersRepository {
   save(user: User): Promise<User>;
 
   update(id: string, user: User): Promise<User>;
+
+  delete(id: string): Promise<void>;
 }

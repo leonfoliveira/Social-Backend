@@ -14,12 +14,14 @@ export default class UsersRepository implements IUsersRepository {
     const users = await knex
       .select<User[]>('*')
       .from('users')
+      .where({ deletedAt: null })
       .limit(limit)
       .offset(offset);
 
     const { count } = await knex
       .count()
       .from('users')
+      .where({ deletedAt: null })
       .first<{ count: number }>();
 
     return { users, count, pages: Math.ceil(count / PAGE_SIZE) };
@@ -29,7 +31,7 @@ export default class UsersRepository implements IUsersRepository {
     const user = await knex
       .select<User[]>('*')
       .from('users')
-      .where({ id })
+      .where({ id, deletedAt: null })
       .first();
 
     return user;
@@ -39,7 +41,7 @@ export default class UsersRepository implements IUsersRepository {
     const user = await knex
       .select<User[]>('*')
       .from('users')
-      .where({ email })
+      .where({ email, deletedAt: null })
       .first();
 
     return user;
@@ -49,7 +51,7 @@ export default class UsersRepository implements IUsersRepository {
     const user = await knex
       .select<User[]>('*')
       .from('users')
-      .where({ tag })
+      .where({ tag, deletedAt: null })
       .first();
 
     return user;
@@ -67,9 +69,15 @@ export default class UsersRepository implements IUsersRepository {
   async update(id: string, user: User): Promise<User> {
     const [updatedUser] = await knex('users')
       .update(user)
-      .where({ id })
+      .where({ id, deletedAt: null })
       .returning<User[]>('*');
 
     return updatedUser;
+  }
+
+  async delete(id: string): Promise<void> {
+    await knex('users')
+      .update({ deletedAt: new Date() })
+      .where({ id, deletedAt: null });
   }
 }

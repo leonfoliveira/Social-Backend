@@ -7,7 +7,7 @@ import RequestError from '../../../utils/RequestError';
 export default class UpdateUserUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
-  async handle(
+  async execute(
     data: IUpdateUserDTO,
   ): Promise<Omit<User, 'password' | 'salt' | 'deletedAt'> | void> {
     if (data.authId !== data.id) {

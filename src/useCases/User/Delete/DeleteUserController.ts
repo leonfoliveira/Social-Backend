@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import UpdateUserUseCase from './UpdateUserUseCase';
+import DeleteUserUseCase from './DeleteUserUseCase';
 
-export default class UpdateUserController {
-  constructor(private updateUserUseCase: UpdateUserUseCase) {}
+export default class DeleteUserController {
+  constructor(private deleteUserUseCase: DeleteUserUseCase) {}
 
   async handle(
     request: Request,
@@ -11,20 +11,16 @@ export default class UpdateUserController {
   ): Promise<Response | void> {
     const { id } = request.params;
     const { authorization } = request.headers;
-    const { email, name, password } = request.body;
 
     const { id: authId } = JSON.parse(authorization as string);
 
     try {
-      const user = await this.updateUserUseCase.execute({
+      await this.deleteUserUseCase.execute({
         authId,
         id,
-        email,
-        name,
-        password,
       });
 
-      return response.send(user);
+      return response.send();
     } catch (error) {
       return next(error);
     }

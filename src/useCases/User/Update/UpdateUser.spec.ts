@@ -115,6 +115,16 @@ describe('User Update', () => {
     );
   });
 
+  it('Should NOT be able to update a user with empty body', async () => {
+    const response = await request(app)
+      .put(`/api/users/${id}`)
+      .send()
+      .set('authorization', authorization);
+
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe('empty update body');
+  });
+
   it('Should be able to update a user with valid data', async () => {
     const response = await request(app)
       .put(`/api/users/${id}`)

@@ -148,6 +148,31 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
+<summary><b>DELETE</b> &nbsp; • &nbsp; /api/users/:id :lock: &nbsp; • &nbsp; Delete a user searching for its id</summary>
+
+### **Request**
+
+```json
+"params": {
+    "id": "<string required>"
+},
+
+"header": {
+    "authorization": "<string bearer token required>"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+
+```
+
+</details>
+
+<details>
 <summary><b>POST</b> &nbsp; • &nbsp; /api/sessions &nbsp; • &nbsp; Create a new session with user data provided</summary>
 
 ### **Request**
