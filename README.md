@@ -19,7 +19,7 @@ Developed just for academic reasons by a junior developer with little experience
 ## Endpoints
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/users?page=# &nbsp; • &nbsp; Get list of users</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/users?page=# &nbsp; • &nbsp; Get a list of all users with 10 users per page</summary>
 
 ### **Request**
 
@@ -52,7 +52,7 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/users/:id &nbsp; • &nbsp; Get list of users</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/users/:id &nbsp; • &nbsp; Get data from a specific user searching for its id</summary>
 
 ### **Request**
 
@@ -79,7 +79,7 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
-<summary><b>POST</b> &nbsp; • &nbsp; /api/users &nbsp; • &nbsp; Create a new user</summary>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/users &nbsp; • &nbsp; Create a new user with the data provided</summary>
 
 ### **Request**
 
