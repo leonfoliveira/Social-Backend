@@ -22,8 +22,8 @@ router.post(
   celebrate({
     [Segments.BODY]: {
       email: Joi.string().email().max(50).required(),
-      tag: Joi.string().alphanum().max(30).required(),
       name: Joi.string().max(50).required(),
+      tag: Joi.string().alphanum().max(30).required(),
       password: Joi.string().min(8).max(30).required(),
     },
   }),

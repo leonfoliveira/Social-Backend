@@ -9,9 +9,7 @@ export default class CreateUserUseCase {
 
   async execute(
     data: ICreateUserRequestDTO,
-  ): Promise<
-    Omit<User, 'email' | 'password' | 'salt' | 'updatedAt' | 'deletedAt'>
-  > {
+  ): Promise<Omit<User, 'password' | 'salt' | 'updatedAt' | 'deletedAt'>> {
     const emailAlreadyExists = await this.usersRepository.findByEmail(
       data.email,
     );
@@ -28,8 +26,10 @@ export default class CreateUserUseCase {
 
     const user = new User(data);
 
-    const { id, name, tag, createdAt } = await this.usersRepository.save(user);
+    const { id, email, name, tag, createdAt } = await this.usersRepository.save(
+      user,
+    );
 
-    return { id, name, tag, createdAt };
+    return { id, email, name, tag, createdAt };
   }
 }
