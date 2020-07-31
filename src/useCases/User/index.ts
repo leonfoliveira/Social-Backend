@@ -1,9 +1,12 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
+import authParser from '../../middlewares/authParser';
+
 import { indexUserController } from './Index';
 import { findUserController } from './Find';
 import { createUserController } from './Create';
+import { updateUserController } from './Update';
 
 const router = Router();
 
@@ -41,6 +44,26 @@ router.post(
   }),
   async (request: Request, response: Response, next: NextFunction) =>
     await createUserController.handle(request, response, next),
+);
+
+router.put(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().max(36).required(),
+    },
+    [Segments.HEADERS]: Joi.object({
+      authorization: Joi.string().required(),
+    }).unknown(),
+    [Segments.BODY]: {
+      email: Joi.string().email().max(50).optional(),
+      name: Joi.string().max(50).optional(),
+      password: Joi.string().min(8).max(30).optional(),
+    },
+  }),
+  authParser,
+  async (request: Request, response: Response, next: NextFunction) =>
+    await updateUserController.handle(request, response, next),
 );
 
 export default router;

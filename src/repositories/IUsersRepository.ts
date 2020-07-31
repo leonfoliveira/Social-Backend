@@ -8,4 +8,6 @@ export default interface IUsersRepository {
   findByTag(tag: string): Promise<User | undefined>;
 
   save(user: User): Promise<User>;
+
+  update(id: string, user: User): Promise<User>;
 }

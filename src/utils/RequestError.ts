@@ -14,4 +14,8 @@ export default class RequestError extends Error {
   );
 
   static INVALID_TOKEN = new RequestError(401, 'invalid token');
+
+  static UPDATE_NOT_USER = new RequestError(403, 'cannot update other user');
+
+  static EMPTY_UPDATE_BODY = new RequestError(400, 'empty update body');
 }

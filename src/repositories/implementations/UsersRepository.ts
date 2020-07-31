@@ -63,4 +63,13 @@ export default class UsersRepository implements IUsersRepository {
 
     return createdUser;
   }
+
+  async update(id: string, user: User): Promise<User> {
+    const [updatedUser] = await knex('users')
+      .update(user)
+      .where({ id })
+      .returning<User[]>('*');
+
+    return updatedUser;
+  }
 }

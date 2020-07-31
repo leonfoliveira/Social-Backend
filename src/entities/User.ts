@@ -14,18 +14,14 @@ export default class User {
   public updatedAt!: Date;
   public deletedAt!: Date;
 
-  constructor(
-    props: Omit<User, 'id' | 'salt' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
-    id?: string,
-    salt?: string,
-  ) {
+  constructor(props: Partial<User>) {
     Object.assign(this, props);
 
-    if (!id) {
+    if (!props.id) {
       this.id = uuid();
     }
 
-    if (!salt) {
+    if (props.password && !props.salt) {
       this.salt = bcrypt.genSaltSync();
       this.password = bcrypt.hashSync(this.password, this.salt);
     }
