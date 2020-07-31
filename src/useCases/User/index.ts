@@ -2,6 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 
 import { indexUserController } from './Index';
+import { findUserController } from './Find';
 import { createUserController } from './Create';
 
 const router = Router();
@@ -15,6 +16,17 @@ router.get(
   }),
   async (request: Request, response: Response, next: NextFunction) =>
     await indexUserController.handle(request, response, next),
+);
+
+router.get(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().max(36).required(),
+    },
+  }),
+  async (request: Request, response: Response, next: NextFunction) =>
+    await findUserController.handle(request, response, next),
 );
 
 router.post(

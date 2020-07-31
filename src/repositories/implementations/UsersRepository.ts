@@ -25,6 +25,16 @@ export default class UsersRepository implements IUsersRepository {
     return { users, count, pages: Math.ceil(count / PAGE_SIZE) };
   }
 
+  async findById(id: string): Promise<User | undefined> {
+    const user = await knex
+      .select<User[]>('*')
+      .from('users')
+      .where({ id })
+      .first();
+
+    return user;
+  }
+
   async findByEmail(email: string): Promise<User | undefined> {
     const user = await knex
       .select<User[]>('*')
