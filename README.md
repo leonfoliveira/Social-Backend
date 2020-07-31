@@ -126,7 +126,7 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "token": "<string",
+    "token": "<string>",
     "user": {
         "id": "<string>",
         "email": "<string>",
