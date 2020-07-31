@@ -24,7 +24,7 @@ Developed just for academic reasons by a junior developer with little experience
 ### **Request**
 
 ```json
-"params": {
+"query": {
     "page": "<number integer positive required>"
 }
 ```
@@ -47,6 +47,31 @@ Developed just for academic reasons by a junior developer with little experience
         "updatedAt": "<Date>"
     }
 ]
+```
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/users/:id &nbsp; • &nbsp; Get list of users</summary>
+
+### **Request**
+
+```json
+"params": {
+    "id": "<string required>"
+}
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": {
+    "id": "<string",
+    "name": "<string>",
+    "tag": "<string>",
+    "createdAt": "<Date>",
+    "updatedAt": "<Date>"
+}
 ```
 
 </details>
@@ -72,6 +97,7 @@ Developed just for academic reasons by a junior developer with little experience
 ```json
 "body": [
     {
+        "id": "<string>",
         "email": "<string>",
         "name": "<string>",
         "tag": "<string>",
