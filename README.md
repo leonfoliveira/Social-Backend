@@ -19,8 +19,7 @@ Developed just for academic reasons by a junior developer with little experience
 ## Endpoints
 
 <details>
-<summary><span style="display: inline-block; width: 60px; font-weight: bold;">GET</span><span style="display: inline-block; width: 250px;">/api/users?page=#</span>Get list of users</summary>
-<hr />
+<summary><b>GET</b> &nbsp; • &nbsp; /api/users?page=# &nbsp; • &nbsp; Get list of users</summary>
 
 ### **Request**
 
@@ -51,9 +50,9 @@ Developed just for academic reasons by a junior developer with little experience
 ```
 
 </details>
-<hr />
+
 <details>
-<summary><span style="display: inline-block; width:60px; font-weight: bold;">POST</span><span style="display: inline-block; width: 250px;">/api/users</span>Create a new user</summary>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/users &nbsp; • &nbsp; Create a new user</summary>
 
 ### **Request**
 
