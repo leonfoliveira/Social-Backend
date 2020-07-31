@@ -17,6 +17,7 @@ export default class User {
   constructor(
     props: Omit<User, 'id' | 'salt' | 'createdAt' | 'updatedAt' | 'deletedAt'>,
     id?: string,
+    salt?: string,
   ) {
     Object.assign(this, props);
 
@@ -24,7 +25,9 @@ export default class User {
       this.id = uuid();
     }
 
-    this.salt = bcrypt.genSaltSync();
-    this.password = bcrypt.hashSync(this.password, this.salt);
+    if (!salt) {
+      this.salt = bcrypt.genSaltSync();
+      this.password = bcrypt.hashSync(this.password, this.salt);
+    }
   }
 }

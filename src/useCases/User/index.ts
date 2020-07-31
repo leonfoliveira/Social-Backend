@@ -1,8 +1,21 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
+
+import { indexUserController } from './Index';
 import { createUserController } from './Create';
 
 const router = Router();
+
+router.get(
+  '/',
+  celebrate({
+    [Segments.QUERY]: {
+      page: Joi.number().integer().positive().required(),
+    },
+  }),
+  async (request: Request, response: Response, next: NextFunction) =>
+    await indexUserController.handle(request, response, next),
+);
 
 router.post(
   '/',
