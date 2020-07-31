@@ -88,7 +88,7 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string email max(50) required>",
     "name": "<string max(50) required>",
     "tag": "<string alphanum max(30) required>",
-    "password": "<string max(30) required>"
+    "password": "<string min(8) max(30) required>"
 }
 ```
 
@@ -103,6 +103,38 @@ Developed just for academic reasons by a junior developer with little experience
     "name": "<string>",
     "tag": "<string>",
     "createdAt": "<Date>"
+}
+```
+
+</details>
+
+<details>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/sessions &nbsp; • &nbsp; Create a new session with user data provided</summary>
+
+### **Request**
+
+```json
+"body": {
+    "email": "<string email max(50) required>",
+    "password": "<string min(8) max(30) required>"
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+"body": {
+    "token": "<string",
+    "user": {
+        "id": "<string>",
+        "email": "<string>",
+        "name": "<string>",
+        "tag": "<string>",
+        "createdAt": "<Date>",
+        "updatedAt": "<Date>"
+    }
 }
 ```
 
