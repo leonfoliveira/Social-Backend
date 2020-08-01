@@ -9,7 +9,6 @@ export default class Post {
 
   public createdAt!: Date;
   public updatedAt!: Date;
-  public deletedAt!: Date;
 
   constructor(props: Partial<Post>) {
     Object.assign(this, props);

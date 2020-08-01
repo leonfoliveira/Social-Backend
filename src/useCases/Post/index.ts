@@ -3,9 +3,22 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import authParser from '../../middlewares/authParser';
 
+import { indexPostController } from './Index';
 import { createPostController } from './Create';
 
 const router = Router();
+
+router.get(
+  '/',
+  celebrate({
+    [Segments.QUERY]: {
+      page: Joi.number().integer().positive().required(),
+      authorId: Joi.string().optional(),
+    },
+  }),
+  async (request: Request, response: Response, next: NextFunction) =>
+    await indexPostController.handle(request, response, next),
+);
 
 router.post(
   '/',
