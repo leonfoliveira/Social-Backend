@@ -11,7 +11,7 @@ describe('Create Session', () => {
   });
 
   afterAll(async () => {
-    await knex.migrate.down();
+    await knex.migrate.rollback();
     await knex.destroy();
   });
 

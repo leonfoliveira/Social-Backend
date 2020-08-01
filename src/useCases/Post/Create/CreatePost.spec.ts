@@ -7,6 +7,9 @@ describe('Create Post', () => {
 
   beforeAll(async () => {
     await knex.migrate.latest();
+    await knex.seed.run({
+      specific: '001_users.ts',
+    });
 
     const response = await request(app).post('/api/sessions').send({
       email: 'person.a@mail.com',
@@ -16,7 +19,7 @@ describe('Create Post', () => {
   });
 
   afterAll(async () => {
-    await knex.migrate.down();
+    await knex.migrate.rollback();
     await knex.destroy();
   });
 

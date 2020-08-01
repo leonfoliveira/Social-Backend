@@ -8,7 +8,7 @@ describe('Create User', () => {
   });
 
   afterAll(async () => {
-    await knex.migrate.down();
+    await knex.migrate.rollback();
     await knex.destroy();
   });
 
