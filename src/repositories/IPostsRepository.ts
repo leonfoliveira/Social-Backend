@@ -12,4 +12,6 @@ export default interface IPostsRepository {
   save(post: Post): Promise<Post>;
 
   update(post: Post): Promise<Post>;
+
+  delete(id: string): Promise<void>;
 }

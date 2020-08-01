@@ -12,6 +12,6 @@ export default class DeleteUserUseCase {
     }
     delete data.authId;
 
-    this.usersRepository.delete(data.id);
+    await this.usersRepository.delete(data.id);
   }
 }

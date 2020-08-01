@@ -144,12 +144,17 @@ export default class PostsRepository implements IPostsRepository {
       .where({ id: post.id })
       .returning(['id', 'authorId', 'text', 'createdAt', 'updatedAt']);
 
-    const author = await knex('users')
+    const author = await knex
       .select<User>(['id', 'email', 'name', 'tag', 'createdAt', 'updatedAt'])
+      .from('users')
       .where({ id: updatedPost.authorId });
 
     delete updatedPost.authorId;
 
     return new Post({ ...updatedPost, author });
+  }
+
+  async delete(id: string): Promise<void> {
+    await knex('posts').update({ deletedAt: new Date() }).where({ id });
   }
 }
