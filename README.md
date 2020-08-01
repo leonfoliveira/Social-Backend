@@ -99,13 +99,7 @@ Developed just for academic reasons by a junior developer with little experience
 **Code** : `201 CREATED`
 
 ```json
-"body": {
-    "id": "<string>",
-    "email": "<string>",
-    "name": "<string>",
-    "tag": "<string>",
-    "createdAt": "<Date>"
-}
+
 ```
 
 </details>
