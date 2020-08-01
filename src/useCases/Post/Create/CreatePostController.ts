@@ -15,12 +15,12 @@ export default class CreatePostController {
     const { id: authorId } = JSON.parse(authorization as string);
 
     try {
-      await this.createPostUseCase.execute({
+      const user = await this.createPostUseCase.execute({
         authorId,
         text,
       });
 
-      return response.status(201).send();
+      return response.status(201).send(user);
     } catch (error) {
       return next(error);
     }

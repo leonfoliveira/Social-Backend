@@ -57,8 +57,20 @@ export default class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async save(user: User): Promise<void> {
-    await knex.insert(user).into('users');
+  async save(user: User): Promise<User> {
+    const createdUser = await knex
+      .insert(user)
+      .into('users')
+      .returning<User>([
+        'id',
+        'email',
+        'name',
+        'tag',
+        'createdAt',
+        'updatedAt',
+      ]);
+
+    return createdUser;
   }
 
   async update(id: string, user: User): Promise<User> {

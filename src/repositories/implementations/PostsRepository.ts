@@ -123,10 +123,19 @@ export default class PostsRepository implements IPostsRepository {
     return parsedPost;
   }
 
-  async save(post: Post): Promise<void> {
+  async save(post: Post): Promise<Post> {
     const authorId = post.author.id;
 
-    await knex.insert({ id: post.id, text: post.text, authorId }).into('posts');
+    const [createdPost] = await knex
+      .insert({ id: post.id, text: post.text, authorId })
+      .into('posts')
+      .returning(['id', 'authorId', 'text', 'createdAt', 'updatedAt']);
+
+    const author = await knex('users')
+      .select<User>(['id', 'email', 'name', 'tag', 'createdAt', 'updatedAt'])
+      .where({ id: createdPost.authorId });
+
+    return new Post({ ...createdPost, author });
   }
 
   async update(post: Post): Promise<Post> {

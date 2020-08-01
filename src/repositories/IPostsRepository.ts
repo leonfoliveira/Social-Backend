@@ -9,7 +9,7 @@ export default interface IPostsRepository {
 
   findById(id: string): Promise<Post | undefined>;
 
-  save(post: Post): Promise<void>;
+  save(post: Post): Promise<Post>;
 
   update(post: Post): Promise<Post>;
 }
