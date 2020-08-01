@@ -246,7 +246,7 @@ Developed just for academic reasons by a junior developer with little experience
 
 ### **Response**
 
-**Code** : `201 CREATED`
+**Code** : `200 OK`
 
 ```json
 "body": {
@@ -286,19 +286,7 @@ Developed just for academic reasons by a junior developer with little experience
 **Code** : `201 CREATED`
 
 ```json
-"body": {
-    "id": "<string>",
-    "text": "<string>",
-    "author": {
-        "id": "<string>",
-        "email": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
-    },
-    "createdAt": "<Date>"
-}
+
 ```
 
 </details>
