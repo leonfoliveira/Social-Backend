@@ -1,9 +1,10 @@
 import { uuid } from 'uuidv4';
+import User from './User';
 
 export default class Post {
   public readonly id!: string;
 
-  public authorId!: string;
+  public author!: Partial<User>;
   public text!: string;
 
   public createdAt!: Date;
