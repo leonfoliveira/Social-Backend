@@ -1,5 +1,5 @@
 import IUsersRepository from '../../../repositories/IUsersRepository';
-import ICreateUserRequestDTO from './CreateUserDTO';
+import ICreateUserDTO from './CreateUserDTO';
 import User from '../../../entities/User';
 
 import RequestError from '../../../utils/RequestError';
@@ -8,7 +8,7 @@ export default class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute(
-    data: ICreateUserRequestDTO,
+    data: ICreateUserDTO,
   ): Promise<Omit<User, 'password' | 'salt' | 'updatedAt' | 'deletedAt'>> {
     const emailAlreadyExists = await this.usersRepository.findByEmail(
       data.email,
