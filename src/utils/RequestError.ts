@@ -7,6 +7,7 @@ export default class RequestError extends Error {
   static REPEATED_TAG = new RequestError(400, 'tag already exists');
 
   static USER_NOT_FOUND = new RequestError(404, 'user not found');
+  static POST_NOT_FOUND = new RequestError(404, 'post not found');
 
   static INVALID_CREDENTIAL = new RequestError(
     401,
@@ -17,6 +18,16 @@ export default class RequestError extends Error {
 
   static UPDATE_NOT_USER = new RequestError(403, 'cannot update other user');
   static DELETE_NOT_USER = new RequestError(403, 'cannot delete other user');
+
+  static UPDATE_POST_NOT_OWNER = new RequestError(
+    403,
+    "cannot update other user's post",
+  );
+
+  static DELETE_POST_NOT_OWNER = new RequestError(
+    403,
+    "cannot delete other user's post",
+  );
 
   static EMPTY_UPDATE_BODY = new RequestError(400, 'empty update body');
 }

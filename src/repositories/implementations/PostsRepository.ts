@@ -1,6 +1,7 @@
 import IPostsRepository from '../IPostsRepository';
 import Post from '../../entities/Post';
 import knex from '../../database';
+import User from '../../entities/User';
 
 const PAGE_SIZE = 10;
 
@@ -107,9 +108,39 @@ export default class PostsRepository implements IPostsRepository {
     return { posts: parsedPosts, count, pages: Math.ceil(count / PAGE_SIZE) };
   }
 
+  async findById(id: string): Promise<Post | undefined> {
+    const post = await this.baseIndexQuery
+      .clone()
+      .where({ 'posts.id': id })
+      .first();
+
+    if (!post) {
+      return undefined;
+    }
+
+    const parsedPost = this.parsePost(post);
+
+    return parsedPost;
+  }
+
   async save(post: Post): Promise<void> {
     const authorId = post.author.id;
 
     await knex.insert({ id: post.id, text: post.text, authorId }).into('posts');
+  }
+
+  async update(post: Post): Promise<Post> {
+    const [updatedPost] = await knex('posts')
+      .update({ text: post.text, updatedAt: new Date() })
+      .where({ id: post.id })
+      .returning(['id', 'authorId', 'text', 'createdAt', 'updatedAt']);
+
+    const author = await knex('users')
+      .select<User>(['id', 'email', 'name', 'tag', 'createdAt', 'updatedAt'])
+      .where({ id: updatedPost.authorId });
+
+    delete updatedPost.authorId;
+
+    return new Post({ ...updatedPost, author });
   }
 }

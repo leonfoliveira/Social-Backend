@@ -7,5 +7,9 @@ export default interface IPostsRepository {
     authorId: string,
   ): Promise<{ posts: Post[]; count: number; pages: number }>;
 
+  findById(id: string): Promise<Post | undefined>;
+
   save(post: Post): Promise<void>;
+
+  update(post: Post): Promise<Post>;
 }
