@@ -1,6 +1,6 @@
 # Social Backend
 
-A social network API based on twitter under development using solid design and clean arquitecture principles.
+A social network API based on twitter under development using TDD, solid design and clean arquitecture principles.
 
 ## Disclaimer
 
