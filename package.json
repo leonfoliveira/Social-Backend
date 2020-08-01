@@ -4,6 +4,7 @@
   "main": "src/server.ts",
   "description": "A social network backend web application",
   "author": "Leonardo Oliveira <leonfoliveira@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsnd --no-notify --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "test": "NODE_ENV=test jest --runInBand",
