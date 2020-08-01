@@ -231,3 +231,33 @@ Developed just for academic reasons by a junior developer with little experience
 ```
 
 </details>
+
+<details>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/posts :lock: &nbsp; • &nbsp; Create a new post with data provided and author from authentication</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required>"
+},
+
+"body": {
+    "text": "<string email max(256) required>",
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+"body": {
+    "id": "<string>",
+    "text": "<string>",
+    "authorId": "<string>",
+    "createdAt": "<Date>"
+}
+```
+
+</details>
