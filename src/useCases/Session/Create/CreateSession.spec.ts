@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../app';
 import knex from '../../../database';
 
-describe('Find User', () => {
+describe('Create Session', () => {
   beforeAll(async () => {
     await knex.migrate.latest();
     await knex.seed.run({

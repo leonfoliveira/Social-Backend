@@ -2,16 +2,16 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import UsersRepository from '../../../repositories/implementations/UsersRepository';
-import ISessionCreateDTO from './SessionCreateDTO';
+import ICreateSessionDTO from './CreateSessionDTO';
 import User from '../../../entities/User';
 
 import RequestError from '../../../utils/RequestError';
 
-export default class SessionCreateUseCase {
+export default class CreateSessionUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute(
-    data: ISessionCreateDTO,
+    data: ICreateSessionDTO,
   ): Promise<{
     token: string;
     user: Omit<User, 'password' | 'salt' | 'deletedAt'>;

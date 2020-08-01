@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import SessionCreateUseCase from './SessionCreateUseCase';
+import CreateSessionUseCase from './CreateSessionUseCase';
 
-export default class SessionCreateController {
-  constructor(private sessionCreateUseCase: SessionCreateUseCase) {}
+export default class CreateSessionController {
+  constructor(private createSessionUseCase: CreateSessionUseCase) {}
 
   async handle(
     request: Request,
@@ -12,7 +12,7 @@ export default class SessionCreateController {
     const { email, password } = request.body;
 
     try {
-      const { token, user } = await this.sessionCreateUseCase.execute({
+      const { token, user } = await this.createSessionUseCase.execute({
         email,
         password,
       });

@@ -1,8 +1,24 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-import { sessionCreateController } from './Create';
+
+import authParser from '../../middlewares/authParser';
+
+import { findSessionController } from './Find';
+import { createSessionController } from './Create';
 
 const router = Router();
+
+router.get(
+  '/',
+  celebrate({
+    [Segments.HEADERS]: Joi.object({
+      authorization: Joi.string().required(),
+    }).unknown(),
+  }),
+  authParser,
+  async (request: Request, response: Response, next: NextFunction) =>
+    await findSessionController.handle(request, response, next),
+);
 
 router.post(
   '/',
@@ -13,7 +29,7 @@ router.post(
     },
   }),
   async (request: Request, response: Response, next: NextFunction) =>
-    await sessionCreateController.handle(request, response, next),
+    await createSessionController.handle(request, response, next),
 );
 
 export default router;

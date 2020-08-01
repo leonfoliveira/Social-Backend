@@ -1,13 +1,13 @@
 import UsersRepository from '../../../repositories/implementations/UsersRepository';
-import SessionCreateUseCase from './SessionCreateUseCase';
-import SessionCreateController from './SessionCreateController';
+import CreateSessionUseCase from './CreateSessionUseCase';
+import CreateSessionController from './CreateSessionController';
 
 const usersRepository = new UsersRepository();
 
-const sessionCreateUseCase = new SessionCreateUseCase(usersRepository);
+const createSessionUseCase = new CreateSessionUseCase(usersRepository);
 
-const sessionCreateController = new SessionCreateController(
-  sessionCreateUseCase,
+const createSessionController = new CreateSessionController(
+  createSessionUseCase,
 );
 
-export { sessionCreateUseCase, sessionCreateController };
+export { createSessionUseCase, createSessionController };

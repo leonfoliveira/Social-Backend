@@ -173,6 +173,34 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/sessions :lock: &nbsp; • &nbsp; Get data from the user authenticated</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required>"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": {
+    "id": "<string>",
+    "email": "<string>",
+    "name": "<string>",
+    "tag": "<string>",
+    "createdAt": "<Date>",
+    "updatedAt": "<Date>"
+}
+```
+
+</details>
+
+<details>
 <summary><b>POST</b> &nbsp; • &nbsp; /api/sessions &nbsp; • &nbsp; Create a new session with user data provided</summary>
 
 ### **Request**
