@@ -157,8 +157,6 @@ describe('Create User', () => {
     });
 
     expect(response.status).toBe(201);
-    expect(response.body.name).toBe('name');
-    expect(response.body.tag).toBe('sample');
   });
 
   it('Should NOT be able to create a new user with repeated email', async () => {
@@ -194,7 +192,5 @@ describe('Create User', () => {
     });
 
     expect(response.status).toBe(201);
-    expect(response.body.name).toBe('name');
-    expect(response.body.tag).toBe('sample2');
   });
 });

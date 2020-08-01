@@ -7,9 +7,7 @@ import RequestError from '../../../utils/RequestError';
 export default class CreateUserUseCase {
   constructor(private usersRepository: IUsersRepository) {}
 
-  async execute(
-    data: ICreateUserDTO,
-  ): Promise<Omit<User, 'password' | 'salt' | 'updatedAt' | 'deletedAt'>> {
+  async execute(data: ICreateUserDTO): Promise<void> {
     const emailAlreadyExists = await this.usersRepository.findByEmail(
       data.email,
     );
@@ -26,10 +24,6 @@ export default class CreateUserUseCase {
 
     const user = new User(data);
 
-    const { id, email, name, tag, createdAt } = await this.usersRepository.save(
-      user,
-    );
-
-    return { id, email, name, tag, createdAt };
+    await this.usersRepository.save(user);
   }
 }

@@ -5,18 +5,18 @@ import knex from '../../database';
 const PAGE_SIZE = 10;
 
 export default class UsersRepository implements IUsersRepository {
+  private baseIndexQuery = knex
+    .select<User[]>(['id', 'email', 'name', 'tag', 'createdAt', 'updatedAt'])
+    .from('users')
+    .where({ deletedAt: null });
+
   async index(
     page: number,
   ): Promise<{ users: User[]; count: number; pages: number }> {
     const limit = PAGE_SIZE;
     const offset = (page - 1) * limit;
 
-    const users = await knex
-      .select<User[]>('*')
-      .from('users')
-      .where({ deletedAt: null })
-      .limit(limit)
-      .offset(offset);
+    const users = await this.baseIndexQuery.clone().limit(limit).offset(offset);
 
     const { count } = await knex
       .count()
@@ -57,13 +57,8 @@ export default class UsersRepository implements IUsersRepository {
     return user;
   }
 
-  async save(user: User): Promise<User> {
-    const [createdUser] = await knex
-      .insert(user)
-      .into('users')
-      .returning<User[]>('*');
-
-    return createdUser;
+  async save(user: User): Promise<void> {
+    await knex.insert(user).into('users');
   }
 
   async update(id: string, user: User): Promise<User> {
