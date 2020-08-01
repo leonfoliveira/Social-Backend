@@ -380,3 +380,28 @@ Developed just for academic reasons by a junior developer with little experience
 ```
 
 </details>
+
+<details>
+<summary><b>DELETE</b> &nbsp; • &nbsp; /api/posts/:id :lock: &nbsp; • &nbsp; Delete a post searching for its id</summary>
+
+### **Request**
+
+```json
+"params": {
+    "id": "<string required>"
+},
+
+"header": {
+    "authorization": "<string bearer token required>"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+
+```
+
+</details>
