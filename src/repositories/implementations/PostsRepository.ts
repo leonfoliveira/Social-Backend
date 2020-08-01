@@ -1,6 +1,5 @@
 import IPostsRepository from '../IPostsRepository';
 import Post from '../../entities/Post';
-import User from '../../entities/User';
 import knex from '../../database';
 
 const PAGE_SIZE = 10;
@@ -108,20 +107,9 @@ export default class PostsRepository implements IPostsRepository {
     return { posts: parsedPosts, count, pages: Math.ceil(count / PAGE_SIZE) };
   }
 
-  async save(post: Post): Promise<Post> {
+  async save(post: Post): Promise<void> {
     const authorId = post.author.id;
 
-    const [createdPost] = await knex
-      .insert({ text: post.text, authorId })
-      .into('posts')
-      .returning<Post[]>('*');
-
-    const author = (await knex
-      .select<User>('*')
-      .from('users')
-      .where({ id: authorId })
-      .first()) as User;
-
-    return { ...createdPost, author };
+    await knex.insert({ id: post.id, text: post.text, authorId }).into('posts');
   }
 }

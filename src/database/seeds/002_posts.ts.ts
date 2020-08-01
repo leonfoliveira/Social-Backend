@@ -1,4 +1,5 @@
 import Knex from 'knex';
+import { uuid } from 'uuidv4';
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
@@ -13,7 +14,8 @@ export async function seed(knex: Knex): Promise<void> {
 
   for (let i = 0; i < 10; i++) {
     posts.push({
-      authorId: authors[Math.floor(i / 2)],
+      id: uuid(),
+      authorId: authors[Math.floor(i / 2)].id,
       text: 'New post text',
     });
   }

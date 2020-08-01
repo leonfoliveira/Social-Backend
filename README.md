@@ -21,7 +21,7 @@ Developed just for academic reasons by a junior developer with little experience
 **:lock::** Requires authentication
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/users?page=# &nbsp; • &nbsp; Get a list of all users with 10 users per page</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/users?page=# &nbsp; • &nbsp; Get a list of all users</summary>
 
 ### **Request**
 
@@ -227,6 +227,40 @@ Developed just for academic reasons by a junior developer with little experience
         "createdAt": "<Date>",
         "updatedAt": "<Date>"
     }
+}
+```
+
+</details>
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/posts?page=#&authorId=# &nbsp; • &nbsp; Get a list of all posts</summary>
+
+### **Request**
+
+```json
+"query": {
+    "page": "<number integer positive required>",
+    "authorId": "<string optional>"
+},
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+"body": {
+    "id": "<string>",
+    "text": "<string>",
+    "author": {
+        "id": "<string>",
+        "email": "<string>",
+        "name": "<string>",
+        "tag": "<string>",
+        "createdAt": "<Date>",
+        "updatedAt": "<Date>"
+    },
+    "createdAt": "<Date>"
 }
 ```
 

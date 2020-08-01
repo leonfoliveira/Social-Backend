@@ -20,7 +20,7 @@ export default class IndexPostController {
       response.header('X-Total-Count', count.toString());
       response.header('X-Total-Pages', pages.toString());
 
-      return response.status(201).send(posts);
+      return response.status(200).send(posts);
     } catch (error) {
       return next(error);
     }

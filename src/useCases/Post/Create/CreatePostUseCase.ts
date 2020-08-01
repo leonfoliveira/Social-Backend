@@ -10,21 +10,11 @@ export default class CreatePostUseCase {
     private usersRepository: IUsersRepository,
   ) {}
 
-  async execute(
-    data: ICreatPostDTO,
-  ): Promise<Omit<Post, 'updatedAt' | 'deletedAt'>> {
-    const postAuthor = new User({ id: data.authorId });
+  async execute(data: ICreatPostDTO): Promise<void> {
+    const author = new User({ id: data.authorId });
 
-    const post = new Post({ ...data, author: postAuthor });
+    const post = new Post({ ...data, author: author });
 
-    const { id, author, text, createdAt } = await this.postsRepository.save(
-      post,
-    );
-
-    delete author.password;
-    delete author.salt;
-    delete author.deletedAt;
-
-    return { id, author, text, createdAt };
+    await this.postsRepository.save(post);
   }
 }

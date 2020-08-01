@@ -7,5 +7,5 @@ export default interface IPostsRepository {
     authorId: string,
   ): Promise<{ posts: Post[]; count: number; pages: number }>;
 
-  save(post: Post): Promise<Post>;
+  save(post: Post): Promise<void>;
 }

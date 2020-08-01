@@ -65,6 +65,5 @@ describe('Create Post', () => {
       .set('authorization', authorization);
 
     expect(response.status).toBe(201);
-    expect(response.body.text).toBe('Text');
   });
 });
