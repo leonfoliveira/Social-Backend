@@ -255,7 +255,14 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string>",
     "text": "<string>",
-    "authorId": "<string>",
+    "author": {
+        "id": "<string>",
+        "email": "<string>",
+        "name": "<string>",
+        "tag": "<string>",
+        "createdAt": "<Date>",
+        "updatedAt": "<Date>"
+    },
     "createdAt": "<Date>"
 }
 ```
