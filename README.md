@@ -16,6 +16,8 @@ Developed just for academic reasons by a junior developer with little experience
 
 **build**: Compile typescript files to plain javascript files into "dist" folder
 
+**migrate**: Migrate the database specified by environment variables
+
 ## Endpoints
 
 **:lock::** Requires authentication
