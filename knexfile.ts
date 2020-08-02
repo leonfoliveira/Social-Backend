@@ -6,6 +6,7 @@ export = {
     connection: {
       database: process.env.DB_NAME,
       host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
     },
@@ -27,6 +28,7 @@ export = {
     connection: {
       database: process.env.DB_NAME_TEST,
       host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
     },
@@ -48,6 +50,7 @@ export = {
     connection: {
       database: process.env.DB_NAME,
       host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
     },

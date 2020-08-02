@@ -14,7 +14,7 @@ describe('Index Post', () => {
   });
 
   it('Should be able to get the index of posts from page 1', async () => {
-    const response = await request(app).get('/api/posts?page=1').send();    
+    const response = await request(app).get('/api/posts?page=1').send();
 
     expect(response.status).toBe(200);
     expect(response.header['x-total-count']).toBe('10');
