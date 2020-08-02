@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: 'social-server'
+    command: sh -c "npm run migrate && npm run build && npm run start"
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/usr/app
+    links:
+      - db
+    depends_on:
+      - db
+    env_file: .env
+    environment:
+      DB_DIALECT: postgresql
+      DB_HOST: db
+  db:
+    image: postgres:13
+    container_name: 'social-db'
+    ports:
+      - '5433:5432'
+    env_file: .env
