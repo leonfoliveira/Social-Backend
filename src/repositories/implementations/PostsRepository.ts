@@ -3,8 +3,6 @@ import Post from '../../entities/Post';
 import knex from '../../database';
 import User from '../../entities/User';
 
-const PAGE_SIZE = 10;
-
 interface PostQuery {
   post_id: string;
   post_text: string;
@@ -55,12 +53,13 @@ export default class PostsRepository implements IPostsRepository {
 
   async index(
     page: number,
+    perPage: number,
   ): Promise<{
     posts: Post[];
     count: number;
     pages: number;
   }> {
-    const limit = PAGE_SIZE;
+    const limit = perPage;
     const offset = (page - 1) * limit;
 
     const posts = await this.baseIndexQuery.clone().limit(limit).offset(offset);
@@ -74,14 +73,15 @@ export default class PostsRepository implements IPostsRepository {
       .where({ 'posts.deletedAt': null, 'author.deletedAt': null })
       .first<{ count: number }>();
 
-    return { posts: parsedPosts, count, pages: Math.ceil(count / PAGE_SIZE) };
+    return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
   }
 
   async indexByAuthor(
     page: number,
+    perPage: number,
     authorId: string,
   ): Promise<{ posts: Post[]; count: number; pages: number }> {
-    const limit = PAGE_SIZE;
+    const limit = perPage;
     const offset = (page - 1) * limit;
 
     const posts = await this.baseIndexQuery
@@ -105,7 +105,7 @@ export default class PostsRepository implements IPostsRepository {
       })
       .first<{ count: number }>();
 
-    return { posts: parsedPosts, count, pages: Math.ceil(count / PAGE_SIZE) };
+    return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
   }
 
   async findById(id: string): Promise<Post | undefined> {

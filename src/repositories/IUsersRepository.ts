@@ -1,7 +1,10 @@
 import User from '../entities/User';
 
 export default interface IUsersRepository {
-  index(page: number): Promise<{ users: User[]; count: number; pages: number }>;
+  index(
+    page: number,
+    perPage: number,
+  ): Promise<{ users: User[]; count: number; pages: number }>;
 
   findById(id: string): Promise<User | undefined>;
   findByEmail(email: string): Promise<User | undefined>;

@@ -15,8 +15,14 @@ router.get(
   '/',
   celebrate({
     [Segments.QUERY]: {
-      page: Joi.number().integer().positive().required(),
-      authorId: Joi.string().optional(),
+      page: Joi.number().integer().positive().optional().default(1),
+      'per-page': Joi.number()
+        .integer()
+        .positive()
+        .max(30)
+        .optional()
+        .default(10),
+      'author-id': Joi.string().optional(),
     },
   }),
   async (request: Request, response: Response, next: NextFunction) =>

@@ -12,7 +12,10 @@ export default class IndexUserUseCase {
     count: number;
     pages: number;
   }> {
-    const { users, count, pages } = await this.userRepository.index(data.page);
+    const { users, count, pages } = await this.userRepository.index(
+      data.page,
+      data.perPage,
+    );
 
     return {
       users: users.map((user) => ({

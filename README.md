@@ -21,13 +21,14 @@ Developed just for academic reasons by a junior developer with little experience
 **:lock::** Requires authentication
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/users?page=# &nbsp; • &nbsp; Get a list of all users</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/users?page=#&per-page=# &nbsp; • &nbsp; Get a list of all users</summary>
 
 ### **Request**
 
 ```json
 "query": {
-    "page": "<number integer positive required>"
+    "page": "<number integer positive optional default=1>",
+    "per-page": "<number integer positive max=30 optional default=10>"
 }
 ```
 
@@ -87,10 +88,10 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "email": "<string email max(50) required>",
-    "name": "<string max(50) required>",
-    "tag": "<string alphanum max(30) required>",
-    "password": "<string min(8) max(30) required>"
+    "email": "<string email max=50 required>",
+    "name": "<string max=50 required>",
+    "tag": "<string alphanum max=30 required>",
+    "password": "<string min=8 max=30 required>"
 }
 ```
 
@@ -126,8 +127,8 @@ Developed just for academic reasons by a junior developer with little experience
 },
 
 "body": {
-    "email": "<string email max(50) required>",
-    "password": "<string min(8) max(30) required>"
+    "email": "<string email max=50 required>",
+    "password": "<string min=8 max=30 required>"
 }
 ```
 
@@ -202,14 +203,14 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
-<summary><b>POST</b> &nbsp; • &nbsp; /api/sessions &nbsp; • &nbsp; Create a new session with user data provided</summary>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/sessions &nbsp; • &nbsp; Create a new session with user data provided (signin)</summary>
 
 ### **Request**
 
 ```json
 "body": {
-    "email": "<string email max(50) required>",
-    "password": "<string min(8) max(30) required>"
+    "email": "<string email max=50 required>",
+    "password": "<string min=8 max=30 required>"
 }
 ```
 
@@ -234,14 +235,15 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/posts?page=#&authorId=# &nbsp; • &nbsp; Get a list of all posts</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/posts?page=#&per-page=#&author-id=# &nbsp; • &nbsp; Get a list of all posts</summary>
 
 ### **Request**
 
 ```json
 "query": {
-    "page": "<number integer positive required>",
-    "authorId": "<string optional>"
+    "page": "<number integer positive optional default=1>",
+    "per-page": "<number integer positive optional max=30 default=10>",
+    "author-id": "<string optional>"
 },
 ```
 
@@ -312,7 +314,7 @@ Developed just for academic reasons by a junior developer with little experience
 },
 
 "body": {
-    "text": "<string email max(256) required>",
+    "text": "<string email max=256 required>",
 }
 ```
 
@@ -354,7 +356,7 @@ Developed just for academic reasons by a junior developer with little experience
 }
 
 "body": {
-    "text": "<string email max(256) required>",
+    "text": "<string email max=256 required>",
 }
 ```
 

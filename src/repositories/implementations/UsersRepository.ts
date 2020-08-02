@@ -2,8 +2,6 @@ import IUsersRepository from '../IUsersRepository';
 import User from '../../entities/User';
 import knex from '../../database';
 
-const PAGE_SIZE = 10;
-
 export default class UsersRepository implements IUsersRepository {
   private baseIndexQuery = knex
     .select<User[]>(['id', 'email', 'name', 'tag', 'createdAt', 'updatedAt'])
@@ -12,8 +10,9 @@ export default class UsersRepository implements IUsersRepository {
 
   async index(
     page: number,
+    perPage: number,
   ): Promise<{ users: User[]; count: number; pages: number }> {
-    const limit = PAGE_SIZE;
+    const limit = perPage;
     const offset = (page - 1) * limit;
 
     const users = await this.baseIndexQuery.clone().limit(limit).offset(offset);
@@ -24,7 +23,7 @@ export default class UsersRepository implements IUsersRepository {
       .where({ deletedAt: null })
       .first<{ count: number }>();
 
-    return { users, count, pages: Math.ceil(count / PAGE_SIZE) };
+    return { users, count, pages: Math.ceil(count / perPage) };
   }
 
   async findById(id: string): Promise<User | undefined> {

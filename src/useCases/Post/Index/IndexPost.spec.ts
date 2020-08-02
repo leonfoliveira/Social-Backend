@@ -14,7 +14,7 @@ describe('Index Post', () => {
   });
 
   it('Should be able to get the index of posts from page 1', async () => {
-    const response = await request(app).get('/api/posts?page=1').send();
+    const response = await request(app).get('/api/posts?page=1').send();    
 
     expect(response.status).toBe(200);
     expect(response.header['x-total-count']).toBe('10');
@@ -26,7 +26,7 @@ describe('Index Post', () => {
     const { id } = await knex.select('id').from('users').first();
 
     const response = await request(app)
-      .get(`/api/posts?page=1&authorId=${id}`)
+      .get(`/api/posts?page=1&author-id=${id}`)
       .send();
 
     expect(response.status).toBe(200);

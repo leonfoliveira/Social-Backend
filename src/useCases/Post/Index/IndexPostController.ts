@@ -9,11 +9,14 @@ export default class IndexPostController {
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> {
-    const { page, authorId } = request.query;
+    const { page } = request.query;
+    const perPage = request.query['per-page'];
+    const authorId = request.query['author-id'];
 
     try {
       const { posts, count, pages } = await this.indexPostUseCase.execute({
         page: parseInt(page as string, 10),
+        perPage: parseInt(perPage as string, 10),
         authorId: authorId ? (authorId as string) : undefined,
       });
 

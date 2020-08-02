@@ -21,10 +21,11 @@ export default class IndexPostUseCase {
     if (data.authorId) {
       index = await this.postsRepository.indexByAuthor(
         data.page,
+        data.perPage,
         data.authorId,
       );
     } else {
-      index = await this.postsRepository.index(data.page);
+      index = await this.postsRepository.index(data.page, data.perPage);
     }
 
     return index;

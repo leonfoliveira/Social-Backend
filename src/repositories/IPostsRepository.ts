@@ -1,9 +1,13 @@
 import Post from '../entities/Post';
 
 export default interface IPostsRepository {
-  index(page: number): Promise<{ posts: Post[]; count: number; pages: number }>;
+  index(
+    page: number,
+    perPage: number,
+  ): Promise<{ posts: Post[]; count: number; pages: number }>;
   indexByAuthor(
     page: number,
+    perPage: number,
     authorId: string,
   ): Promise<{ posts: Post[]; count: number; pages: number }>;
 
