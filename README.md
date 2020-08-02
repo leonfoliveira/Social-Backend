@@ -235,6 +235,87 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/follows/:followerId/:targetId &nbsp; • &nbsp; Get data from a specific follow</summary>
+
+### **Request**
+
+```json
+"params": {
+    "followerId": "<string required>",
+    "targetId": "<string required>"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": {
+    "id": "<string>",
+    "follower": {
+        "id": "<string>",
+        "name": "<string>",
+        "tag": "<string>",
+        "createdAt": "<Date>",
+        "updatedAt": "<Date>"
+    },
+    "target": {
+        "id": "<string>",
+        "name": "<string>",
+        "tag": "<string>",
+        "createdAt": "<Date>",
+        "updatedAt": "<Date>"
+    },
+    "createdAt": "<Date>",
+}
+```
+
+</details>
+
+<details>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/follows :lock: &nbsp; • &nbsp; Create a new follow between the user authenticated and a target provided</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required>"
+},
+
+"body": {
+    "targetId": "<string required>",
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+"body": {
+    "id": "<string>",
+    "follower": {
+        "id": "<string>",
+        "name": "<string>",
+        "tag": "<string>",
+        "createdAt": "<Date>",
+        "updatedAt": "<Date>"
+    },
+    "target": {
+        "id": "<string>",
+        "name": "<string>",
+        "tag": "<string>",
+        "createdAt": "<Date>",
+        "updatedAt": "<Date>"
+    },
+    "createdAt": "<Date>",
+}
+```
+
+</details>
+
+<details>
 <summary><b>GET</b> &nbsp; • &nbsp; /api/posts?page=#&per-page=#&author-id=# &nbsp; • &nbsp; Get a list of all posts</summary>
 
 ### **Request**
@@ -314,7 +395,7 @@ Developed just for academic reasons by a junior developer with little experience
 },
 
 "body": {
-    "text": "<string email max=256 required>",
+    "text": "<string max=256 required>",
 }
 ```
 
@@ -356,7 +437,7 @@ Developed just for academic reasons by a junior developer with little experience
 }
 
 "body": {
-    "text": "<string email max=256 required>",
+    "text": "<string max=256 required>",
 }
 ```
 
