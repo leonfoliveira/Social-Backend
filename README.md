@@ -23,7 +23,69 @@ Developed just for academic reasons by a junior developer with little experience
 **:lock::** Requires authentication
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/users?page=#&per-page=# &nbsp; • &nbsp; Get a list of all users</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/sessions :lock: &nbsp; • &nbsp; Get data from the user authenticated</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required>"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": {
+    "id": "<string>",
+    "email": "<string>",
+    "name": "<string>",
+    "tag": "<string>",
+    "createdAt": "<Date>",
+    "updatedAt": "<Date>"
+}
+```
+
+</details>
+
+<details>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/sessions &nbsp; • &nbsp; Create a new session with user data provided (signin)</summary>
+
+### **Request**
+
+```json
+"body": {
+    "email": "<string email max=50 required>",
+    "password": "<string min=8 max=30 required>"
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+"body": {
+    "token": "<string>",
+    "user": {
+        "id": "<string>",
+        "email": "<string>",
+        "name": "<string>",
+        "tag": "<string>",
+        "createdAt": "<Date>",
+        "updatedAt": "<Date>"
+    }
+}
+```
+
+</details>
+
+---
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/users &nbsp; • &nbsp; Get a list of all users</summary>
 
 ### **Request**
 
@@ -176,14 +238,19 @@ Developed just for academic reasons by a junior developer with little experience
 
 </details>
 
+---
+
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/sessions :lock: &nbsp; • &nbsp; Get data from the user authenticated</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/follows &nbsp; • &nbsp; Get list of all follows</summary>
 
 ### **Request**
 
 ```json
-"header": {
-    "authorization": "<string bearer token required>"
+"query": {
+    "page": "<number integer positive optional default=1>",
+    "per-page": "<number integer positive max=30 optional default=10>",
+    "follower-id": "<string optional>",
+    "target-id": "<string optional>"
 },
 ```
 
@@ -192,46 +259,26 @@ Developed just for academic reasons by a junior developer with little experience
 **Code** : `200 OK`
 
 ```json
-"body": {
-    "id": "<string>",
-    "email": "<string>",
-    "name": "<string>",
-    "tag": "<string>",
-    "createdAt": "<Date>",
-    "updatedAt": "<Date>"
-}
-```
-
-</details>
-
-<details>
-<summary><b>POST</b> &nbsp; • &nbsp; /api/sessions &nbsp; • &nbsp; Create a new session with user data provided (signin)</summary>
-
-### **Request**
-
-```json
-"body": {
-    "email": "<string email max=50 required>",
-    "password": "<string min=8 max=30 required>"
-}
-```
-
-### **Response**
-
-**Code** : `201 CREATED`
-
-```json
-"body": {
-    "token": "<string>",
-    "user": {
+"body": [
+    {
         "id": "<string>",
-        "email": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
+        "follower": {
+            "id": "<string>",
+            "name": "<string>",
+            "tag": "<string>",
+            "createdAt": "<Date>",
+            "updatedAt": "<Date>"
+        },
+        "target": {
+            "id": "<string>",
+            "name": "<string>",
+            "tag": "<string>",
+            "createdAt": "<Date>",
+            "updatedAt": "<Date>"
+        },
         "createdAt": "<Date>",
-        "updatedAt": "<Date>"
     }
-}
+]
 ```
 
 </details>
@@ -317,8 +364,10 @@ Developed just for academic reasons by a junior developer with little experience
 
 </details>
 
+---
+
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/posts?page=#&per-page=#&author-id=# &nbsp; • &nbsp; Get a list of all posts</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/posts &nbsp; • &nbsp; Get a list of all posts</summary>
 
 ### **Request**
 

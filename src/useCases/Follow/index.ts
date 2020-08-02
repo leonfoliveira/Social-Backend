@@ -3,10 +3,25 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import authParser from '../../middlewares/authParser';
 
+import { indexFollowController } from './Index';
 import { findFollowController } from './Find';
 import { createFollowController } from './Create';
 
 const router = Router();
+
+router.get(
+  '/',
+  celebrate({
+    [Segments.QUERY]: Joi.object({
+      page: Joi.number().integer().positive().optional().default(1),
+      'per-page': Joi.number().integer().positive().optional().default(10),
+      'follower-id': Joi.string().max(36).optional(),
+      'target-id': Joi.string().max(36).optional(),
+    }).oxor('follower-id', 'target-id'),
+  }),
+  async (request: Request, response: Response, next: NextFunction) =>
+    await indexFollowController.handle(request, response, next),
+);
 
 router.get(
   '/:followerId/:targetId',

@@ -43,6 +43,18 @@ export default class FollowsRepository implements IFollowsRepository {
       'target.deletedAt': null,
     });
 
+  private baseCountQuery = knex
+    .count()
+    .from('follows')
+    .innerJoin('users as follower', 'follower.id', 'follows.followerId')
+    .innerJoin('users as target', 'target.id', 'follows.targetId')
+    .where({
+      'follows.deletedAt': null,
+      'follower.deletedAt': null,
+      'target.deletedAt': null,
+    })
+    .first<{ count: number }>();
+
   private parseFollow = (follow: FollowQuery) => {
     return new Follow({
       id: follow.follow_id,
@@ -63,6 +75,71 @@ export default class FollowsRepository implements IFollowsRepository {
       },
     });
   };
+
+  async index(
+    page: number,
+    perPage: number,
+  ): Promise<{ follows: Follow[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * perPage;
+
+    const follows = await this.baseSelectQuery
+      .clone()
+      .limit(limit)
+      .offset(offset);
+
+    const parsedFollows = follows.map((follow) => this.parseFollow(follow));
+
+    const { count } = await this.baseCountQuery.clone();
+
+    return { follows: parsedFollows, count, pages: Math.ceil(count / perPage) };
+  }
+
+  async indexByFollower(
+    page: number,
+    perPage: number,
+    follower: User,
+  ): Promise<{ follows: Follow[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * perPage;
+
+    const follows = await this.baseSelectQuery
+      .clone()
+      .where({ 'follows.followerId': follower.id })
+      .limit(limit)
+      .offset(offset);
+
+    const parsedFollows = follows.map((follow) => this.parseFollow(follow));
+
+    const { count } = await this.baseCountQuery.clone().where({
+      'follows.followerId': follower.id,
+    });
+
+    return { follows: parsedFollows, count, pages: Math.ceil(count / perPage) };
+  }
+
+  async indexByTarget(
+    page: number,
+    perPage: number,
+    target: User,
+  ): Promise<{ follows: Follow[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * perPage;
+
+    const follows = await this.baseSelectQuery
+      .clone()
+      .where({ 'follows.targetId': target.id })
+      .limit(limit)
+      .offset(offset);
+
+    const parsedFollows = follows.map((follow) => this.parseFollow(follow));
+
+    const { count } = await this.baseCountQuery.clone().where({
+      'follows.targetId': target.id,
+    });
+
+    return { follows: parsedFollows, count, pages: Math.ceil(count / perPage) };
+  }
 
   async findById(id: string): Promise<Follow | undefined> {
     const follow = await this.baseSelectQuery
