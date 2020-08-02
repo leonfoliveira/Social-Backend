@@ -3,7 +3,7 @@ import { uuid } from 'uuidv4';
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
-  await knex('posts').del();
+  await knex('follows').del();
 
   const authors = await knex
     .select('id')
@@ -11,7 +11,7 @@ export async function seed(knex: Knex): Promise<void> {
     .where({ deletedAt: null });
 
   // Inserts seed entries
-  await knex('posts').insert([
+  await knex('follows').insert([
     {
       id: uuid(),
       followerId: authors[0].id,
@@ -46,16 +46,6 @@ export async function seed(knex: Knex): Promise<void> {
       id: uuid(),
       followerId: authors[4].id,
       targetId: authors[2].id,
-    },
-    {
-      id: uuid(),
-      followerId: authors[4].id,
-      targetId: authors[5].id,
-    },
-    {
-      id: uuid(),
-      followerId: authors[5].id,
-      targetId: authors[4].id,
     },
   ]);
 }

@@ -17,7 +17,7 @@ interface PostQuery {
 }
 
 export default class PostsRepository implements IPostsRepository {
-  private baseIndexQuery = knex
+  private baseSelectQuery = knex
     .select<PostQuery[]>([
       'posts.id as post_id',
       'posts.text as post_text',
@@ -62,7 +62,10 @@ export default class PostsRepository implements IPostsRepository {
     const limit = perPage;
     const offset = (page - 1) * limit;
 
-    const posts = await this.baseIndexQuery.clone().limit(limit).offset(offset);
+    const posts = await this.baseSelectQuery
+      .clone()
+      .limit(limit)
+      .offset(offset);
 
     const parsedPosts = posts.map((post) => this.parsePost(post));
 
@@ -84,7 +87,7 @@ export default class PostsRepository implements IPostsRepository {
     const limit = perPage;
     const offset = (page - 1) * limit;
 
-    const posts = await this.baseIndexQuery
+    const posts = await this.baseSelectQuery
       .clone()
       .where({
         'posts.authorId': authorId,
@@ -109,7 +112,7 @@ export default class PostsRepository implements IPostsRepository {
   }
 
   async findById(id: string): Promise<Post | undefined> {
-    const post = await this.baseIndexQuery
+    const post = await this.baseSelectQuery
       .clone()
       .where({ 'posts.id': id })
       .first();

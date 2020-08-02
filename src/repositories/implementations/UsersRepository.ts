@@ -3,7 +3,7 @@ import User from '../../entities/User';
 import knex from '../../database';
 
 export default class UsersRepository implements IUsersRepository {
-  private baseIndexQuery = knex
+  private baseSelectQuery = knex
     .select<User[]>(['id', 'email', 'name', 'tag', 'createdAt', 'updatedAt'])
     .from('users')
     .where({ deletedAt: null });
@@ -15,7 +15,10 @@ export default class UsersRepository implements IUsersRepository {
     const limit = perPage;
     const offset = (page - 1) * limit;
 
-    const users = await this.baseIndexQuery.clone().limit(limit).offset(offset);
+    const users = await this.baseSelectQuery
+      .clone()
+      .limit(limit)
+      .offset(offset);
 
     const { count } = await knex
       .count()
