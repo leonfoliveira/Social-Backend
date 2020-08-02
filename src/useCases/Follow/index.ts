@@ -3,9 +3,22 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import authParser from '../../middlewares/authParser';
 
+import { findFollowController } from './Find';
 import { createFollowController } from './Create';
 
 const router = Router();
+
+router.get(
+  '/:followerId/:targetId',
+  celebrate({
+    [Segments.PARAMS]: {
+      followerId: Joi.string().max(36).required(),
+      targetId: Joi.string().max(36).required(),
+    },
+  }),
+  async (request: Request, response: Response, next: NextFunction) =>
+    await findFollowController.handle(request, response, next),
+);
 
 router.post(
   '/',

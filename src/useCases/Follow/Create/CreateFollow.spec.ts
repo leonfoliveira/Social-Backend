@@ -24,7 +24,7 @@ describe('Create Follow', () => {
       .whereNotIn(
         'id',
         await knex
-          .select('id')
+          .select('targetId')
           .from('follows')
           .where({ followerId: response.body.user.id }),
       )
