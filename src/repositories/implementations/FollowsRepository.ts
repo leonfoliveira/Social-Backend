@@ -185,4 +185,8 @@ export default class FollowsRepository implements IFollowsRepository {
 
     return new Follow({ ...createdFollow, follower, target });
   }
+
+  async delete(id: string): Promise<void> {
+    await knex('follows').update({ deletedAt: new Date() }).where({ id });
+  }
 }

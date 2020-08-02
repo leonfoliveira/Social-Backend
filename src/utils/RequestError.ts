@@ -34,5 +34,10 @@ export default class RequestError extends Error {
     "cannot delete other user's post",
   );
 
+  static DELETE_FOLLOW_NOT_FOLLOWER = new RequestError(
+    403,
+    "cannot delete other user's follow",
+  );
+
   static EMPTY_UPDATE_BODY = new RequestError(400, 'empty update body');
 }

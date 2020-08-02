@@ -21,4 +21,6 @@ export default interface IFollowsRepository {
   findByPair(follower: User, target: User): Promise<Follow | undefined>;
 
   save(follow: Follow): Promise<Follow>;
+
+  delete(id: string): Promise<void>;
 }

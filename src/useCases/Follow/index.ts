@@ -6,6 +6,7 @@ import authParser from '../../middlewares/authParser';
 import { indexFollowController } from './Index';
 import { findFollowController } from './Find';
 import { createFollowController } from './Create';
+import { deleteFollowController } from './Delete';
 
 const router = Router();
 
@@ -48,6 +49,21 @@ router.post(
   authParser,
   async (request: Request, response: Response, next: NextFunction) =>
     await createFollowController.handle(request, response, next),
+);
+
+router.delete(
+  '/:id',
+  celebrate({
+    [Segments.HEADERS]: Joi.object({
+      authorization: Joi.string().required(),
+    }).unknown(),
+    [Segments.PARAMS]: {
+      id: Joi.string().max(36).required(),
+    },
+  }),
+  authParser,
+  async (request: Request, response: Response, next: NextFunction) =>
+    await deleteFollowController.handle(request, response, next),
 );
 
 export default router;
