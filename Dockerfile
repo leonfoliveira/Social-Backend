@@ -6,7 +6,7 @@ COPY package.json ./
 
 RUN npm install
 
-COPY . .
+COPY dist .
 
 EXPOSE 4000
 

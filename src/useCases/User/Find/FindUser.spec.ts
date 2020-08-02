@@ -5,9 +5,7 @@ import knex from '../../../database';
 describe('Find User', () => {
   beforeAll(async () => {
     await knex.migrate.latest();
-    await knex.seed.run({
-      specific: '001_users.ts',
-    });
+    await knex.seed.run();
   });
 
   afterAll(async () => {

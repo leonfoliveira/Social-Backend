@@ -8,7 +8,7 @@ describe('User Update', () => {
 
   beforeAll(async () => {
     await knex.migrate.latest();
-    await knex.seed.run({ specific: '001_users.ts' });
+    await knex.seed.run();
 
     const response = await request(app).post('/api/sessions').send({
       email: 'person.a@mail.com',
