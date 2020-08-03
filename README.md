@@ -22,6 +22,8 @@ Developed just for academic reasons by a junior developer with little experience
 
 **:lock::** Requires authentication
 
+<br/>
+
 <details>
 <summary><b>GET</b> &nbsp; • &nbsp; /api/sessions :lock: &nbsp; • &nbsp; Get data from the user authenticated</summary>
 
