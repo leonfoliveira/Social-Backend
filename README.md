@@ -29,7 +29,7 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "header": {
-    "authorization": "<string bearer token required>"
+    "authorization": "<string required> [Bearer JWT token]"
 },
 ```
 
@@ -39,14 +39,14 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string>",
-    "email": "<string>",
-    "name": "<string>",
-    "tag": "<string>",
-    "followers": "<number>",
-    "following": "<number>",
-    "createdAt": "<Date>",
-    "updatedAt": "<Date>"
+    "id": "<string> [User id]",
+    "email": "<string> [User email]",
+    "name": "<string> [User name]",
+    "tag": "<string> [User tag]",
+    "followers": "<number> [User followers counter]",
+    "following": "<number> [User following counter]",
+    "createdAt": "<Date> [User date/time of creation]",
+    "updatedAt": "<Date> [User date/time of last update]"
 }
 ```
 
@@ -59,8 +59,8 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "email": "<string email max=50 required>",
-    "password": "<string min=8 max=30 required>"
+    "email": "<string email max=50 required> [User email]",
+    "password": "<string min=8 max=30 required> [User password]"
 }
 ```
 
@@ -70,16 +70,16 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "token": "<string>",
+    "token": "<string> [JWT token]",
     "user": {
-        "id": "<string>",
-        "email": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "followers": "<number>",
-        "following": "<number>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User id]",
+        "email": "<string> [User email]",
+        "name": "<string> [User name]",
+        "tag": "<string> [User tag]",
+        "followers": "<number> [User followers counter]",
+        "following": "<number> [User following counter]",
+        "createdAt": "<Date> [User date/time of creation]",
+        "updatedAt": "<Date> [User date/time of last update]"
     }
 }
 ```
@@ -95,8 +95,9 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "query": {
-    "page": "<number integer positive optional default=1>",
-    "per-page": "<number integer positive max=30 optional default=10>"
+    "page": "<number integer positive optional default=1> [Page]",
+    "per-page": "<number integer positive max=30 optional default=10> [Users per page]",
+    "leading": "<boolean> [Only users with followers and order by followers counter]"
 }
 ```
 
@@ -106,19 +107,19 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "header": {
-    "x-total-count": "<number>",
-    "x-total-pages": "<number>"
+    "x-total-count": "<number> [Total of users]",
+    "x-total-pages": "<number> [Total of pages]"
 }
 
 "body": [
     {
-        "id": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "followers": "<number>",
-        "following": "<number>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User id]",
+        "name": "<string> [User name]",
+        "tag": "<string> [User tag]",
+        "followers": "<number> [User followers counter]",
+        "following": "<number> [User following counter]",
+        "createdAt": "<Date> [User date/time of creation]",
+        "updatedAt": "<Date> [User date/time of last update]"
     }
 ]
 ```
@@ -132,7 +133,7 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "params": {
-    "id": "<string required>"
+    "id": "<string required> [User id]"
 }
 ```
 
@@ -142,13 +143,13 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string",
-    "name": "<string>",
-    "tag": "<string>",
-    "followers": "<number>",
-    "following": "<number>",
-    "createdAt": "<Date>",
-    "updatedAt": "<Date>"
+    "id": "<string> [User id]",
+    "name": "<string> [User name]",
+    "tag": "<string> [User tag]",
+    "followers": "<number> [User followers counter]",
+    "following": "<number> [User following counter]",
+    "createdAt": "<Date> [User date/time of creation]",
+    "updatedAt": "<Date> [User date/time of last update]"
 }
 ```
 
@@ -161,10 +162,10 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "email": "<string email max=50 required>",
-    "name": "<string max=50 required>",
-    "tag": "<string alphanum max=30 required>",
-    "password": "<string min=8 max=30 required>"
+    "email": "<string email max=50 required> [User email]",
+    "name": "<string max=50 required> [User name]",
+    "tag": "<string alphanum max=30 required> [User tag]",
+    "password": "<string min=8 max=30 required> [User password]"
 }
 ```
 
@@ -174,14 +175,14 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string>",
-    "email": "<string>",
-    "name": "<string>",
-    "tag": "<string>",
-    "followers": "<number>",
-    "following": "<number>",
-    "createdAt": "<Date>",
-    "updatedAt": "<Date>"
+    "id": "<string> [User id]",
+    "email": "<string> [User email]",
+    "name": "<string> [User name]",
+    "tag": "<string> [User tag]",
+    "followers": "<number> [User followers counter]",
+    "following": "<number> [User following counter]",
+    "createdAt": "<Date> [User date/time of creation]",
+    "updatedAt": "<Date> [User date/time of last update]"
 }
 ```
 
@@ -194,16 +195,16 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "params": {
-    "id": "<string required>"
+    "id": "<string required> [User id]"
 },
 
 "header": {
-    "authorization": "<string bearer token required>"
+    "authorization": "<string bearer token required> [Bearer JWT token]"
 },
 
 "body": {
-    "email": "<string email max=50 required>",
-    "password": "<string min=8 max=30 required>"
+    "email": "<string email max=50 required> [User email]",
+    "password": "<string min=8 max=30 required> [User password]"
 }
 ```
 
@@ -213,14 +214,14 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string>",
-    "email": "<string>",
-    "name": "<string>",
-    "tag": "<string>",
-    "followers": "<number>",
-    "following": "<number>",
-    "createdAt": "<Date>",
-    "updatedAt": "<Date>"
+    "id": "<string> [User id]",
+    "email": "<string> [User email]",
+    "name": "<string> [User name]",
+    "tag": "<string> [User tag]",
+    "followers": "<number> [User followers counter]",
+    "following": "<number> [User following counter]",
+    "createdAt": "<Date> [User date/time of creation]",
+    "updatedAt": "<Date> [User date/time of last update]"
 }
 ```
 
@@ -233,11 +234,11 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "params": {
-    "id": "<string required>"
+    "id": "<string required> [User id]"
 },
 
 "header": {
-    "authorization": "<string bearer token required>"
+    "authorization": "<string bearer token required> [Bearer JWT token]"
 },
 ```
 
@@ -260,10 +261,10 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "query": {
-    "page": "<number integer positive optional default=1>",
-    "per-page": "<number integer positive max=30 optional default=10>",
-    "follower-id": "<string optional>",
-    "target-id": "<string optional>"
+    "page": "<number integer positive optional default=1> [Page]",
+    "per-page": "<number integer positive max=30 optional default=10> [Follows per page]",
+    "follower-id": "<string optional> [User follower id]",
+    "target-id": "<string optional> [User target id]"
 },
 ```
 
@@ -274,22 +275,22 @@ Developed just for academic reasons by a junior developer with little experience
 ```json
 "body": [
     {
-        "id": "<string>",
+        "id": "<string> [Follow id]",
         "follower": {
-            "id": "<string>",
-            "name": "<string>",
-            "tag": "<string>",
-            "createdAt": "<Date>",
-            "updatedAt": "<Date>"
+            "id": "<string> [User follower id]",
+            "name": "<string> [User follower name]",
+            "tag": "<string> [User follower tag]",
+            "createdAt": "<Date> [User follower date/time of creation]",
+            "updatedAt": "<Date> [User follower date/time of last update]"
         },
         "target": {
-            "id": "<string>",
-            "name": "<string>",
-            "tag": "<string>",
-            "createdAt": "<Date>",
-            "updatedAt": "<Date>"
+            "id": "<string> [User following id]",
+            "name": "<string> [User following name]",
+            "tag": "<string> [User following tag]",
+            "createdAt": "<Date> [User following date/time of creation]",
+            "updatedAt": "<Date> [User following date/time of last update]"
         },
-        "createdAt": "<Date>",
+        "createdAt": "<Date> [Follow date/time of creation]",
     }
 ]
 ```
@@ -303,8 +304,8 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "params": {
-    "followerId": "<string required>",
-    "targetId": "<string required>"
+    "followerId": "<string required> [User follower id]",
+    "targetId": "<string required> [User target id]"
 },
 ```
 
@@ -314,22 +315,22 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string>",
+    "id": "<string> [Follow id]",
     "follower": {
-        "id": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User follower id]",
+        "name": "<string> [User follower name]",
+        "tag": "<string> [User follower tag]",
+        "createdAt": "<Date> [User follower date/time of creation]",
+        "updatedAt": "<Date> [User follower date/time of last update]"
     },
     "target": {
-        "id": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User following id]",
+        "name": "<string> [User following name]",
+        "tag": "<string> [User following tag]",
+        "createdAt": "<Date> [User following date/time of creation]",
+        "updatedAt": "<Date> [User following date/time of last update]"
     },
-    "createdAt": "<Date>",
+    "createdAt": "<Date> [Follow date/time of creation]",
 }
 ```
 
@@ -342,11 +343,11 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "header": {
-    "authorization": "<string bearer token required>"
+    "authorization": "<string bearer token required> [Bearer JWT token]"
 },
 
 "body": {
-    "targetId": "<string required>",
+    "targetId": "<string required> [User target id]",
 }
 ```
 
@@ -356,22 +357,22 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string>",
+    "id": "<string> [Follow id]",
     "follower": {
-        "id": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User follower id]",
+        "name": "<string> [User follower name]",
+        "tag": "<string> [User follower tag]",
+        "createdAt": "<Date> [User follower date/time of creation]",
+        "updatedAt": "<Date> [User follower date/time of last update]"
     },
     "target": {
-        "id": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User following id]",
+        "name": "<string> [User following name]",
+        "tag": "<string> [User following tag]",
+        "createdAt": "<Date> [User following date/time of creation]",
+        "updatedAt": "<Date> [User following date/time of last update]"
     },
-    "createdAt": "<Date>",
+    "createdAt": "<Date> [Follow date/time of creation]",
 }
 ```
 
@@ -384,11 +385,11 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "header": {
-    "authorization": "<string bearer token required>"
+    "authorization": "<string bearer token required> [Bearer JWT token]"
 },
 
 "params": {
-    "id": "<string required>",
+    "id": "<string required> [Follow id]",
 }
 ```
 
@@ -411,9 +412,9 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "query": {
-    "page": "<number integer positive optional default=1>",
-    "per-page": "<number integer positive optional max=30 default=10>",
-    "author-id": "<string optional>"
+    "page": "<number integer positive optional default=1> [Page]",
+    "per-page": "<number integer positive optional max=30 default=10> [Posts per page]",
+    "author-id": "<string optional> [User author id]"
 },
 ```
 
@@ -423,17 +424,18 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string>",
-    "text": "<string>",
+    "id": "<string> [Post id]",
+    "text": "<string> [Post text]",
     "author": {
-        "id": "<string>",
-        "email": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User author id]",
+        "email": "<string> [User author email]",
+        "name": "<string> [User author name]",
+        "tag": "<string> [User author tag]",
+        "createdAt": "<Date> [User author date/time of creation]",
+        "updatedAt": "<Date> [User author date/time of last update]"
     },
-    "createdAt": "<Date>"
+    "createdAt": "<Date> [Post date/time of creation]",
+    "updatedAt": "<Date> [Post date/time of last update]"
 }
 ```
 
@@ -446,7 +448,7 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "params": {
-    "id": "<string required>"
+    "id": "<string required> [Post id]"
 },
 ```
 
@@ -456,18 +458,18 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string>",
-    "text": "<string>",
+    "id": "<string> [Post id]",
+    "text": "<string> [Post text]",
     "author": {
-        "id": "<string>",
-        "email": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User author id]",
+        "email": "<string> [User author email]",
+        "name": "<string> [User author name]",
+        "tag": "<string> [User author tag]",
+        "createdAt": "<Date> [User author date/time of creation]",
+        "updatedAt": "<Date> [User author date/time of last update]"
     },
-    "createdAt": "<Date>",
-    "updatedAt": "<Date>"
+    "createdAt": "<Date> [Post date/time of creation]",
+    "updatedAt": "<Date> [Post date/time of last update]"
 }
 ```
 
@@ -480,11 +482,11 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "header": {
-    "authorization": "<string bearer token required>"
+    "authorization": "<string bearer token required> [Bearer JWT token]"
 },
 
 "body": {
-    "text": "<string max=256 required>",
+    "text": "<string max=256 required> [Post text]",
 }
 ```
 
@@ -494,18 +496,18 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string>",
-    "text": "<string>",
+    "id": "<string> [Post id]",
+    "text": "<string> [Post text]",
     "author": {
-        "id": "<string>",
-        "email": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User author id]",
+        "email": "<string> [User author email]",
+        "name": "<string> [User author name]",
+        "tag": "<string> [User author tag]",
+        "createdAt": "<Date> [User author date/time of creation]",
+        "updatedAt": "<Date> [User author date/time of last update]"
     },
-    "createdAt": "<Date>",
-    "updatedAt": "<Date>"
+    "createdAt": "<Date> [Post date/time of creation]",
+    "updatedAt": "<Date> [Post date/time of last update]"
 }
 ```
 
@@ -518,15 +520,15 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "header": {
-    "authorization": "<string bearer token required>"
+    "authorization": "<string bearer token required> [Bearer JWT token]"
 },
 
 "params": {
-    "id": "<string required>"
+    "id": "<string required> [Post id]"
 }
 
 "body": {
-    "text": "<string max=256 required>",
+    "text": "<string max=256 required> [Post text]",
 }
 ```
 
@@ -536,18 +538,18 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string>",
-    "text": "<string>",
+    "id": "<string> [Post id]",
+    "text": "<string> [Post text]",
     "author": {
-        "id": "<string>",
-        "email": "<string>",
-        "name": "<string>",
-        "tag": "<string>",
-        "createdAt": "<Date>",
-        "updatedAt": "<Date>"
+        "id": "<string> [User author id]",
+        "email": "<string> [User author email]",
+        "name": "<string> [User author name]",
+        "tag": "<string> [User author tag]",
+        "createdAt": "<Date> [User author date/time of creation]",
+        "updatedAt": "<Date> [User author date/time of last update]"
     },
-    "createdAt": "<Date>",
-    "updatedAt": "<Date>"
+    "createdAt": "<Date> [Post date/time of creation]",
+    "updatedAt": "<Date> [Post date/time of last update]"
 }
 ```
 
@@ -560,11 +562,11 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "params": {
-    "id": "<string required>"
+    "id": "<string required> [Post id]"
 },
 
 "header": {
-    "authorization": "<string bearer token required>"
+    "authorization": "<string bearer token required> [Bearer JWT token]"
 },
 ```
 

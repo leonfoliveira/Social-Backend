@@ -74,6 +74,33 @@ export default class UsersRepository implements IUsersRepository {
     };
   }
 
+  async leading(
+    page: number,
+    perPage: number,
+  ): Promise<{ users: User[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const users = await this.baseSelectQuery
+      .clone()
+      .whereNotNull('followers')
+      .orderBy('followers', 'desc')
+      .limit(limit)
+      .offset(offset);
+
+    const { count } = await knex
+      .count()
+      .from('users')
+      .where({ deletedAt: null })
+      .first<{ count: number }>();
+
+    return {
+      users: users.map((user) => this.parseUser(user)),
+      count,
+      pages: Math.ceil(count / perPage),
+    };
+  }
+
   async findById(id: string): Promise<User | undefined> {
     const user = await this.baseSelectQuery
       .clone()

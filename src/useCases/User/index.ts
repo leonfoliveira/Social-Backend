@@ -22,6 +22,7 @@ router.get(
         .max(30)
         .optional()
         .default(10),
+      leading: Joi.boolean().optional().default(false),
     },
   }),
   async (request: Request, response: Response, next: NextFunction) =>

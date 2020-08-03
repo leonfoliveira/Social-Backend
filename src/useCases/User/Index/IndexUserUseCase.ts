@@ -12,13 +12,20 @@ export default class IndexUserUseCase {
     count: number;
     pages: number;
   }> {
-    const { users, count, pages } = await this.userRepository.index(
-      data.page,
-      data.perPage,
-    );
+    let query: {
+      users: Omit<User, 'email' | 'password' | 'salt' | 'deletedAt'>[];
+      count: number;
+      pages: number;
+    };
+
+    if (data.leading) {
+      query = await this.userRepository.leading(data.page, data.perPage);
+    } else {
+      query = await this.userRepository.index(data.page, data.perPage);
+    }
 
     return {
-      users: users.map((user) => ({
+      users: query.users.map((user) => ({
         id: user.id,
         name: user.name,
         tag: user.tag,
@@ -27,8 +34,8 @@ export default class IndexUserUseCase {
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       })),
-      count,
-      pages,
+      count: query.count,
+      pages: query.pages,
     };
   }
 }
