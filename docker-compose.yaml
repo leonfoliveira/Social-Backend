@@ -4,7 +4,7 @@ services:
   app:
     build: .
     container_name: 'social-server'
-    command: sh -c "npm install && npm run migrate && npm run start"
+    command: sh -c "npm install && npm run migrate && npm run build && npm run start"
     ports:
       - 4000:4000
     links:

@@ -172,7 +172,14 @@ export default class UsersRepository implements IUsersRepository {
         salt: user.salt ?? user.salt,
       })
       .where({ id, deletedAt: null })
-      .returning<UserQuery[]>('*');
+      .returning<UserQuery[]>([
+        'id',
+        'email',
+        'name',
+        'tag',
+        'createdAt',
+        'updatedAt',
+      ]);
 
     const { count: followers } = await knex
       .count()

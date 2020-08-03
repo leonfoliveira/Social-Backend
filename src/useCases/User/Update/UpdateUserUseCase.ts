@@ -32,15 +32,8 @@ export default class UpdateUserUseCase {
     const user = new User(data);
     user.updatedAt = new Date();
 
-    const {
-      id,
-      email,
-      name,
-      tag,
-      createdAt,
-      updatedAt,
-    } = await this.usersRepository.update(user.id, user);
+    const updatedUser = await this.usersRepository.update(user.id, user);
 
-    return { id, email, name, tag, createdAt, updatedAt };
+    return updatedUser;
   }
 }
