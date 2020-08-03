@@ -22,6 +22,8 @@ export default class IndexUserUseCase {
         id: user.id,
         name: user.name,
         tag: user.tag,
+        followers: user.followers,
+        following: user.following,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
       })),

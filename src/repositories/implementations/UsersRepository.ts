@@ -2,11 +2,59 @@ import IUsersRepository from '../IUsersRepository';
 import User from '../../entities/User';
 import knex from '../../database';
 
+interface UserQuery {
+  id: string;
+  email: string;
+  name: string;
+  tag: string;
+  followers: string;
+  following: string;
+  createdAt: Date;
+  deletedAt: Date;
+}
+
 export default class UsersRepository implements IUsersRepository {
   private baseSelectQuery = knex
-    .select<User[]>(['id', 'email', 'name', 'tag', 'createdAt', 'updatedAt'])
+    .select<UserQuery[]>([
+      'id',
+      'email',
+      'name',
+      'tag',
+      'followers',
+      'following',
+      'createdAt',
+      'updatedAt',
+    ])
     .from('users')
+    .innerJoin(
+      knex
+        .select('targetId')
+        .count('* as followers')
+        .from('follows')
+        .groupBy('targetId')
+        .as('followers_counter'),
+      'followers_counter.targetId',
+      'users.id',
+    )
+    .innerJoin(
+      knex
+        .select('followerId')
+        .count('* as following')
+        .from('follows')
+        .groupBy('followerId')
+        .as('following_counter'),
+      'following_counter.followerId',
+      'users.id',
+    )
     .where({ deletedAt: null });
+
+  private parseUser(user: UserQuery): User {
+    return new User({
+      ...user,
+      followers: user.followers ? parseInt(user.followers, 10) : 0,
+      following: user.following ? parseInt(user.following, 10) : 0,
+    });
+  }
 
   async index(
     page: number,
@@ -26,44 +74,57 @@ export default class UsersRepository implements IUsersRepository {
       .where({ deletedAt: null })
       .first<{ count: number }>();
 
-    return { users, count, pages: Math.ceil(count / perPage) };
+    return {
+      users: users.map((user) => this.parseUser(user)),
+      count,
+      pages: Math.ceil(count / perPage),
+    };
   }
 
   async findById(id: string): Promise<User | undefined> {
-    const user = await knex
-      .select<User[]>('*')
-      .from('users')
+    const user = await this.baseSelectQuery
+      .clone()
       .where({ id, deletedAt: null })
       .first();
 
-    return user;
+    if (!user) {
+      return undefined;
+    }
+
+    return this.parseUser(user);
   }
 
   async findByEmail(email: string): Promise<User | undefined> {
-    const user = await knex
-      .select<User[]>('*')
-      .from('users')
+    const user = await this.baseSelectQuery
+      .clone()
       .where({ email, deletedAt: null })
       .first();
 
-    return user;
+    if (!user) {
+      return undefined;
+    }
+
+    return this.parseUser(user);
   }
 
   async findByTag(tag: string): Promise<User | undefined> {
-    const user = await knex
-      .select<User[]>('*')
-      .from('users')
+    const user = await this.baseSelectQuery
+      .clone()
       .where({ tag, deletedAt: null })
       .first();
 
-    return user;
+    if (!user) {
+      return undefined;
+    }
+
+    return this.parseUser(user);
   }
 
   async save(user: User): Promise<User> {
     const createdUser = await knex
       .insert(user)
       .into('users')
-      .returning<User>([
+      .returning<UserQuery>([
         'id',
         'email',
         'name',
@@ -72,16 +133,28 @@ export default class UsersRepository implements IUsersRepository {
         'updatedAt',
       ]);
 
-    return createdUser;
+    return this.parseUser(createdUser);
   }
 
   async update(id: string, user: User): Promise<User> {
     const [updatedUser] = await knex('users')
       .update(user)
       .where({ id, deletedAt: null })
-      .returning<User[]>('*');
+      .returning<UserQuery[]>('*');
 
-    return updatedUser;
+    const { count: followers } = await knex
+      .count()
+      .from('follows')
+      .where({ targetId: id })
+      .first<{ count: string }>();
+
+    const { count: following } = await knex
+      .count()
+      .from('follows')
+      .where({ followerId: id })
+      .first<{ count: string }>();
+
+    return this.parseUser({ ...updatedUser, followers, following });
   }
 
   async delete(id: string): Promise<void> {
