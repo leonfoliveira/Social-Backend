@@ -767,3 +767,30 @@ Developed just for academic reasons by a junior developer with little experience
 ```
 
 </details>
+
+</details>
+
+<details>
+<summary><b>DELETE</b> &nbsp; • &nbsp; /api/likes/:id :lock: &nbsp; • &nbsp; Delete a like searching for its id</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+
+"params": {
+    "id": "<string required> [Like id]",
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+
+```
+
+</details>

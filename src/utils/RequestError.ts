@@ -41,5 +41,10 @@ export default class RequestError extends Error {
     "cannot delete other user's follow",
   );
 
+  static DELETE_LIKE_NOT_OWNER = new RequestError(
+    403,
+    "cannot delete other user's like",
+  );
+
   static EMPTY_UPDATE_BODY = new RequestError(400, 'empty update body');
 }

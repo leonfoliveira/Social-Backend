@@ -18,7 +18,10 @@ export default interface ILikesRepository {
     post: Post,
   ): Promise<{ likes: Like[]; count: number; pages: number }>;
 
+  findById(id: string): Promise<Like | undefined>;
   findByPair(user: User, post: Post): Promise<Like | undefined>;
 
   save(like: Like): Promise<Like>;
+
+  delete(id: string): Promise<void>;
 }

@@ -6,6 +6,7 @@ import authParser from '../../middlewares/authParser';
 import { indexLikeController } from './Index';
 import { findLikeController } from './Find';
 import { createLikeController } from './Create';
+import { deleteLikeController } from './Delete';
 
 const router = Router();
 
@@ -48,6 +49,21 @@ router.post(
   authParser,
   async (request: Request, response: Response, next: NextFunction) =>
     await createLikeController.handle(request, response, next),
+);
+
+router.delete(
+  '/:id',
+  celebrate({
+    [Segments.HEADERS]: Joi.object({
+      authorization: Joi.string().required(),
+    }).unknown(),
+    [Segments.PARAMS]: {
+      id: Joi.string().max(36).required(),
+    },
+  }),
+  authParser,
+  async (request: Request, response: Response, next: NextFunction) =>
+    await deleteLikeController.handle(request, response, next),
 );
 
 export default router;

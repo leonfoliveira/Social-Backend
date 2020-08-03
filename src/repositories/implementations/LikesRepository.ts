@@ -158,6 +158,17 @@ export default class LikesRepository implements ILikesRepository {
     return { likes: parsedLikes, count, pages: Math.ceil(count / perPage) };
   }
 
+  async findById(id: string): Promise<Like | undefined> {
+    const like = await this.baseSelectQuery
+      .clone()
+      .where({ 'likes.id': id })
+      .first();
+
+    if (!like) return undefined;
+
+    return this.parseLike(like);
+  }
+
   async findByPair(user: User, post: Post): Promise<Like | undefined> {
     const like = await this.baseSelectQuery
       .clone()
@@ -185,5 +196,9 @@ export default class LikesRepository implements ILikesRepository {
       .first()) as LikeQuery;
 
     return this.parseLike(createdLike);
+  }
+
+  async delete(id: string): Promise<void> {
+    await knex('likes').update({ deletedAt: new Date() }).where({ id });
   }
 }
