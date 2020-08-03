@@ -627,6 +627,55 @@ Developed just for academic reasons by a junior developer with little experience
 ---
 
 <details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/likes &nbsp; • &nbsp; Get list of all likes</summary>
+
+### **Request**
+
+```json
+"query": {
+    "page": "<number integer positive optional default=1> [Page]",
+    "per-page": "<number integer positive max=30 optional default=10> [Follows per page]",
+    "user-id": "<string optional> [User id]",
+    "post-id": "<string optional> [Post id]"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": [
+    {
+        "id": "<string> [Like id]",
+        "user": {
+            "id": "<string> [User id]",
+            "name": "<string> [User name]",
+            "tag": "<string> [User tag]",
+            "createdAt": "<Date> [User date/time of creation]",
+            "updatedAt": "<Date> [User date/time of last update]"
+        },
+        "post": {
+            "id": "<string> [Post id]",
+            "text": "<string> [Post text]",
+            "author": {
+                "id": "<string> [User author id]",
+                "name": "<string> [User author name]",
+                "tag": "<string> [User author tag]",
+                "createdAt": "<Date> [User author date/time of creation]",
+                "updatedAt": "<Date> [User author date/time of last update]"
+            },
+            "createdAt": "<Date> [Post date/time of creation]",
+            "updatedAt": "<Date> [Post date/time of last update]"
+        },
+        "createdAt": "<Date> [Like date/time of creation]",
+    }
+]
+```
+
+</details>
+
+<details>
 <summary><b>GET</b> &nbsp; • &nbsp; /api/likes/:userId/:postId &nbsp; • &nbsp; Get data from a specific like</summary>
 
 ### **Request**

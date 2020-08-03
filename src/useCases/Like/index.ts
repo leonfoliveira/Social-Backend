@@ -3,10 +3,25 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import authParser from '../../middlewares/authParser';
 
+import { indexLikeController } from './Index';
 import { findLikeController } from './Find';
 import { createLikeController } from './Create';
 
 const router = Router();
+
+router.get(
+  '/',
+  celebrate({
+    [Segments.QUERY]: Joi.object({
+      page: Joi.number().integer().positive().optional().default(1),
+      'per-page': Joi.number().integer().positive().optional().default(10),
+      'user-id': Joi.string().max(36).optional(),
+      'post-id': Joi.string().max(36).optional(),
+    }).oxor('user-id', 'post-id'),
+  }),
+  async (request: Request, response: Response, next: NextFunction) =>
+    await indexLikeController.handle(request, response, next),
+);
 
 router.get(
   '/:userId/:postId',

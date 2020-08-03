@@ -24,7 +24,20 @@ interface LikeQuery {
 }
 
 export default class LikesRepository implements ILikesRepository {
-  private baseSelectQuery = knex
+  private baseQuery = knex
+    .from('likes')
+    .innerJoin('users as user', 'user.id', 'likes.userId')
+    .innerJoin('posts as post', 'post.id', 'likes.postId')
+    .innerJoin('users as post_author', 'post_author.id', 'post.authorId')
+    .where({
+      'likes.deletedAt': null,
+      'user.deletedAt': null,
+      'post.deletedAt': null,
+      'post_author.deletedAt': null,
+    });
+
+  private baseSelectQuery = this.baseQuery
+    .clone()
     .select<LikeQuery[]>([
       'likes.id as like_id',
       'likes.createdAt as like_createdAt',
@@ -42,17 +55,12 @@ export default class LikesRepository implements ILikesRepository {
       'post_author.tag as post_author_tag',
       'post_author.createdAt as post_author_createdAt',
       'post_author.updatedAt as post_author_updatedAt',
-    ])
-    .from('likes')
-    .innerJoin('users as user', 'user.id', 'likes.userId')
-    .innerJoin('posts as post', 'post.id', 'likes.postId')
-    .innerJoin('users as post_author', 'post_author.id', 'post.authorId')
-    .where({
-      'likes.deletedAt': null,
-      'user.deletedAt': null,
-      'post.deletedAt': null,
-      'post_author.deletedAt': null,
-    });
+    ]);
+
+  private baseCountQuery = this.baseQuery
+    .clone()
+    .count()
+    .first<{ count: number }>();
 
   private parseLike = (like: LikeQuery) => {
     return new Like({
@@ -80,6 +88,75 @@ export default class LikesRepository implements ILikesRepository {
       },
     });
   };
+
+  async index(
+    page: number,
+    perPage: number,
+  ): Promise<{
+    likes: Like[];
+    count: number;
+    pages: number;
+  }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const likes = await this.baseSelectQuery
+      .clone()
+      .limit(limit)
+      .offset(offset);
+
+    const parsedLikes = likes.map((like) => this.parseLike(like));
+
+    const { count } = await this.baseCountQuery.clone();
+
+    return { likes: parsedLikes, count, pages: Math.ceil(count / perPage) };
+  }
+
+  async indexByUser(
+    page: number,
+    perPage: number,
+    user: User,
+  ): Promise<{ likes: Like[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const likes = await this.baseSelectQuery
+      .clone()
+      .where({ 'user.id': user.id })
+      .limit(limit)
+      .offset(offset);
+
+    const parsedLikes = likes.map((like) => this.parseLike(like));
+
+    const { count } = await this.baseCountQuery.clone().where({
+      'user.id': user.id,
+    });
+
+    return { likes: parsedLikes, count, pages: Math.ceil(count / perPage) };
+  }
+
+  async indexByPost(
+    page: number,
+    perPage: number,
+    post: Post,
+  ): Promise<{ likes: Like[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const likes = await this.baseSelectQuery
+      .clone()
+      .where({ 'post.id': post.id })
+      .limit(limit)
+      .offset(offset);
+
+    const parsedLikes = likes.map((like) => this.parseLike(like));
+
+    const { count } = await this.baseCountQuery.clone().where({
+      'post.id': post.id,
+    });
+
+    return { likes: parsedLikes, count, pages: Math.ceil(count / perPage) };
+  }
 
   async findByPair(user: User, post: Post): Promise<Like | undefined> {
     const like = await this.baseSelectQuery
