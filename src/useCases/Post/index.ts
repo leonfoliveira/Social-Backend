@@ -3,6 +3,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import authParser from '../../middlewares/authParser';
 
+import { feedPostController } from './Feed';
 import { indexPostController } from './Index';
 import { findPostController } from './Find';
 import { createPostController } from './Create';
@@ -10,6 +11,27 @@ import { updatePostController } from './Update';
 import { deletePostController } from './Delete';
 
 const router = Router();
+
+router.get(
+  '/feed',
+  celebrate({
+    [Segments.HEADERS]: Joi.object({
+      authorization: Joi.string().required(),
+    }).unknown(),
+    [Segments.QUERY]: {
+      page: Joi.number().integer().positive().optional().default(1),
+      'per-page': Joi.number()
+        .integer()
+        .positive()
+        .max(30)
+        .optional()
+        .default(10),
+    },
+  }),
+  authParser,
+  async (request: Request, response: Response, next: NextFunction) =>
+    await feedPostController.handle(request, response, next),
+);
 
 router.get(
   '/',

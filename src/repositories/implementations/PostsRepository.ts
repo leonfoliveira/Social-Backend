@@ -42,7 +42,6 @@ export default class PostsRepository implements IPostsRepository {
       updatedAt: post.post_updatedAt,
       author: {
         id: post.author_id,
-        email: post.author_email,
         name: post.author_name,
         tag: post.author_tag,
         createdAt: post.author_createdAt,
@@ -105,6 +104,45 @@ export default class PostsRepository implements IPostsRepository {
         'posts.deletedAt': null,
         'author.deletedAt': null,
         'posts.authorId': authorId,
+      })
+      .first<{ count: number }>();
+
+    return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
+  }
+
+  async feed(
+    page: number,
+    perPage: number,
+    followerId: string,
+  ): Promise<{ posts: Post[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const posts = await this.baseSelectQuery
+      .clone()
+      .andWhere(function () {
+        this.whereIn('posts.authorId', function () {
+          this.select('targetId').from('follows').where({ followerId });
+        }).orWhere('posts.authorId', followerId);
+      })
+      .orderBy('posts.createdAt', 'desc')
+      .limit(limit)
+      .offset(offset);
+
+    const parsedPosts = posts.map((post) => this.parsePost(post));
+
+    const { count } = await knex
+      .count()
+      .from('posts')
+      .innerJoin('users as author', 'author.id', 'posts.authorId')
+      .where({
+        'posts.deletedAt': null,
+        'author.deletedAt': null,
+      })
+      .andWhere(function () {
+        this.whereIn('posts.authorId', function () {
+          this.select('targetId').from('follows').where({ followerId });
+        }).orWhere('posts.authorId', followerId);
       })
       .first<{ count: number }>();
 

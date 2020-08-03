@@ -11,6 +11,12 @@ export default interface IPostsRepository {
     authorId: string,
   ): Promise<{ posts: Post[]; count: number; pages: number }>;
 
+  feed(
+    page: number,
+    perPage: number,
+    followerId: string,
+  ): Promise<{ posts: Post[]; count: number; pages: number }>;
+
   findById(id: string): Promise<Post | undefined>;
 
   save(post: Post): Promise<Post>;

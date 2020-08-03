@@ -428,7 +428,6 @@ Developed just for academic reasons by a junior developer with little experience
     "text": "<string> [Post text]",
     "author": {
         "id": "<string> [User author id]",
-        "email": "<string> [User author email]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
         "createdAt": "<Date> [User author date/time of creation]",
@@ -462,7 +461,6 @@ Developed just for academic reasons by a junior developer with little experience
     "text": "<string> [Post text]",
     "author": {
         "id": "<string> [User author id]",
-        "email": "<string> [User author email]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
         "createdAt": "<Date> [User author date/time of creation]",
@@ -500,7 +498,7 @@ Developed just for academic reasons by a junior developer with little experience
     "text": "<string> [Post text]",
     "author": {
         "id": "<string> [User author id]",
-        "email": "<string> [User author email]",
+        "email": "<string> [User email]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
         "createdAt": "<Date> [User author date/time of creation]",
@@ -542,7 +540,7 @@ Developed just for academic reasons by a junior developer with little experience
     "text": "<string> [Post text]",
     "author": {
         "id": "<string> [User author id]",
-        "email": "<string> [User author email]",
+        "email": "<string> [User email]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
         "createdAt": "<Date> [User author date/time of creation]",
@@ -561,6 +559,10 @@ Developed just for academic reasons by a junior developer with little experience
 ### **Request**
 
 ```json
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+
 "params": {
     "id": "<string required> [Post id]"
 },
@@ -576,6 +578,46 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 
+```
+
+</details>
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/posts/feed :lock: &nbsp; • &nbsp; Get a list of last posts from following users and the authenticated user</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+
+"query": {
+    "page": "<number integer positive optional default=1> [Page]",
+    "per-page": "<number integer positive optional max=30 default=10> [Posts per page]"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": [
+    {
+        "id": "<string> [Post id]",
+        "text": "<string> [Post text]",
+        "author": {
+            "id": "<string> [User author id]",
+            "name": "<string> [User author name]",
+            "tag": "<string> [User author tag]",
+            "createdAt": "<Date> [User author date/time of creation]",
+            "updatedAt": "<Date> [User author date/time of last update]"
+        },
+        "createdAt": "<Date> [Post date/time of creation]",
+        "updatedAt": "<Date> [Post date/time of last update]"
+    }
+]
 ```
 
 </details>
