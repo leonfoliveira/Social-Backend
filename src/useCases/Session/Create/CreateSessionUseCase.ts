@@ -30,6 +30,8 @@ export default class CreateSessionUseCase {
       email: userExists.email,
       tag: userExists.tag,
       name: userExists.name,
+      followers: userExists.followers,
+      following: userExists.following,
       createdAt: userExists.createdAt,
       updatedAt: userExists.updatedAt,
     };

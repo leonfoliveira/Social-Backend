@@ -4,29 +4,22 @@ import knex from '../../database';
 
 interface UserQuery {
   id: string;
-  email: string;
+  email?: string;
   name: string;
   tag: string;
   followers: string;
   following: string;
+  password?: string;
+  salt?: string;
   createdAt: Date;
   deletedAt: Date;
 }
 
 export default class UsersRepository implements IUsersRepository {
   private baseSelectQuery = knex
-    .select<UserQuery[]>([
-      'id',
-      'email',
-      'name',
-      'tag',
-      'followers',
-      'following',
-      'createdAt',
-      'updatedAt',
-    ])
+    .select<UserQuery[]>(['users.*', 'followers', 'following'])
     .from('users')
-    .innerJoin(
+    .leftJoin(
       knex
         .select('targetId')
         .count('* as followers')
@@ -36,7 +29,7 @@ export default class UsersRepository implements IUsersRepository {
       'followers_counter.targetId',
       'users.id',
     )
-    .innerJoin(
+    .leftJoin(
       knex
         .select('followerId')
         .count('* as following')
@@ -121,10 +114,17 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   async save(user: User): Promise<User> {
-    const createdUser = await knex
-      .insert(user)
+    const [createdUser] = await knex
+      .insert({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        tag: user.tag,
+        password: user.password,
+        salt: user.salt,
+      })
       .into('users')
-      .returning<UserQuery>([
+      .returning<UserQuery[]>([
         'id',
         'email',
         'name',
@@ -138,7 +138,12 @@ export default class UsersRepository implements IUsersRepository {
 
   async update(id: string, user: User): Promise<User> {
     const [updatedUser] = await knex('users')
-      .update(user)
+      .update({
+        email: user.email ?? user.email,
+        name: user.name ?? user.name,
+        password: user.password ?? user.password,
+        salt: user.salt ?? user.salt,
+      })
       .where({ id, deletedAt: null })
       .returning<UserQuery[]>('*');
 

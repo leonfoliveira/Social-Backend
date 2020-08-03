@@ -43,6 +43,8 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string>",
     "name": "<string>",
     "tag": "<string>",
+    "followers": "<number>",
+    "following": "<number>",
     "createdAt": "<Date>",
     "updatedAt": "<Date>"
 }
@@ -74,6 +76,8 @@ Developed just for academic reasons by a junior developer with little experience
         "email": "<string>",
         "name": "<string>",
         "tag": "<string>",
+        "followers": "<number>",
+        "following": "<number>",
         "createdAt": "<Date>",
         "updatedAt": "<Date>"
     }
@@ -108,8 +112,11 @@ Developed just for academic reasons by a junior developer with little experience
 
 "body": [
     {
+        "id": "<string>",
         "name": "<string>",
         "tag": "<string>",
+        "followers": "<number>",
+        "following": "<number>",
         "createdAt": "<Date>",
         "updatedAt": "<Date>"
     }
@@ -138,6 +145,8 @@ Developed just for academic reasons by a junior developer with little experience
     "id": "<string",
     "name": "<string>",
     "tag": "<string>",
+    "followers": "<number>",
+    "following": "<number>",
     "createdAt": "<Date>",
     "updatedAt": "<Date>"
 }
@@ -169,6 +178,8 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string>",
     "name": "<string>",
     "tag": "<string>",
+    "followers": "<number>",
+    "following": "<number>",
     "createdAt": "<Date>",
     "updatedAt": "<Date>"
 }
@@ -206,6 +217,8 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string>",
     "name": "<string>",
     "tag": "<string>",
+    "followers": "<number>",
+    "following": "<number>",
     "createdAt": "<Date>",
     "updatedAt": "<Date>"
 }

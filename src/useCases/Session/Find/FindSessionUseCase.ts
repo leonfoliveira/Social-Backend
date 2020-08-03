@@ -16,8 +16,17 @@ export default class FindSessionUseCase {
       throw RequestError.USER_NOT_FOUND;
     }
 
-    const { id, email, name, tag, createdAt, updatedAt } = user;
+    const {
+      id,
+      email,
+      name,
+      tag,
+      followers,
+      following,
+      createdAt,
+      updatedAt,
+    } = user;
 
-    return { id, email, name, tag, createdAt, updatedAt };
+    return { id, email, name, tag, followers, following, createdAt, updatedAt };
   }
 }
