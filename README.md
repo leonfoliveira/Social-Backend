@@ -623,3 +623,53 @@ Developed just for academic reasons by a junior developer with little experience
 ```
 
 </details>
+
+---
+
+<details>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/follows :lock: &nbsp; • &nbsp; Create a new follow between the user authenticated and a target provided</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+
+"body": {
+    "targetId": "<string required> [User target id]",
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+"body": {
+    "id": "<string> [Like id]",
+    "user": {
+        "id": "<string> [User id]",
+        "name": "<string> [User name]",
+        "tag": "<string> [User tag]",
+        "createdAt": "<Date> [User date/time of creation]",
+        "updatedAt": "<Date> [User date/time of last update]"
+    },
+    "post": {
+        "id": "<string> [Post id]",
+        "text": "<string> [Post text]",
+        "author": {
+            "id": "<string> [User author id]",
+            "name": "<string> [User author name]",
+            "tag": "<string> [User author tag]",
+            "createdAt": "<Date> [User author date/time of creation]",
+            "updatedAt": "<Date> [User author date/time of last update]"
+        },
+        "createdAt": "<Date> [Post date/time of creation]",
+        "updatedAt": "<Date> [Post date/time of last update]"
+    },
+    "createdAt": "<Date> [Like date/time of creation]",
+}
+```
+
+</details>
