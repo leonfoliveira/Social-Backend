@@ -97,7 +97,7 @@ Developed just for academic reasons by a junior developer with little experience
 "query": {
     "page": "<number integer positive optional default=1> [Page]",
     "per-page": "<number integer positive max=30 optional default=10> [Users per page]",
-    "leading": "<boolean> [Only users with followers and order by followers counter]"
+    "leading": "<boolean> [Get only users with followers and order by followers counter desc]"
 }
 ```
 
