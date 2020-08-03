@@ -13,6 +13,7 @@ export default class RequestError extends Error {
   static FOLLOWER_NOT_FOUND = new RequestError(404, 'follower not found');
   static TARGET_NOT_FOUND = new RequestError(404, 'target not found');
   static FOLLOW_NOT_FOUND = new RequestError(404, 'follow not found');
+  static LIKE_NOT_FOUND = new RequestError(404, 'like not found');
 
   static INVALID_CREDENTIAL = new RequestError(
     401,
