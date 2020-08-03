@@ -5,10 +5,7 @@ export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex('posts').del();
 
-  const authors = await knex
-    .select('id')
-    .from('users')
-    .where({ deletedAt: null });
+  const authors = await knex.select('id').from('users');
 
   const posts = [];
 

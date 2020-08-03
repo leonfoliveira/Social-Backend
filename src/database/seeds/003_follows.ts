@@ -5,10 +5,7 @@ export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
   await knex('follows').del();
 
-  const authors = await knex
-    .select('id')
-    .from('users')
-    .where({ deletedAt: null });
+  const authors = await knex.select('id').from('users');
 
   // Inserts seed entries
   await knex('follows').insert([
