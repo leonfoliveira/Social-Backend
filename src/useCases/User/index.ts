@@ -3,6 +3,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import authParser from '../../middlewares/authParser';
 
+import { trendUserController } from './Trend';
 import { indexUserController } from './Index';
 import { findUserController } from './Find';
 import { createUserController } from './Create';
@@ -10,6 +11,23 @@ import { updateUserController } from './Update';
 import { deleteUserController } from './Delete';
 
 const router = Router();
+
+router.get(
+  '/trend',
+  celebrate({
+    [Segments.QUERY]: {
+      page: Joi.number().integer().positive().optional().default(1),
+      'per-page': Joi.number()
+        .integer()
+        .positive()
+        .max(30)
+        .optional()
+        .default(10),
+    },
+  }),
+  async (request: Request, response: Response, next: NextFunction) =>
+    await trendUserController.handle(request, response, next),
+);
 
 router.get(
   '/',
@@ -22,7 +40,6 @@ router.get(
         .max(30)
         .optional()
         .default(10),
-      leading: Joi.boolean().optional().default(false),
     },
   }),
   async (request: Request, response: Response, next: NextFunction) =>

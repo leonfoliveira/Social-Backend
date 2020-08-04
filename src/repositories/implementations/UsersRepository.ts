@@ -106,7 +106,7 @@ export default class UsersRepository implements IUsersRepository {
     };
   }
 
-  async leading(
+  async trend(
     page: number,
     perPage: number,
   ): Promise<{ users: User[]; count: number; pages: number }> {

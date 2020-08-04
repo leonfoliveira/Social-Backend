@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import IndexUserUseCase from './IndexUserUseCase';
+import TrendUserUseCase from './TrendUserUseCase';
 
-export default class IndexUserController {
-  constructor(private indexUserUseCase: IndexUserUseCase) {}
+export default class TrendUserController {
+  constructor(private trendUserUseCase: TrendUserUseCase) {}
 
   async handle(
     request: Request,
@@ -13,7 +13,7 @@ export default class IndexUserController {
     const perPage = request.query['per-page'];
 
     try {
-      const { users, count, pages } = await this.indexUserUseCase.execute({
+      const { users, count, pages } = await this.trendUserUseCase.execute({
         page: parseInt(page as string, 10),
         perPage: parseInt(perPage as string, 10),
       });

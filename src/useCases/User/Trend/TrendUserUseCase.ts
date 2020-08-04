@@ -1,20 +1,20 @@
 import IUserRepository from '../../../repositories/IUsersRepository';
-import IIndexUserDTO from './IndexUserDTO';
+import ITrendUserDTO from './TrendUserDTO';
 import User from '../../../entities/User';
 
-export default class IndexUserUseCase {
+export default class TrendUserUseCase {
   constructor(private userRepository: IUserRepository) {}
 
   async execute(
-    data: IIndexUserDTO,
+    data: ITrendUserDTO,
   ): Promise<{
     users: Omit<User, 'email' | 'password' | 'salt'>[];
     count: number;
     pages: number;
   }> {
-    const index = await this.userRepository.index(data.page, data.perPage);
+    const trend = await this.userRepository.trend(data.page, data.perPage);
 
-    index.users = index.users.map((user) => {
+    trend.users = trend.users.map((user) => {
       delete user.email;
       delete user.password;
       delete user.salt;
@@ -22,6 +22,6 @@ export default class IndexUserUseCase {
       return user;
     });
 
-    return index;
+    return trend;
   }
 }

@@ -6,7 +6,7 @@ export default interface IUsersRepository {
     perPage: number,
   ): Promise<{ users: User[]; count: number; pages: number }>;
 
-  leading(
+  trend(
     page: number,
     perPage: number,
   ): Promise<{ users: User[]; count: number; pages: number }>;
