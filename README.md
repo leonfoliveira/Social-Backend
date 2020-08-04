@@ -1,6 +1,6 @@
 # Social Backend
 
-A social network API based on twitter under development using TDD, solid design and clean arquitecture principles.
+A social network API based on twitter under development using solid design and clean arquitecture principles.
 
 ## Disclaimer
 
@@ -669,7 +669,7 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/posts/trend :lock: &nbsp; • &nbsp; Get a list of posts ordered by last likes count</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/posts/trend &nbsp; • &nbsp; Get a list of posts ordered by last likes count</summary>
 
 ### **Request**
 
