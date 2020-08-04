@@ -4,6 +4,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import authParser from '../../middlewares/authParser';
 
 import { feedPostController } from './Feed';
+import { trendPostController } from './Trend';
 import { indexPostController } from './Index';
 import { findPostController } from './Find';
 import { createPostController } from './Create';
@@ -31,6 +32,23 @@ router.get(
   authParser,
   async (request: Request, response: Response, next: NextFunction) =>
     await feedPostController.handle(request, response, next),
+);
+
+router.get(
+  '/trend',
+  celebrate({
+    [Segments.QUERY]: {
+      page: Joi.number().integer().positive().optional().default(1),
+      'per-page': Joi.number()
+        .integer()
+        .positive()
+        .max(30)
+        .optional()
+        .default(10),
+    },
+  }),
+  async (request: Request, response: Response, next: NextFunction) =>
+    await trendPostController.handle(request, response, next),
 );
 
 router.get(

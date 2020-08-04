@@ -45,8 +45,8 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string> [User email]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
-    "followers": "<number> [User followers counter]",
-    "following": "<number> [User following counter]",
+    "followers": "<number> [User followers count]",
+    "following": "<number> [User following count]",
     "createdAt": "<Date> [User date/time of creation]",
     "updatedAt": "<Date> [User date/time of last update]"
 }
@@ -78,8 +78,8 @@ Developed just for academic reasons by a junior developer with little experience
         "email": "<string> [User email]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
-        "followers": "<number> [User followers counter]",
-        "following": "<number> [User following counter]",
+        "followers": "<number> [User followers count]",
+        "following": "<number> [User following count]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
     }
@@ -99,7 +99,7 @@ Developed just for academic reasons by a junior developer with little experience
 "query": {
     "page": "<number integer positive optional default=1> [Page]",
     "per-page": "<number integer positive max=30 optional default=10> [Users per page]",
-    "leading": "<boolean> [Get only users with followers and order by followers counter desc]"
+    "leading": "<boolean> [Get only users with followers and order by followers count desc]"
 }
 ```
 
@@ -118,8 +118,8 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
-        "followers": "<number> [User followers counter]",
-        "following": "<number> [User following counter]",
+        "followers": "<number> [User followers count]",
+        "following": "<number> [User following count]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
     }
@@ -148,8 +148,8 @@ Developed just for academic reasons by a junior developer with little experience
     "id": "<string> [User id]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
-    "followers": "<number> [User followers counter]",
-    "following": "<number> [User following counter]",
+    "followers": "<number> [User followers count]",
+    "following": "<number> [User following count]",
     "createdAt": "<Date> [User date/time of creation]",
     "updatedAt": "<Date> [User date/time of last update]"
 }
@@ -181,8 +181,8 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string> [User email]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
-    "followers": "<number> [User followers counter]",
-    "following": "<number> [User following counter]",
+    "followers": "<number> [User followers count]",
+    "following": "<number> [User following count]",
     "createdAt": "<Date> [User date/time of creation]",
     "updatedAt": "<Date> [User date/time of last update]"
 }
@@ -220,8 +220,8 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string> [User email]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
-    "followers": "<number> [User followers counter]",
-    "following": "<number> [User following counter]",
+    "followers": "<number> [User followers count]",
+    "following": "<number> [User following count]",
     "createdAt": "<Date> [User date/time of creation]",
     "updatedAt": "<Date> [User date/time of last update]"
 }
@@ -429,7 +429,7 @@ Developed just for academic reasons by a junior developer with little experience
     {
         "id": "<string> [Post id]",
         "text": "<string> [Post text]",
-        "likes": "<number> [Post likes counter]",
+        "likes": "<number> [Post likes count]",
         "author": {
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
@@ -464,7 +464,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Post id]",
     "text": "<string> [Post text]",
-    "likes": "<number> [Post likes counter]",
+    "likes": "<number> [Post likes count]",
     "author": {
         "id": "<string> [User author id]",
         "name": "<string> [User author name]",
@@ -502,7 +502,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Post id]",
     "text": "<string> [Post text]",
-    "likes": "<number> [Post likes counter]",
+    "likes": "<number> [Post likes count]",
     "author": {
         "id": "<string> [User author id]",
         "email": "<string> [User email]",
@@ -545,7 +545,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Post id]",
     "text": "<string> [Post text]",
-    "likes": "<number> [Post likes counter]",
+    "likes": "<number> [Post likes count]",
     "author": {
         "id": "<string> [User author id]",
         "email": "<string> [User email]",
@@ -615,7 +615,44 @@ Developed just for academic reasons by a junior developer with little experience
     {
         "id": "<string> [Post id]",
         "text": "<string> [Post text]",
-        "likes": "<number> [Post likes counter]",
+        "likes": "<number> [Post likes count]",
+        "author": {
+            "id": "<string> [User author id]",
+            "name": "<string> [User author name]",
+            "tag": "<string> [User author tag]",
+            "createdAt": "<Date> [User author date/time of creation]",
+            "updatedAt": "<Date> [User author date/time of last update]"
+        },
+        "createdAt": "<Date> [Post date/time of creation]",
+        "updatedAt": "<Date> [Post date/time of last update]"
+    }
+]
+```
+
+</details>
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/posts/trend :lock: &nbsp; • &nbsp; Get a list of posts order by likes count</summary>
+
+### **Request**
+
+```json
+"query": {
+    "page": "<number integer positive optional default=1> [Page]",
+    "per-page": "<number integer positive optional max=30 default=10> [Posts per page]"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": [
+    {
+        "id": "<string> [Post id]",
+        "text": "<string> [Post text]",
+        "likes": "<number> [Post likes count]",
         "author": {
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",

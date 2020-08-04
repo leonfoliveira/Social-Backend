@@ -158,6 +158,27 @@ export default class PostsRepository implements IPostsRepository {
     return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
   }
 
+  async trend(
+    page: number,
+    perPage: number,
+  ): Promise<{ posts: Post[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const posts = await this.baseSelectQuery
+      .clone()
+      .whereNot({ likes: null })
+      .orderBy('likes', 'desc')
+      .limit(limit)
+      .offset(offset);
+
+    const parsedPosts = posts.map((post) => this.parsePost(post));
+
+    const { count } = await this.baseCountQuery.clone();
+
+    return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
+  }
+
   async findById(id: string): Promise<Post | undefined> {
     const post = await this.baseSelectQuery
       .clone()

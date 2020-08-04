@@ -16,6 +16,10 @@ export default interface IPostsRepository {
     perPage: number,
     followerId: string,
   ): Promise<{ posts: Post[]; count: number; pages: number }>;
+  trend(
+    page: number,
+    perPage: number,
+  ): Promise<{ posts: Post[]; count: number; pages: number }>;
 
   findById(id: string): Promise<Post | undefined>;
 
