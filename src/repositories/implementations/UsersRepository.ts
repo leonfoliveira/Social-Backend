@@ -109,14 +109,34 @@ export default class UsersRepository implements IUsersRepository {
   async trend(
     page: number,
     perPage: number,
+    time: number,
   ): Promise<{ users: User[]; count: number; pages: number }> {
     const limit = perPage;
     const offset = (page - 1) * limit;
 
     const users = await this.baseSelectQuery
       .clone()
-      .whereNotNull('followers')
-      .orderBy('followers', 'desc')
+      .leftJoin(
+        knex
+          .select('targetId')
+          .count('* as last_followers')
+          .from('follows')
+          .innerJoin(
+            'users as followers_counter_user',
+            'followers_counter_user.id',
+            'follows.followerId',
+          )
+          .where({
+            'follows.deletedAt': null,
+            'followers_counter_user.deletedAt': null,
+          })
+          .andWhere('follows.createdAt', '>', new Date(Date.now() - time))
+          .groupBy('targetId')
+          .as('last_followers_counter'),
+        'last_followers_counter.targetId',
+        'users.id',
+      )
+      .orderByRaw('last_followers DESC NULLS LAST, "createdAt" DESC')
       .limit(limit)
       .offset(offset);
 

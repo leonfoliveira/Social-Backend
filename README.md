@@ -98,8 +98,7 @@ Developed just for academic reasons by a junior developer with little experience
 ```json
 "query": {
     "page": "<number integer positive optional default=1> [Page]",
-    "per-page": "<number integer positive max=30 optional default=10> [Users per page]",
-    "leading": "<boolean> [Get only users with followers and order by followers count desc]"
+    "per-page": "<number integer positive max=30 optional default=10> [Users per page]"
 }
 ```
 
@@ -250,6 +249,44 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 
+```
+
+</details>
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/users/trend &nbsp; • &nbsp; Get a list of all users ordered by last followers count</summary>
+
+### **Request**
+
+```json
+"query": {
+    "page": "<number integer positive optional default=1> [Page]",
+    "per-page": "<number integer positive max=30 optional default=10> [Users per page]",
+    "time": "<number integer positive optional max=31536000000(1 year) default=86400000(1 day)> [Time before now to count last followers]"
+}
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"header": {
+    "x-total-count": "<number> [Total of users]",
+    "x-total-pages": "<number> [Total of pages]"
+}
+
+"body": [
+    {
+        "id": "<string> [User id]",
+        "name": "<string> [User name]",
+        "tag": "<string> [User tag]",
+        "followers": "<number> [User followers count]",
+        "following": "<number> [User following count]",
+        "createdAt": "<Date> [User date/time of creation]",
+        "updatedAt": "<Date> [User date/time of last update]"
+    }
+]
 ```
 
 </details>
@@ -632,14 +669,15 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/posts/trend :lock: &nbsp; • &nbsp; Get a list of posts order by likes count</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/posts/trend :lock: &nbsp; • &nbsp; Get a list of posts ordered by last likes count</summary>
 
 ### **Request**
 
 ```json
 "query": {
     "page": "<number integer positive optional default=1> [Page]",
-    "per-page": "<number integer positive optional max=30 default=10> [Posts per page]"
+    "per-page": "<number integer positive optional max=30 default=10> [Posts per page]",
+    "time": "<number integer positive optional max=31536000000(1 year) default=86400000(1 day)> [Time before now to count last likes]"
 },
 ```
 

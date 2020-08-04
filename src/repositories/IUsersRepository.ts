@@ -9,6 +9,7 @@ export default interface IUsersRepository {
   trend(
     page: number,
     perPage: number,
+    time: number,
   ): Promise<{ users: User[]; count: number; pages: number }>;
 
   findById(id: string): Promise<User | undefined>;

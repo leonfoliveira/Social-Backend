@@ -19,6 +19,7 @@ export default interface IPostsRepository {
   trend(
     page: number,
     perPage: number,
+    time: number,
   ): Promise<{ posts: Post[]; count: number; pages: number }>;
 
   findById(id: string): Promise<Post | undefined>;

@@ -12,7 +12,11 @@ export default class TrendUserUseCase {
     count: number;
     pages: number;
   }> {
-    const trend = await this.userRepository.trend(data.page, data.perPage);
+    const trend = await this.userRepository.trend(
+      data.page,
+      data.perPage,
+      data.time,
+    );
 
     trend.users = trend.users.map((user) => {
       delete user.email;

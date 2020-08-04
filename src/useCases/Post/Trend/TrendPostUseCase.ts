@@ -12,7 +12,11 @@ export default class TrendPostUseCase {
     count: number;
     pages: number;
   }> {
-    const index = await this.postsRepository.trend(data.page, data.perPage);
+    const index = await this.postsRepository.trend(
+      data.page,
+      data.perPage,
+      data.time,
+    );
 
     return index;
   }

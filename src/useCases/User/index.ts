@@ -23,6 +23,12 @@ router.get(
         .max(30)
         .optional()
         .default(10),
+      time: Joi.number()
+        .integer()
+        .positive()
+        .max(31536000000)
+        .optional()
+        .default(86400000),
     },
   }),
   async (request: Request, response: Response, next: NextFunction) =>

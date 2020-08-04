@@ -161,14 +161,38 @@ export default class PostsRepository implements IPostsRepository {
   async trend(
     page: number,
     perPage: number,
+    time: number,
   ): Promise<{ posts: Post[]; count: number; pages: number }> {
     const limit = perPage;
     const offset = (page - 1) * limit;
 
     const posts = await this.baseSelectQuery
       .clone()
-      .whereNot({ likes: null })
-      .orderBy('likes', 'desc')
+      .leftJoin(
+        knex
+          .select('postId')
+          .count('* as last_likes')
+          .from('likes as last_likes_counter')
+          .innerJoin(
+            'users as last_likes_counter_user',
+            'last_likes_counter_user.id',
+            'last_likes_counter.userId',
+          )
+          .where({
+            'last_likes_counter.deletedAt': null,
+            'last_likes_counter_user.deletedAt': null,
+          })
+          .andWhere(
+            'last_likes_counter.createdAt',
+            '>',
+            new Date(Date.now() - time),
+          )
+          .groupBy('postId')
+          .as('last_likes_counter'),
+        'last_likes_counter.postId',
+        'posts.id',
+      )
+      .orderByRaw('last_likes DESC NULLS LAST, posts."createdAt" DESC')
       .limit(limit)
       .offset(offset);
 
