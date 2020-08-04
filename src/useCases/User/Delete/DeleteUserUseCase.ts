@@ -8,7 +8,7 @@ export default class DeleteUserUseCase {
 
   async execute(data: IDeleteUserDTO): Promise<void> {
     if (data.authId !== data.id) {
-      throw RequestError.DELETE_NOT_USER;
+      throw RequestError.DELETE_USER_NOT_OWNER;
     }
     delete data.authId;
 

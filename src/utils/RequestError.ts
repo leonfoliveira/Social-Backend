@@ -6,7 +6,7 @@ export default class RequestError extends Error {
   static REPEATED_EMAIL = new RequestError(400, 'email already exists');
   static REPEATED_TAG = new RequestError(400, 'tag already exists');
   static REPEATED_FOLLOW = new RequestError(400, 'already following');
-  static REPEATED_LIKE = new RequestError(400, 'like already exists');
+  static REPEATED_LIKE = new RequestError(400, 'already liking');
 
   static USER_NOT_FOUND = new RequestError(404, 'user not found');
   static POST_NOT_FOUND = new RequestError(404, 'post not found');
@@ -22,9 +22,17 @@ export default class RequestError extends Error {
 
   static INVALID_TOKEN = new RequestError(401, 'invalid token');
 
-  static UPDATE_NOT_USER = new RequestError(403, 'cannot update other user');
-  static DELETE_NOT_USER = new RequestError(403, 'cannot delete other user');
   static FOLLOW_ITSELF = new RequestError(400, 'cannot follow itself');
+
+  static UPDATE_USER_NOT_OWNER = new RequestError(
+    403,
+    'cannot update other user',
+  );
+
+  static DELETE_USER_NOT_OWNER = new RequestError(
+    403,
+    'cannot delete other user',
+  );
 
   static UPDATE_POST_NOT_OWNER = new RequestError(
     403,
@@ -36,7 +44,7 @@ export default class RequestError extends Error {
     "cannot delete other user's post",
   );
 
-  static DELETE_FOLLOW_NOT_FOLLOWER = new RequestError(
+  static DELETE_FOLLOW_NOT_OWNER = new RequestError(
     403,
     "cannot delete other user's follow",
   );

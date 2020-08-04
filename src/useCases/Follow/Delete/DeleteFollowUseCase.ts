@@ -14,7 +14,7 @@ export default class DeleteFollowUseCase {
     }
 
     if (followExists.follower.id !== data.authId) {
-      throw RequestError.DELETE_FOLLOW_NOT_FOLLOWER;
+      throw RequestError.DELETE_FOLLOW_NOT_OWNER;
     }
 
     await this.followsRepository.delete(data.id);

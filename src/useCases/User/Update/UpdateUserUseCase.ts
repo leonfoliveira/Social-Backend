@@ -11,7 +11,7 @@ export default class UpdateUserUseCase {
     data: IUpdateUserDTO,
   ): Promise<Omit<User, 'password' | 'salt'>> {
     if (data.authId !== data.id) {
-      throw RequestError.UPDATE_NOT_USER;
+      throw RequestError.UPDATE_USER_NOT_OWNER;
     }
     delete data.authId;
 
