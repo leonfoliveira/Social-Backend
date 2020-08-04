@@ -20,13 +20,13 @@ export default class CreateFollowUseCase {
       throw RequestError.TARGET_NOT_FOUND;
     }
 
-    if (follower.id === target.id) {
+    if (data.followerId === target.id) {
       throw RequestError.FOLLOW_ITSELF;
     }
 
     const followExists = await this.followsRepository.findByPair(
-      follower,
-      target,
+      data.followerId,
+      data.targetId,
     );
 
     if (followExists) {

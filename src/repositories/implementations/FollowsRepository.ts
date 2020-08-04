@@ -1,6 +1,5 @@
 import IFollowsRepository from '../IFollowsRepository';
 import Follow from '../../entities/Follow';
-import User from '../../entities/User';
 import knex from '../../database';
 
 interface FollowQuery {
@@ -19,7 +18,18 @@ interface FollowQuery {
 }
 
 export default class FollowsRepository implements IFollowsRepository {
-  private baseSelectQuery = knex
+  private baseQuery = knex
+    .from('follows')
+    .innerJoin('users as follower', 'follower.id', 'follows.followerId')
+    .innerJoin('users as target', 'target.id', 'follows.targetId')
+    .where({
+      'follows.deletedAt': null,
+      'follower.deletedAt': null,
+      'target.deletedAt': null,
+    });
+
+  private baseSelectQuery = this.baseQuery
+    .clone()
     .select<FollowQuery[]>([
       'follows.id as follow_id',
       'follows.createdAt as follow_createdAt',
@@ -33,30 +43,15 @@ export default class FollowsRepository implements IFollowsRepository {
       'target.tag as target_tag',
       'target.createdAt as target_createdAt',
       'target.updatedAt as target_updatedAt',
-    ])
-    .from('follows')
-    .innerJoin('users as follower', 'follower.id', 'follows.followerId')
-    .innerJoin('users as target', 'target.id', 'follows.targetId')
-    .where({
-      'follows.deletedAt': null,
-      'follower.deletedAt': null,
-      'target.deletedAt': null,
-    });
+    ]);
 
-  private baseCountQuery = knex
+  private baseCountQuery = this.baseQuery
+    .clone()
     .count()
-    .from('follows')
-    .innerJoin('users as follower', 'follower.id', 'follows.followerId')
-    .innerJoin('users as target', 'target.id', 'follows.targetId')
-    .where({
-      'follows.deletedAt': null,
-      'follower.deletedAt': null,
-      'target.deletedAt': null,
-    })
     .first<{ count: number }>();
 
-  private parseFollow = (follow: FollowQuery) => {
-    return new Follow({
+  private parseFollow = (follow: FollowQuery): Follow =>
+    new Follow({
       id: follow.follow_id,
       createdAt: follow.follow_createdAt,
       follower: {
@@ -74,7 +69,6 @@ export default class FollowsRepository implements IFollowsRepository {
         updatedAt: follow.target_updatedAt,
       },
     });
-  };
 
   async index(
     page: number,
@@ -98,21 +92,21 @@ export default class FollowsRepository implements IFollowsRepository {
   async indexByFollower(
     page: number,
     perPage: number,
-    follower: User,
+    followerId: string,
   ): Promise<{ follows: Follow[]; count: number; pages: number }> {
     const limit = perPage;
     const offset = (page - 1) * perPage;
 
     const follows = await this.baseSelectQuery
       .clone()
-      .where({ 'follows.followerId': follower.id })
+      .where({ 'follows.followerId': followerId })
       .limit(limit)
       .offset(offset);
 
     const parsedFollows = follows.map((follow) => this.parseFollow(follow));
 
     const { count } = await this.baseCountQuery.clone().where({
-      'follows.followerId': follower.id,
+      'follows.followerId': followerId,
     });
 
     return { follows: parsedFollows, count, pages: Math.ceil(count / perPage) };
@@ -121,21 +115,21 @@ export default class FollowsRepository implements IFollowsRepository {
   async indexByTarget(
     page: number,
     perPage: number,
-    target: User,
+    targetId: string,
   ): Promise<{ follows: Follow[]; count: number; pages: number }> {
     const limit = perPage;
     const offset = (page - 1) * perPage;
 
     const follows = await this.baseSelectQuery
       .clone()
-      .where({ 'follows.targetId': target.id })
+      .where({ 'follows.targetId': targetId })
       .limit(limit)
       .offset(offset);
 
     const parsedFollows = follows.map((follow) => this.parseFollow(follow));
 
     const { count } = await this.baseCountQuery.clone().where({
-      'follows.targetId': target.id,
+      'follows.targetId': targetId,
     });
 
     return { follows: parsedFollows, count, pages: Math.ceil(count / perPage) };
@@ -152,10 +146,13 @@ export default class FollowsRepository implements IFollowsRepository {
     return this.parseFollow(follow);
   }
 
-  async findByPair(follower: User, target: User): Promise<Follow | undefined> {
+  async findByPair(
+    followerId: string,
+    targetId: string,
+  ): Promise<Follow | undefined> {
     const follow = await this.baseSelectQuery
       .clone()
-      .where({ 'follower.id': follower.id, 'target.id': target.id })
+      .where({ 'follower.id': followerId, 'target.id': targetId })
       .first();
 
     if (!follow) return undefined;
@@ -167,23 +164,17 @@ export default class FollowsRepository implements IFollowsRepository {
     const { id: followerId } = follow.follower;
     const { id: targetId } = follow.target;
 
-    const [createdFollow] = await knex
+    const [id] = await knex
       .insert({ id: follow.id, followerId, targetId })
       .into('follows')
-      .returning(['id', 'createdAt']);
+      .returning('id');
 
-    const follower = await knex
-      .select<User>(['id', 'name', 'tag', 'createdAt', 'updatedAt'])
-      .from('users')
-      .where({ id: followerId })
-      .first();
-    const target = await knex
-      .select<User>(['id', 'name', 'tag', 'createdAt', 'updatedAt'])
-      .from('users')
-      .where({ id: targetId })
-      .first();
+    const createdFollow = (await this.baseSelectQuery
+      .clone()
+      .where({ 'follows.id': id })
+      .first()) as FollowQuery;
 
-    return new Follow({ ...createdFollow, follower, target });
+    return this.parseFollow(createdFollow);
   }
 
   async delete(id: string): Promise<void> {

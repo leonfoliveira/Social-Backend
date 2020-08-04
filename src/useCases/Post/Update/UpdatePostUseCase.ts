@@ -22,9 +22,10 @@ export default class UpdatePostUseCase {
       throw RequestError.EMPTY_UPDATE_BODY;
     }
 
-    const post = new Post({ id: data.id, text: data.text });
+    const post = new Post(data);
+    post.updatedAt = new Date();
 
-    const updatedPost = await this.postsRepository.update(post);
+    const updatedPost = await this.postsRepository.update(data.id, post);
 
     return updatedPost;
   }

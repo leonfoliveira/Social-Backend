@@ -1,7 +1,6 @@
 import IPostsRepository from '../IPostsRepository';
 import Post from '../../entities/Post';
 import knex from '../../database';
-import User from '../../entities/User';
 
 interface PostQuery {
   post_id: string;
@@ -17,7 +16,13 @@ interface PostQuery {
 }
 
 export default class PostsRepository implements IPostsRepository {
-  private baseSelectQuery = knex
+  private baseQuery = knex
+    .from('posts')
+    .innerJoin('users as author', 'author.id', 'posts.authorId')
+    .where({ 'posts.deletedAt': null, 'author.deletedAt': null });
+
+  private baseSelectQuery = this.baseQuery
+    .clone()
     .select<PostQuery[]>([
       'posts.id as post_id',
       'posts.text as post_text',
@@ -29,13 +34,15 @@ export default class PostsRepository implements IPostsRepository {
       'author.tag as author_tag',
       'author.createdAt as author_createdAt',
       'author.updatedAt as author_updatedAt',
-    ])
-    .from('posts')
-    .innerJoin('users as author', 'author.id', 'posts.authorId')
-    .where({ 'posts.deletedAt': null, 'author.deletedAt': null });
+    ]);
 
-  private parsePost = (post: PostQuery) => {
-    return new Post({
+  private baseCountQuery = this.baseQuery
+    .clone()
+    .count()
+    .first<{ count: number }>();
+
+  private parsePost = (post: PostQuery): Post =>
+    new Post({
       id: post.post_id,
       text: post.post_text,
       createdAt: post.post_createdAt,
@@ -48,7 +55,6 @@ export default class PostsRepository implements IPostsRepository {
         updatedAt: post.author_updatedAt,
       },
     });
-  };
 
   async index(
     page: number,
@@ -68,12 +74,9 @@ export default class PostsRepository implements IPostsRepository {
 
     const parsedPosts = posts.map((post) => this.parsePost(post));
 
-    const { count } = await knex
-      .count()
-      .from('posts')
-      .innerJoin('users as author', 'author.id', 'posts.authorId')
-      .where({ 'posts.deletedAt': null, 'author.deletedAt': null })
-      .first<{ count: number }>();
+    const { count } = await this.baseCountQuery.clone();
+
+    console.log(count);
 
     return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
   }
@@ -96,16 +99,9 @@ export default class PostsRepository implements IPostsRepository {
 
     const parsedPosts = posts.map((post) => this.parsePost(post));
 
-    const { count } = await knex
-      .count()
-      .from('posts')
-      .innerJoin('users as author', 'author.id', 'posts.authorId')
-      .where({
-        'posts.deletedAt': null,
-        'author.deletedAt': null,
-        'posts.authorId': authorId,
-      })
-      .first<{ count: number }>();
+    const { count } = await this.baseCountQuery
+      .clone()
+      .where({ 'posts.authorId': authorId });
 
     return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
   }
@@ -131,20 +127,11 @@ export default class PostsRepository implements IPostsRepository {
 
     const parsedPosts = posts.map((post) => this.parsePost(post));
 
-    const { count } = await knex
-      .count()
-      .from('posts')
-      .innerJoin('users as author', 'author.id', 'posts.authorId')
-      .where({
-        'posts.deletedAt': null,
-        'author.deletedAt': null,
-      })
-      .andWhere(function () {
-        this.whereIn('posts.authorId', function () {
-          this.select('targetId').from('follows').where({ followerId });
-        }).orWhere('posts.authorId', followerId);
-      })
-      .first<{ count: number }>();
+    const { count } = await this.baseCountQuery.clone().andWhere(function () {
+      this.whereIn('posts.authorId', function () {
+        this.select('targetId').from('follows').where({ followerId });
+      }).orWhere('posts.authorId', followerId);
+    });
 
     return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
   }
@@ -165,34 +152,31 @@ export default class PostsRepository implements IPostsRepository {
   }
 
   async save(post: Post): Promise<Post> {
-    const authorId = post.author.id;
-
-    const [createdPost] = await knex
-      .insert({ id: post.id, text: post.text, authorId })
+    const [id] = await knex
+      .insert({ id: post.id, text: post.text, authorId: post.author.id })
       .into('posts')
-      .returning(['id', 'authorId', 'text', 'createdAt', 'updatedAt']);
+      .returning('id');
 
-    const author = await knex('users')
-      .select<User>(['id', 'email', 'name', 'tag', 'createdAt', 'updatedAt'])
-      .where({ id: createdPost.authorId });
+    const createdPost = (await this.baseSelectQuery
+      .clone()
+      .where({ 'posts.id': id })
+      .first()) as PostQuery;
 
-    return new Post({ ...createdPost, author });
+    return this.parsePost(createdPost);
   }
 
-  async update(post: Post): Promise<Post> {
-    const [updatedPost] = await knex('posts')
+  async update(id: string, post: Post): Promise<Post> {
+    await knex('posts')
       .update({ text: post.text, updatedAt: new Date() })
-      .where({ id: post.id })
+      .where({ id })
       .returning(['id', 'authorId', 'text', 'createdAt', 'updatedAt']);
 
-    const author = await knex
-      .select<User>(['id', 'email', 'name', 'tag', 'createdAt', 'updatedAt'])
-      .from('users')
-      .where({ id: updatedPost.authorId });
+    const updatedPost = (await this.baseSelectQuery
+      .clone()
+      .where({ 'posts.id': id })
+      .first()) as PostQuery;
 
-    delete updatedPost.authorId;
-
-    return new Post({ ...updatedPost, author });
+    return this.parsePost(updatedPost);
   }
 
   async delete(id: string): Promise<void> {

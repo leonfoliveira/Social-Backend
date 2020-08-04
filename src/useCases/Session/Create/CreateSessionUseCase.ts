@@ -14,29 +14,18 @@ export default class CreateSessionUseCase {
     data: ICreateSessionDTO,
   ): Promise<{
     token: string;
-    user: Omit<User, 'password' | 'salt' | 'deletedAt'>;
+    user: Omit<User, 'password' | 'salt'>;
   }> {
-    const userExists = await this.usersRepository.findByEmail(data.email);
+    const user = await this.usersRepository.findByEmail(data.email);
 
-    if (
-      !userExists ||
-      !bcrypt.compareSync(data.password, userExists.password)
-    ) {
+    if (!user || !bcrypt.compareSync(data.password, user.password)) {
       throw RequestError.INVALID_CREDENTIAL;
     }
 
-    const user = {
-      id: userExists.id,
-      email: userExists.email,
-      tag: userExists.tag,
-      name: userExists.name,
-      followers: userExists.followers,
-      following: userExists.following,
-      createdAt: userExists.createdAt,
-      updatedAt: userExists.updatedAt,
-    };
+    delete user.password;
+    delete user.salt;
 
-    const token = jwt.sign(user, process.env.SECRET || 'SECRET');
+    const token = jwt.sign({ ...user }, process.env.SECRET || 'SECRET');
 
     return { token, user };
   }

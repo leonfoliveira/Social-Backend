@@ -7,13 +7,13 @@ export default class DeleteFollowUseCase {
   constructor(private followsRepository: FollowsRepository) {}
 
   async execute(data: IDeleteFollowDTO): Promise<void> {
-    const FollowExists = await this.followsRepository.findById(data.id);
+    const followExists = await this.followsRepository.findById(data.id);
 
-    if (!FollowExists) {
+    if (!followExists) {
       throw RequestError.FOLLOW_NOT_FOUND;
     }
 
-    if (FollowExists.follower.id !== data.authId) {
+    if (followExists.follower.id !== data.authId) {
       throw RequestError.DELETE_FOLLOW_NOT_FOLLOWER;
     }
 

@@ -1,5 +1,4 @@
 import Follow from '../entities/Follow';
-import User from '../entities/User';
 
 export default interface IFollowsRepository {
   index(
@@ -9,16 +8,16 @@ export default interface IFollowsRepository {
   indexByFollower(
     page: number,
     perPage: number,
-    follower: User,
+    followerId: string,
   ): Promise<{ follows: Follow[]; count: number; pages: number }>;
   indexByTarget(
     page: number,
     perPage: number,
-    target: User,
+    targetId: string,
   ): Promise<{ follows: Follow[]; count: number; pages: number }>;
 
   findById(id: string): Promise<Follow | undefined>;
-  findByPair(follower: User, target: User): Promise<Follow | undefined>;
+  findByPair(followerId: string, targetId: string): Promise<Follow | undefined>;
 
   save(follow: Follow): Promise<Follow>;
 

@@ -9,7 +9,7 @@ export default class UpdateUserUseCase {
 
   async execute(
     data: IUpdateUserDTO,
-  ): Promise<Omit<User, 'password' | 'salt' | 'deletedAt'>> {
+  ): Promise<Omit<User, 'password' | 'salt'>> {
     if (data.authId !== data.id) {
       throw RequestError.UPDATE_NOT_USER;
     }
@@ -32,7 +32,10 @@ export default class UpdateUserUseCase {
     const user = new User(data);
     user.updatedAt = new Date();
 
-    const updatedUser = await this.usersRepository.update(user.id, user);
+    const updatedUser = await this.usersRepository.update(data.id, user);
+
+    delete updatedUser.password;
+    delete updatedUser.salt;
 
     return updatedUser;
   }

@@ -25,7 +25,10 @@ export default class FindLikeUseCase {
       throw RequestError.POST_NOT_FOUND;
     }
 
-    const like = await this.likesRepository.findByPair(user, post);
+    const like = await this.likesRepository.findByPair(
+      data.userId,
+      data.postId,
+    );
 
     if (!like) {
       throw RequestError.LIKE_NOT_FOUND;

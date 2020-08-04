@@ -8,34 +8,30 @@ export default class IndexUserUseCase {
   async execute(
     data: IIndexUserDTO,
   ): Promise<{
-    users: Omit<User, 'email' | 'password' | 'salt' | 'deletedAt'>[];
+    users: Omit<User, 'email' | 'password' | 'salt'>[];
     count: number;
     pages: number;
   }> {
-    let query: {
-      users: Omit<User, 'email' | 'password' | 'salt' | 'deletedAt'>[];
+    let index: {
+      users: User[];
       count: number;
       pages: number;
     };
 
     if (data.leading) {
-      query = await this.userRepository.leading(data.page, data.perPage);
+      index = await this.userRepository.leading(data.page, data.perPage);
     } else {
-      query = await this.userRepository.index(data.page, data.perPage);
+      index = await this.userRepository.index(data.page, data.perPage);
     }
 
-    return {
-      users: query.users.map((user) => ({
-        id: user.id,
-        name: user.name,
-        tag: user.tag,
-        followers: user.followers,
-        following: user.following,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      })),
-      count: query.count,
-      pages: query.pages,
-    };
+    index.users = index.users.map((user) => {
+      delete user.email;
+      delete user.password;
+      delete user.salt;
+
+      return user;
+    });
+
+    return index;
   }
 }

@@ -1,8 +1,6 @@
 import ILikeRepository from '../../../repositories/ILikesRepository';
 import IIndexLikeDTO from './IndexLikeDTO';
 import Like from '../../../entities/Like';
-import User from '../../../entities/User';
-import Post from '../../../entities/Post';
 
 export default class IndexLikeUseCase {
   constructor(private likeRepository: ILikeRepository) {}
@@ -16,24 +14,16 @@ export default class IndexLikeUseCase {
   }> {
     const { page, perPage, userId, postId } = data;
 
-    let likes: {
-      likes: Like[];
-      count: number;
-      pages: number;
-    };
+    let index;
 
     if (userId) {
-      const user = new User({ id: userId });
-
-      likes = await this.likeRepository.indexByUser(page, perPage, user);
+      index = await this.likeRepository.indexByUser(page, perPage, userId);
     } else if (postId) {
-      const post = new Post({ id: postId });
-
-      likes = await this.likeRepository.indexByPost(page, perPage, post);
+      index = await this.likeRepository.indexByPost(page, perPage, postId);
     } else {
-      likes = await this.likeRepository.index(page, perPage);
+      index = await this.likeRepository.index(page, perPage);
     }
 
-    return likes;
+    return index;
   }
 }

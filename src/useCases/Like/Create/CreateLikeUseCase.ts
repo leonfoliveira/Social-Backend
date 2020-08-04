@@ -20,7 +20,10 @@ export default class CreateLikeUseCase {
       throw RequestError.POST_NOT_FOUND;
     }
 
-    const likeExists = await this.likesRepository.findByPair(user, post);
+    const likeExists = await this.likesRepository.findByPair(
+      data.userId,
+      data.postId,
+    );
 
     if (likeExists) {
       throw RequestError.REPEATED_LIKE;

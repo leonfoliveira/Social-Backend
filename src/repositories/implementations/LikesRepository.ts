@@ -1,7 +1,5 @@
 import ILikesRepository from '../ILikesRepository';
 import Like from '../../entities/Like';
-import User from '../../entities/User';
-import Post from '../../entities/Post';
 import knex from '../../database';
 
 interface LikeQuery {
@@ -62,8 +60,8 @@ export default class LikesRepository implements ILikesRepository {
     .count()
     .first<{ count: number }>();
 
-  private parseLike = (like: LikeQuery) => {
-    return new Like({
+  private parseLike = (like: LikeQuery): Like =>
+    new Like({
       id: like.like_id,
       createdAt: like.like_createdAt,
       user: {
@@ -87,7 +85,6 @@ export default class LikesRepository implements ILikesRepository {
         },
       },
     });
-  };
 
   async index(
     page: number,
@@ -115,21 +112,21 @@ export default class LikesRepository implements ILikesRepository {
   async indexByUser(
     page: number,
     perPage: number,
-    user: User,
+    userId: string,
   ): Promise<{ likes: Like[]; count: number; pages: number }> {
     const limit = perPage;
     const offset = (page - 1) * limit;
 
     const likes = await this.baseSelectQuery
       .clone()
-      .where({ 'user.id': user.id })
+      .where({ 'user.id': userId })
       .limit(limit)
       .offset(offset);
 
     const parsedLikes = likes.map((like) => this.parseLike(like));
 
     const { count } = await this.baseCountQuery.clone().where({
-      'user.id': user.id,
+      'user.id': userId,
     });
 
     return { likes: parsedLikes, count, pages: Math.ceil(count / perPage) };
@@ -138,21 +135,21 @@ export default class LikesRepository implements ILikesRepository {
   async indexByPost(
     page: number,
     perPage: number,
-    post: Post,
+    postId: string,
   ): Promise<{ likes: Like[]; count: number; pages: number }> {
     const limit = perPage;
     const offset = (page - 1) * limit;
 
     const likes = await this.baseSelectQuery
       .clone()
-      .where({ 'post.id': post.id })
+      .where({ 'post.id': postId })
       .limit(limit)
       .offset(offset);
 
     const parsedLikes = likes.map((like) => this.parseLike(like));
 
     const { count } = await this.baseCountQuery.clone().where({
-      'post.id': post.id,
+      'post.id': postId,
     });
 
     return { likes: parsedLikes, count, pages: Math.ceil(count / perPage) };
@@ -169,10 +166,10 @@ export default class LikesRepository implements ILikesRepository {
     return this.parseLike(like);
   }
 
-  async findByPair(user: User, post: Post): Promise<Like | undefined> {
+  async findByPair(userId: string, postId: string): Promise<Like | undefined> {
     const like = await this.baseSelectQuery
       .clone()
-      .where({ 'user.id': user.id, 'post.id': post.id })
+      .where({ 'user.id': userId, 'post.id': postId })
       .first();
 
     if (!like) return undefined;
@@ -187,8 +184,7 @@ export default class LikesRepository implements ILikesRepository {
     const [id] = await knex
       .insert({ id: like.id, userId, postId })
       .into('likes')
-      .returning('id')
-      .innerJoin('users as user', 'user.id', 'likes.userId');
+      .returning('id');
 
     const createdLike = (await this.baseSelectQuery
       .clone()

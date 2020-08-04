@@ -9,21 +9,17 @@ export default class FindUserUseCase {
 
   async execute(
     data: IFindUserDTO,
-  ): Promise<Omit<User, 'email' | 'password' | 'salt' | 'deletedAt'>> {
+  ): Promise<Omit<User, 'email' | 'password' | 'salt'>> {
     const user = await this.usersRepository.findById(data.id);
 
     if (!user) {
       throw RequestError.USER_NOT_FOUND;
     }
 
-    return {
-      id: user.id,
-      tag: user.tag,
-      name: user.name,
-      followers: user.followers,
-      following: user.following,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-    };
+    delete user.email;
+    delete user.password;
+    delete user.salt;
+
+    return user;
   }
 }

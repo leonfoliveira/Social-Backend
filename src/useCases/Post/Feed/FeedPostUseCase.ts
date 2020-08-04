@@ -12,12 +12,12 @@ export default class FeedPostUseCase {
     count: number;
     pages: number;
   }> {
-    const { posts, count, pages } = await this.postsRepository.feed(
+    const index = await this.postsRepository.feed(
       data.page,
       data.perPage,
       data.followerId,
     );
 
-    return { posts, count, pages };
+    return index;
   }
 }

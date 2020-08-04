@@ -9,24 +9,16 @@ export default class FindSessionUseCase {
 
   async execute(
     data: IFindSessionDTO,
-  ): Promise<Omit<User, 'password' | 'salt' | 'deletedAt'> | void> {
+  ): Promise<Omit<User, 'password' | 'salt'> | void> {
     const user = await this.usersRepository.findById(data.authId);
 
     if (!user) {
       throw RequestError.USER_NOT_FOUND;
     }
 
-    const {
-      id,
-      email,
-      name,
-      tag,
-      followers,
-      following,
-      createdAt,
-      updatedAt,
-    } = user;
+    delete user.password;
+    delete user.salt;
 
-    return { id, email, name, tag, followers, following, createdAt, updatedAt };
+    return user;
   }
 }

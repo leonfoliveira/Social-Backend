@@ -1,7 +1,6 @@
 import FollowsRepository from '../../../repositories/implementations/FollowsRepository';
 import UsersRepository from '../../../repositories/implementations/UsersRepository';
 import IFindFollowDTO from './FindFollowDTO';
-import User from '../../../entities/User';
 import Follow from '../../../entities/Follow';
 
 import RequestError from '../../../utils/RequestError';
@@ -24,13 +23,13 @@ export default class FindFollowUseCase {
       throw RequestError.TARGET_NOT_FOUND;
     }
 
-    if (follower.id === target.id) {
+    if (data.followerId === data.targetId) {
       throw RequestError.FOLLOW_ITSELF;
     }
 
     const follow = await this.followsRepository.findByPair(
-      follower as User,
-      target,
+      data.followerId,
+      data.targetId,
     );
 
     if (!follow) {

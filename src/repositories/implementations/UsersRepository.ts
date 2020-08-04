@@ -7,17 +7,16 @@ interface UserQuery {
   email?: string;
   name: string;
   tag: string;
+  password: string;
+  salt: string;
   followers: string;
   following: string;
-  password?: string;
-  salt?: string;
   createdAt: Date;
-  deletedAt: Date;
+  updatedAt: Date;
 }
 
 export default class UsersRepository implements IUsersRepository {
-  private baseSelectQuery = knex
-    .select<UserQuery[]>(['users.*', 'followers', 'following'])
+  private baseQuery = knex
     .from('users')
     .leftJoin(
       knex
@@ -41,13 +40,32 @@ export default class UsersRepository implements IUsersRepository {
     )
     .where({ deletedAt: null });
 
-  private parseUser(user: UserQuery): User {
-    return new User({
+  private baseSelectQuery = this.baseQuery
+    .clone()
+    .select<UserQuery[]>([
+      'users.id',
+      'users.email',
+      'users.name',
+      'users.tag',
+      'users.password',
+      'users.salt',
+      'users.createdAt',
+      'users.updatedAt',
+      'followers',
+      'following',
+    ]);
+
+  private baseCountQuery = this.baseQuery
+    .clone()
+    .count()
+    .first<{ count: number }>();
+
+  private parseUser = (user: UserQuery): User =>
+    new User({
       ...user,
       followers: user.followers ? parseInt(user.followers, 10) : 0,
       following: user.following ? parseInt(user.following, 10) : 0,
     });
-  }
 
   async index(
     page: number,
@@ -61,11 +79,7 @@ export default class UsersRepository implements IUsersRepository {
       .limit(limit)
       .offset(offset);
 
-    const { count } = await knex
-      .count()
-      .from('users')
-      .where({ deletedAt: null })
-      .first<{ count: number }>();
+    const { count } = await this.baseCountQuery.clone();
 
     return {
       users: users.map((user) => this.parseUser(user)),
@@ -88,11 +102,9 @@ export default class UsersRepository implements IUsersRepository {
       .limit(limit)
       .offset(offset);
 
-    const { count } = await knex
-      .count()
-      .from('users')
-      .where({ deletedAt: null })
-      .first<{ count: number }>();
+    const { count } = await this.baseCountQuery
+      .whereNotNull('followers')
+      .clone();
 
     return {
       users: users.map((user) => this.parseUser(user)),
@@ -141,59 +153,38 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   async save(user: User): Promise<User> {
-    const [createdUser] = await knex
-      .insert({
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        tag: user.tag,
-        password: user.password,
-        salt: user.salt,
-      })
+    delete user.followers;
+    delete user.following;
+
+    const [id] = await knex
+      .insert(user)
       .into('users')
-      .returning<UserQuery[]>([
-        'id',
-        'email',
-        'name',
-        'tag',
-        'createdAt',
-        'updatedAt',
-      ]);
+      .returning<UserQuery[]>('id');
+
+    const createdUser = (await this.baseSelectQuery
+      .clone()
+      .where({ 'users.id': id })
+      .first()) as UserQuery;
 
     return this.parseUser(createdUser);
   }
 
   async update(id: string, user: User): Promise<User> {
-    const [updatedUser] = await knex('users')
+    await knex('users')
       .update({
         email: user.email ?? user.email,
         name: user.name ?? user.name,
         password: user.password ?? user.password,
         salt: user.salt ?? user.salt,
       })
-      .where({ id, deletedAt: null })
-      .returning<UserQuery[]>([
-        'id',
-        'email',
-        'name',
-        'tag',
-        'createdAt',
-        'updatedAt',
-      ]);
+      .where({ id, deletedAt: null });
 
-    const { count: followers } = await knex
-      .count()
-      .from('follows')
-      .where({ targetId: id })
-      .first<{ count: string }>();
+    const updatedUser = (await this.baseSelectQuery
+      .clone()
+      .where({ 'users.id': id })
+      .first()) as UserQuery;
 
-    const { count: following } = await knex
-      .count()
-      .from('follows')
-      .where({ followerId: id })
-      .first<{ count: string }>();
-
-    return this.parseUser({ ...updatedUser, followers, following });
+    return this.parseUser(updatedUser);
   }
 
   async delete(id: string): Promise<void> {
