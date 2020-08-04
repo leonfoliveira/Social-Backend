@@ -7,6 +7,8 @@ export default class Post {
   public author!: Partial<User>;
   public text!: string;
 
+  public likes!: number;
+
   public createdAt!: Date;
   public updatedAt!: Date;
 
@@ -15,6 +17,10 @@ export default class Post {
 
     if (!props.id) {
       this.id = uuid();
+    }
+
+    if (!props.likes) {
+      this.likes = 0;
     }
   }
 }

@@ -425,19 +425,22 @@ Developed just for academic reasons by a junior developer with little experience
 **Code** : `200 OK`
 
 ```json
-"body": {
-    "id": "<string> [Post id]",
-    "text": "<string> [Post text]",
-    "author": {
-        "id": "<string> [User author id]",
-        "name": "<string> [User author name]",
-        "tag": "<string> [User author tag]",
-        "createdAt": "<Date> [User author date/time of creation]",
-        "updatedAt": "<Date> [User author date/time of last update]"
-    },
-    "createdAt": "<Date> [Post date/time of creation]",
-    "updatedAt": "<Date> [Post date/time of last update]"
-}
+"body": [
+    {
+        "id": "<string> [Post id]",
+        "text": "<string> [Post text]",
+        "likes": "<number> [Post likes counter]",
+        "author": {
+            "id": "<string> [User author id]",
+            "name": "<string> [User author name]",
+            "tag": "<string> [User author tag]",
+            "createdAt": "<Date> [User author date/time of creation]",
+            "updatedAt": "<Date> [User author date/time of last update]"
+        },
+        "createdAt": "<Date> [Post date/time of creation]",
+        "updatedAt": "<Date> [Post date/time of last update]"
+    }
+]
 ```
 
 </details>
@@ -461,6 +464,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Post id]",
     "text": "<string> [Post text]",
+    "likes": "<number> [Post likes counter]",
     "author": {
         "id": "<string> [User author id]",
         "name": "<string> [User author name]",
@@ -498,6 +502,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Post id]",
     "text": "<string> [Post text]",
+    "likes": "<number> [Post likes counter]",
     "author": {
         "id": "<string> [User author id]",
         "email": "<string> [User email]",
@@ -540,6 +545,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Post id]",
     "text": "<string> [Post text]",
+    "likes": "<number> [Post likes counter]",
     "author": {
         "id": "<string> [User author id]",
         "email": "<string> [User email]",
@@ -609,6 +615,7 @@ Developed just for academic reasons by a junior developer with little experience
     {
         "id": "<string> [Post id]",
         "text": "<string> [Post text]",
+        "likes": "<number> [Post likes counter]",
         "author": {
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",

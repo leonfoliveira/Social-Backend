@@ -23,6 +23,15 @@ export default class UsersRepository implements IUsersRepository {
         .select('targetId')
         .count('* as followers')
         .from('follows')
+        .innerJoin(
+          'users as followers_counter_user',
+          'followers_counter_user.id',
+          'follows.followerId',
+        )
+        .where({
+          'follows.deletedAt': null,
+          'followers_counter_user.deletedAt': null,
+        })
         .groupBy('targetId')
         .as('followers_counter'),
       'followers_counter.targetId',
@@ -33,6 +42,15 @@ export default class UsersRepository implements IUsersRepository {
         .select('followerId')
         .count('* as following')
         .from('follows')
+        .innerJoin(
+          'users as following_counter_user',
+          'following_counter_user.id',
+          'follows.targetId',
+        )
+        .where({
+          'follows.deletedAt': null,
+          'following_counter_user.deletedAt': null,
+        })
         .groupBy('followerId')
         .as('following_counter'),
       'following_counter.followerId',
@@ -49,10 +67,10 @@ export default class UsersRepository implements IUsersRepository {
       'users.tag',
       'users.password',
       'users.salt',
-      'users.createdAt',
-      'users.updatedAt',
       'followers',
       'following',
+      'users.createdAt',
+      'users.updatedAt',
     ]);
 
   private baseCountQuery = this.baseQuery

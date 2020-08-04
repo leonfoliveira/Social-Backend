@@ -7,6 +7,7 @@ interface PostQuery {
   post_text: string;
   post_createdAt: Date;
   post_updatedAt: Date;
+  likes: string;
   author_id: string;
   author_email: string;
   author_name: string;
@@ -19,6 +20,25 @@ export default class PostsRepository implements IPostsRepository {
   private baseQuery = knex
     .from('posts')
     .innerJoin('users as author', 'author.id', 'posts.authorId')
+    .leftJoin(
+      knex
+        .select('postId')
+        .count('* as likes')
+        .from('likes as likes_counter')
+        .innerJoin(
+          'users as likes_counter_user',
+          'likes_counter_user.id',
+          'likes_counter.userId',
+        )
+        .where({
+          'likes_counter.deletedAt': null,
+          'likes_counter_user.deletedAt': null,
+        })
+        .groupBy('postId')
+        .as('likes_counter'),
+      'likes_counter.postId',
+      'posts.id',
+    )
     .where({ 'posts.deletedAt': null, 'author.deletedAt': null });
 
   private baseSelectQuery = this.baseQuery
@@ -26,6 +46,7 @@ export default class PostsRepository implements IPostsRepository {
     .select<PostQuery[]>([
       'posts.id as post_id',
       'posts.text as post_text',
+      'likes',
       'posts.createdAt as post_createdAt',
       'posts.updatedAt as post_updatedAt',
       'author.id as author_id',
@@ -45,6 +66,7 @@ export default class PostsRepository implements IPostsRepository {
     new Post({
       id: post.post_id,
       text: post.post_text,
+      likes: post.likes ? parseInt(post.likes, 10) : 0,
       createdAt: post.post_createdAt,
       updatedAt: post.post_updatedAt,
       author: {
@@ -152,6 +174,8 @@ export default class PostsRepository implements IPostsRepository {
   }
 
   async save(post: Post): Promise<Post> {
+    delete post.likes;
+
     const [id] = await knex
       .insert({ id: post.id, text: post.text, authorId: post.author.id })
       .into('posts')
@@ -166,6 +190,8 @@ export default class PostsRepository implements IPostsRepository {
   }
 
   async update(id: string, post: Post): Promise<Post> {
+    delete post.likes;
+
     await knex('posts')
       .update({ text: post.text, updatedAt: new Date() })
       .where({ id })
