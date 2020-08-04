@@ -140,6 +140,20 @@ describe('User Update', () => {
     expect(response.body.name).toBe('Person A Updated');
   });
 
+  it('Should be able to update a user without email', async () => {
+    const response = await request(app)
+      .put(`/api/users/${id}`)
+      .send({
+        name: 'Person A Updated 2',
+        password: '87654321',
+      })
+      .set('authorization', authorization);
+
+    expect(response.status).toBe(200);
+    expect(response.body.email).toBe('person.a.updated@mail.com');
+    expect(response.body.name).toBe('Person A Updated 2');
+  });
+
   it('Should not be able to update a user that is not the authorized', async () => {
     const response = await request(app)
       .put('/api/users/2')

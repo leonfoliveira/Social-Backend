@@ -37,14 +37,14 @@ describe('Delete Post', () => {
     await knex.destroy();
   });
 
-  it('Should NOT be able to delete a user if not authorized', async () => {
+  it('Should NOT be able to delete a post if not authorized', async () => {
     const response = await request(app).delete(`/api/posts/${id}`).send();
 
     expect(response.status).toBe(400);
     expect(response.body.error).toBe('"authorization" is required');
   });
 
-  it('Should NOT be able to update a user that is not the authorized', async () => {
+  it('Should NOT be able to update a post that is not the owner', async () => {
     const response = await request(app)
       .delete(`/api/posts/${id2}`)
       .send()
@@ -54,7 +54,17 @@ describe('Delete Post', () => {
     expect(response.body.error).toBe("cannot delete other user's post");
   });
 
-  it('Should be able to delete a user', async () => {
+  it('Should NOT be able to update a post that does not exist', async () => {
+    const response = await request(app)
+      .delete(`/api/posts/notexistent`)
+      .send()
+      .set('authorization', authorization);
+
+    expect(response.status).toBe(404);
+    expect(response.body.error).toBe('post not found');
+  });
+
+  it('Should be able to delete a post', async () => {
     const response = await request(app)
       .delete(`/api/posts/${id}`)
       .send()

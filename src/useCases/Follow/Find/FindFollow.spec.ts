@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../app';
 import knex from '../../../database';
 
-describe('Find User', () => {
+describe('Find Follow', () => {
   beforeAll(async () => {
     await knex.migrate.latest();
     await knex.seed.run();
@@ -36,7 +36,26 @@ describe('Find User', () => {
       .whereNot({ id: follower.id })
       .first();
 
-    console.log(target);
+    const response = await request(app)
+      .get(`/api/follows/${follower.id}/${target.id}`)
+      .send();
+
+    expect(response.status).toBe(404);
+    expect(response.body.error).toBe('follow not found');
+  });
+
+  it('Should NOT be able to find a follow that does not exist', async () => {
+    const follower = await knex.select('*').from('users').first();
+    const target = await knex
+      .select('*')
+      .from('users')
+      .whereNotIn('id', function () {
+        this.select('targetId')
+          .from('follows')
+          .where({ followerId: follower.id });
+      })
+      .whereNot({ id: follower.id })
+      .first();
 
     const response = await request(app)
       .get(`/api/follows/${follower.id}/${target.id}`)

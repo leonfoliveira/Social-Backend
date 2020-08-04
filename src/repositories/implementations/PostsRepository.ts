@@ -98,8 +98,6 @@ export default class PostsRepository implements IPostsRepository {
 
     const { count } = await this.baseCountQuery.clone();
 
-    console.log(count);
-
     return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
   }
 

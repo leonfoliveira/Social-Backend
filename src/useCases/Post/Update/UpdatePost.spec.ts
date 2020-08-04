@@ -92,4 +92,16 @@ describe('Update Post', () => {
     expect(response.status).toBe(403);
     expect(response.body.error).toBe("cannot update other user's post");
   });
+
+  it('Should NOT be able to update a post that does not exists', async () => {
+    const response = await request(app)
+      .put(`/api/posts/notexistent`)
+      .send({
+        text: 'updated text',
+      })
+      .set('authorization', authorization);
+
+    expect(response.status).toBe(404);
+    expect(response.body.error).toBe('post not found');
+  });
 });
