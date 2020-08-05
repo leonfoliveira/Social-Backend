@@ -4,7 +4,6 @@ import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import path from 'path';
 
 import errorHandlerMiddleware from './middlewares/errorHandler';
 
@@ -16,7 +15,7 @@ app.use(compression());
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));  
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 60,
