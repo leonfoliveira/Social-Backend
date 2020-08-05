@@ -30,7 +30,9 @@ app.use('/static', express.static('public'));
 app.use('/api', router);
 
 app.get('/', (_req: Request, res: Response) =>
-  res.sendFile(path.resolve(__dirname, 'views/index.html')),
+  res.sendFile('public/index.html', {
+    root: './',
+  }),
 );
 
 app.use(errorHandlerMiddleware);
