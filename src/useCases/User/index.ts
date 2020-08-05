@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
-import multer from 'multer';
 
+import imageUpload from '../../middlewares/imageUpload';
 import authParser from '../../middlewares/authParser';
 
 import { trendUserController } from './Trend';
@@ -11,32 +11,7 @@ import { createUserController } from './Create';
 import { updateUserController } from './Update';
 import { deleteUserController } from './Delete';
 
-import RequestError from '../../utils/RequestError';
-
 const router = Router();
-
-const storage = multer.diskStorage({
-  destination: 'public/images',
-  filename: (_req, file, cb) => {
-    cb(null, `${new Date().getTime()}.${file.mimetype.replace('image/', '')}`);
-  },
-});
-
-const upload = multer({
-  storage,
-  limits: {
-    fileSize: 1024 * 1024, // 1 MB
-  },
-  fileFilter: (_req, file, cb) => {
-    const mimetypes = ['image/png', 'image/jpg', 'image/jpeg'];
-
-    if (mimetypes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(RequestError.INVALID_FILE_EXTENSION);
-    }
-  },
-});
 
 router.get(
   '/trend',
@@ -91,7 +66,7 @@ router.get(
 
 router.post(
   '/',
-  upload.single('image'),
+  imageUpload,
   celebrate({
     [Segments.BODY]: {
       email: Joi.string().email().max(50).required(),
@@ -106,7 +81,7 @@ router.post(
 
 router.put(
   '/:id',
-  upload.single('image'),
+  imageUpload,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().max(36).required(),

@@ -37,7 +37,7 @@ describe('Create Post', () => {
       .set('authorization', authorization);
 
     expect(response.status).toBe(400);
-    expect(response.body.error).toBe('"text" is required');
+    expect(response.body.error).toBe('empty create body');
   });
 
   it('Should NOT be able to create a new post with text longer than 256 characters', async () => {
