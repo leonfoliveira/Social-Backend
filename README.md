@@ -481,6 +481,7 @@ Developed just for academic reasons by a junior developer with little experience
     {
         "id": "<string> [Post id]",
         "text": "<string> [Post text]",
+        "image": "<string> [Post image]",
         "likes": "<number> [Post likes count]",
         "author": {
             "id": "<string> [User author id]",
@@ -517,6 +518,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Post id]",
     "text": "<string> [Post text]",
+    "image": "<string> [Post image]",
     "likes": "<number> [Post likes count]",
     "author": {
         "id": "<string> [User author id]",
@@ -544,7 +546,8 @@ Developed just for academic reasons by a junior developer with little experience
 },
 
 "body": {
-    "text": "<string max=256 required> [Post text]",
+    "text": "<string max=256 optional> [Post text]",
+    "image": "<image/(png|jpg|jpeg) max=1mb optional> [Post image]",
 }
 ```
 
@@ -556,6 +559,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Post id]",
     "text": "<string> [Post text]",
+    "image": "<string> [Post image]",
     "likes": "<number> [Post likes count]",
     "author": {
         "id": "<string> [User author id]",
@@ -600,6 +604,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Post id]",
     "text": "<string> [Post text]",
+    "image": "<string> [Post image]",
     "likes": "<number> [Post likes count]",
     "author": {
         "id": "<string> [User author id]",
@@ -671,6 +676,7 @@ Developed just for academic reasons by a junior developer with little experience
     {
         "id": "<string> [Post id]",
         "text": "<string> [Post text]",
+        "image": "<string> [Post image]",
         "likes": "<number> [Post likes count]",
         "author": {
             "id": "<string> [User author id]",
@@ -710,6 +716,7 @@ Developed just for academic reasons by a junior developer with little experience
     {
         "id": "<string> [Post id]",
         "text": "<string> [Post text]",
+        "image": "<string> [Post image]",
         "likes": "<number> [Post likes count]",
         "author": {
             "id": "<string> [User author id]",
@@ -762,6 +769,7 @@ Developed just for academic reasons by a junior developer with little experience
         "post": {
             "id": "<string> [Post id]",
             "text": "<string> [Post text]",
+            "image": "<string> [Post image]",
             "author": {
                 "id": "<string> [User author id]",
                 "name": "<string> [User author name]",
@@ -810,6 +818,7 @@ Developed just for academic reasons by a junior developer with little experience
     "post": {
         "id": "<string> [Post id]",
         "text": "<string> [Post text]",
+        "image": "<string> [Post image]",
         "author": {
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
@@ -860,6 +869,7 @@ Developed just for academic reasons by a junior developer with little experience
     "post": {
         "id": "<string> [Post id]",
         "text": "<string> [Post text]",
+        "image": "<string> [Post image]",
         "author": {
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
