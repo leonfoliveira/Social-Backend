@@ -939,6 +939,7 @@ Developed just for academic reasons by a junior developer with little experience
     {
         "id": "<string> [Comment id]",
         "text": "<string> [Comment text]",
+        "likes": "<number> [Comment likes count]",
         "user": {
             "id": "<string> [User id]",
             "name": "<string> [User name]",
@@ -989,6 +990,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Comment id]",
     "text": "<string> [Comment text]",
+    "likes": "<number> [Comment likes count]",
     "user": {
         "id": "<string> [User id]",
         "name": "<string> [User name]",
@@ -1042,6 +1044,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Comment id]",
     "text": "<string> [Comment text]",
+    "likes": "<number> [Comment likes count]",
     "user": {
         "id": "<string> [User id]",
         "name": "<string> [User name]",
@@ -1099,6 +1102,7 @@ Developed just for academic reasons by a junior developer with little experience
 "body": {
     "id": "<string> [Comment id]",
     "text": "<string> [Comment text]",
+    "likes": "<number> [Comment likes count]",
     "user": {
         "id": "<string> [User id]",
         "name": "<string> [User name]",

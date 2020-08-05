@@ -7,6 +7,7 @@ interface ICommentQuery {
   comment_text: string;
   comment_createdAt: Date;
   comment_updatedAt: Date;
+  likes: string;
   user_id: string;
   user_name: string;
   user_tag: string;
@@ -32,6 +33,25 @@ export default class CommentsRepository implements ICommentsRepository {
     .innerJoin('users as user', 'user.id', 'comments.userId')
     .innerJoin('posts as post', 'post.id', 'comments.postId')
     .innerJoin('users as post_author', 'post_author.id', 'post.authorId')
+    .leftJoin(
+      knex
+        .select('commentId')
+        .count('* as likes')
+        .from('comment_likes as likes_counter')
+        .innerJoin(
+          'users as likes_counter_user',
+          'likes_counter_user.id',
+          'likes_counter.userId',
+        )
+        .where({
+          'likes_counter.deletedAt': null,
+          'likes_counter_user.deletedAt': null,
+        })
+        .groupBy('commentId')
+        .as('likes_counter'),
+      'likes_counter.commentId',
+      'comments.id',
+    )
     .where({
       'comments.deletedAt': null,
       'user.deletedAt': null,
@@ -44,6 +64,7 @@ export default class CommentsRepository implements ICommentsRepository {
     .select<ICommentQuery[]>([
       'comments.id as comment_id',
       'comments.text as comment_text',
+      'likes',
       'comments.createdAt as comment_createdAt',
       'comments.updatedAt as comment_updatedAt',
 
@@ -77,6 +98,7 @@ export default class CommentsRepository implements ICommentsRepository {
     new Comment({
       id: comment.comment_id,
       text: comment.comment_text,
+      likes: comment.likes ? parseInt(comment.likes, 10) : 0,
       createdAt: comment.comment_createdAt,
       updatedAt: comment.comment_updatedAt,
       user: {

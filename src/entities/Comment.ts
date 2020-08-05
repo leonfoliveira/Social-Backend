@@ -10,6 +10,8 @@ export default class Comment {
 
   public text!: string;
 
+  public likes!: number;
+
   public createdAt!: Date;
   public updatedAt!: Date;
 
@@ -18,6 +20,10 @@ export default class Comment {
 
     if (!props.id) {
       this.id = uuid();
+    }
+
+    if (!props.likes) {
+      this.likes = 0;
     }
   }
 }
