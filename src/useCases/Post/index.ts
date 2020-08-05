@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
+import multer from 'multer';
 
 import authParser from '../../middlewares/authParser';
 
@@ -11,7 +12,32 @@ import { createPostController } from './Create';
 import { updatePostController } from './Update';
 import { deletePostController } from './Delete';
 
+import RequestError from '../../utils/RequestError';
+
 const router = Router();
+
+const storage = multer.diskStorage({
+  destination: 'public/images',
+  filename: (_req, file, cb) => {
+    cb(null, `${new Date().getTime()}.${file.mimetype.replace('image/', '')}`);
+  },
+});
+
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: 1024 * 1024, // 1 MB
+  },
+  fileFilter: (_req, file, cb) => {
+    const mimetypes = ['image/png', 'image/jpg', 'image/jpeg'];
+
+    if (mimetypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(RequestError.INVALID_FILE_EXTENSION);
+    }
+  },
+});
 
 router.get(
   '/feed',
@@ -88,12 +114,13 @@ router.get(
 
 router.post(
   '/',
+  upload.single('image'),
   celebrate({
     [Segments.HEADERS]: Joi.object({
       authorization: Joi.string().required(),
     }).unknown(),
     [Segments.BODY]: {
-      text: Joi.string().max(256).required(),
+      text: Joi.string().max(256).optional(),
     },
   }),
   authParser,

@@ -13,6 +13,7 @@ interface LikeQuery {
   user_updatedAt: Date;
   post_id: string;
   post_text: string;
+  post_image: string;
   post_createdAt: Date;
   post_updatedAt: Date;
   post_author_id: string;
@@ -49,6 +50,7 @@ export default class LikesRepository implements ILikesRepository {
       'user.updatedAt as user_updatedAt',
       'post.id as post_id',
       'post.text as post_text',
+      'post.image as post_image',
       'post.createdAt as post_createdAt',
       'post.updatedAt as post_updatedAt',
       'post_author.id as post_author_id',
@@ -79,6 +81,7 @@ export default class LikesRepository implements ILikesRepository {
       post: {
         id: like.post_id,
         text: like.post_text,
+        image: like.post_image,
         createdAt: like.post_createdAt,
         updatedAt: like.post_updatedAt,
         author: {

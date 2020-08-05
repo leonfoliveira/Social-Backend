@@ -9,7 +9,9 @@ export const up = async (knex: Knex): Promise<void> =>
       .notNullable()
       .references('users.id')
       .onDelete('CASCADE');
-    table.string('text', 256).notNullable();
+    table.string('text', 256);
+
+    table.string('image', 35);
 
     table.timestamp('createdAt').notNullable().defaultTo(knex.fn.now());
     table.timestamp('updatedAt');

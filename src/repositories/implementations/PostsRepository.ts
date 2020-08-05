@@ -5,6 +5,7 @@ import knex from '../../database';
 interface PostQuery {
   post_id: string;
   post_text: string;
+  post_image: string;
   post_createdAt: Date;
   post_updatedAt: Date;
   likes: string;
@@ -47,6 +48,7 @@ export default class PostsRepository implements IPostsRepository {
     .select<PostQuery[]>([
       'posts.id as post_id',
       'posts.text as post_text',
+      'posts.image as post_image',
       'likes',
       'posts.createdAt as post_createdAt',
       'posts.updatedAt as post_updatedAt',
@@ -69,6 +71,7 @@ export default class PostsRepository implements IPostsRepository {
       id: post.post_id,
       text: post.post_text,
       likes: post.likes ? parseInt(post.likes, 10) : 0,
+      image: post.post_image,
       createdAt: post.post_createdAt,
       updatedAt: post.post_updatedAt,
       author: {
@@ -223,7 +226,12 @@ export default class PostsRepository implements IPostsRepository {
     delete post.likes;
 
     const [id] = await knex
-      .insert({ id: post.id, text: post.text, authorId: post.author.id })
+      .insert({
+        id: post.id,
+        text: post.text,
+        authorId: post.author.id,
+        image: post.image,
+      })
       .into('posts')
       .returning('id');
 

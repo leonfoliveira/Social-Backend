@@ -59,5 +59,6 @@ export default class RequestError extends Error {
     "cannot delete other user's like",
   );
 
+  static EMPTY_CREATE_BODY = new RequestError(400, 'empty create body');
   static EMPTY_UPDATE_BODY = new RequestError(400, 'empty update body');
 }

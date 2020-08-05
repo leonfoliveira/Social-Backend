@@ -12,12 +12,15 @@ export default class CreatePostController {
     const { authorization } = request.headers;
     const { text } = request.body;
 
+    const file = request.file;
+
     const { id: authorId } = JSON.parse(authorization as string);
 
     try {
       const user = await this.createPostUseCase.execute({
         authorId,
         text,
+        image: file?.path,
       });
 
       return response.status(201).send(user);

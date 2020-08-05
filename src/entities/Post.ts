@@ -7,6 +7,8 @@ export default class Post {
   public author!: Partial<User>;
   public text!: string;
 
+  public image!: string;
+
   public likes!: number;
 
   public createdAt!: Date;

@@ -1,3 +1,4 @@
+import fs from 'fs';
 import PostsRepository from '../../../repositories/implementations/PostsRepository';
 import IDeletePostDTO from './DeletePostDTO';
 
@@ -15,6 +16,10 @@ export default class DeletePostUseCase {
 
     if (postExists.author.id !== data.authId) {
       throw RequestError.DELETE_POST_NOT_OWNER;
+    }
+
+    if (postExists.image) {
+      fs.unlinkSync(postExists.image.replace('static', 'public'));
     }
 
     await this.postsRepository.delete(data.id);
