@@ -12,12 +12,12 @@ export default class FindPostLikeController {
     const { userId, postId } = request.params;
 
     try {
-      const postlike = await this.findPostLikeUseCase.execute({
+      const postLike = await this.findPostLikeUseCase.execute({
         userId,
         postId,
       });
 
-      return response.send(postlike);
+      return response.send(postLike);
     } catch (error) {
       return next(error);
     }

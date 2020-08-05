@@ -42,17 +42,20 @@ export default class LikesRepository implements IPostLikesRepository {
     .select<IPostLikeQuery[]>([
       'post_likes.id as post_likes_id',
       'post_likes.createdAt as post_likes_createdAt',
+
       'user.id as user_id',
       'user.name as user_name',
       'user.tag as user_tag',
       'user.image as user_image',
       'user.createdAt as user_createdAt',
       'user.updatedAt as user_updatedAt',
+
       'post.id as post_id',
       'post.text as post_text',
       'post.image as post_image',
       'post.createdAt as post_createdAt',
       'post.updatedAt as post_updatedAt',
+
       'post_author.id as post_author_id',
       'post_author.name as post_author_name',
       'post_author.tag as post_author_tag',
@@ -111,13 +114,17 @@ export default class LikesRepository implements IPostLikesRepository {
       .limit(limit)
       .offset(offset);
 
-    const parsedLikes = postLikes.map((postLike) =>
+    const parsedPostLikes = postLikes.map((postLike) =>
       this.parsePostLike(postLike),
     );
 
     const { count } = await this.baseCountQuery.clone();
 
-    return { postLikes: parsedLikes, count, pages: Math.ceil(count / perPage) };
+    return {
+      postLikes: parsedPostLikes,
+      count,
+      pages: Math.ceil(count / perPage),
+    };
   }
 
   async indexByUser(

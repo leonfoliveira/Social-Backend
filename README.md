@@ -847,7 +847,7 @@ Developed just for academic reasons by a junior developer with little experience
 },
 
 "body": {
-    "targetId": "<string required> [User target id]",
+    "postId": "<string required> [Post id]",
 }
 ```
 
@@ -900,7 +900,7 @@ Developed just for academic reasons by a junior developer with little experience
 },
 
 "params": {
-    "id": "<string required> [Like id]",
+    "id": "<string required> [Post-Like id]",
 }
 ```
 
@@ -1151,6 +1151,228 @@ Developed just for academic reasons by a junior developer with little experience
 ### **Response**
 
 **Code** : `200 OK`
+
+```json
+
+```
+
+</details>
+
+---
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/comment-likes &nbsp; • &nbsp; Get list of all comment-likes</summary>
+
+### **Request**
+
+```json
+"query": {
+    "page": "<number integer positive optional default=1> [Page]",
+    "per-page": "<number integer positive max=30 optional default=10> [Follows per page]",
+    "user-id": "<string optional> [User id]",
+    "comment-id": "<string optional> [Comment id]"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": [
+    {
+        "id": "<string> [Comment-Like id]",
+        "user": {
+            "id": "<string> [User id]",
+            "name": "<string> [User name]",
+            "tag": "<string> [User tag]",
+            "image": "<string> [User image url]",
+            "createdAt": "<Date> [User date/time of creation]",
+            "updatedAt": "<Date> [User date/time of last update]"
+        },
+        "comment": {
+            "id": "<string> [Comment id]",
+            "text": "<string> [Comment text]",
+            "user": {
+                "id": "<string> [User id]",
+                "name": "<string> [User name]",
+                "tag": "<string> [User tag]",
+                "image": "<string> [User image url]",
+                "createdAt": "<Date> [User date/time of creation]",
+                "updatedAt": "<Date> [User date/time of last update]"
+            },
+            "post": {
+                "id": "<string> [Post id]",
+                "text": "<string> [Post text]",
+                "image": "<string> [Post image]",
+                "author": {
+                    "id": "<string> [User author id]",
+                    "name": "<string> [User author name]",
+                    "tag": "<string> [User author tag]",
+                    "image": "<string> [User author image url]",
+                    "createdAt": "<Date> [User author date/time of creation]",
+                    "updatedAt": "<Date> [User author date/time of last update]"
+                },
+                "createdAt": "<Date> [Post date/time of creation]",
+                "updatedAt": "<Date> [Post date/time of last update]"
+            },
+            "createdAt": "<Date> [Comment date/time of creation]",
+            "updatedAt": "<Date> [Comment date/time of last update]"
+        },
+        "createdAt": "<Date> [Comment-Like date/time of creation]"
+    }
+]
+```
+
+</details>
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/comment-likes/:userId/:commentId &nbsp; • &nbsp; Get data from a specific comment-like</summary>
+
+### **Request**
+
+```json
+"params": {
+    "userId": "<string required> [User id]",
+    "commentId": "<string required> [Comment id]"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": {
+    "id": "<string> [Comment-Like id]",
+    "user": {
+        "id": "<string> [User id]",
+        "name": "<string> [User name]",
+        "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
+        "createdAt": "<Date> [User date/time of creation]",
+        "updatedAt": "<Date> [User date/time of last update]"
+    },
+    "comment": {
+        "id": "<string> [Comment id]",
+        "text": "<string> [Comment text]",
+        "user": {
+            "id": "<string> [User id]",
+            "name": "<string> [User name]",
+            "tag": "<string> [User tag]",
+            "image": "<string> [User image url]",
+            "createdAt": "<Date> [User date/time of creation]",
+            "updatedAt": "<Date> [User date/time of last update]"
+        },
+        "post": {
+            "id": "<string> [Post id]",
+            "text": "<string> [Post text]",
+            "image": "<string> [Post image]",
+            "author": {
+                "id": "<string> [User author id]",
+                "name": "<string> [User author name]",
+                "tag": "<string> [User author tag]",
+                "image": "<string> [User author image url]",
+                "createdAt": "<Date> [User author date/time of creation]",
+                "updatedAt": "<Date> [User author date/time of last update]"
+            },
+            "createdAt": "<Date> [Post date/time of creation]",
+            "updatedAt": "<Date> [Post date/time of last update]"
+        },
+        "createdAt": "<Date> [Comment date/time of creation]",
+        "updatedAt": "<Date> [Comment date/time of last update]"
+    },
+    "createdAt": "<Date> [Comment-Like date/time of creation]"
+}
+```
+
+</details>
+
+<details>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/comment-likes :lock: &nbsp; • &nbsp; Create a new comment-like from the user authenticated to a comment provided</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+
+"body": {
+    "commentId": "<string required> [Comment id]",
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+"body": {
+    "id": "<string> [Comment-Like id]",
+    "user": {
+        "id": "<string> [User id]",
+        "name": "<string> [User name]",
+        "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
+        "createdAt": "<Date> [User date/time of creation]",
+        "updatedAt": "<Date> [User date/time of last update]"
+    },
+    "comment": {
+        "id": "<string> [Comment id]",
+        "text": "<string> [Comment text]",
+        "user": {
+            "id": "<string> [User id]",
+            "name": "<string> [User name]",
+            "tag": "<string> [User tag]",
+            "image": "<string> [User image url]",
+            "createdAt": "<Date> [User date/time of creation]",
+            "updatedAt": "<Date> [User date/time of last update]"
+        },
+        "post": {
+            "id": "<string> [Post id]",
+            "text": "<string> [Post text]",
+            "image": "<string> [Post image]",
+            "author": {
+                "id": "<string> [User author id]",
+                "name": "<string> [User author name]",
+                "tag": "<string> [User author tag]",
+                "image": "<string> [User author image url]",
+                "createdAt": "<Date> [User author date/time of creation]",
+                "updatedAt": "<Date> [User author date/time of last update]"
+            },
+            "createdAt": "<Date> [Post date/time of creation]",
+            "updatedAt": "<Date> [Post date/time of last update]"
+        },
+        "createdAt": "<Date> [Comment date/time of creation]",
+        "updatedAt": "<Date> [Comment date/time of last update]"
+    },
+    "createdAt": "<Date> [Comment-Like date/time of creation]"
+}
+```
+
+</details>
+
+</details>
+
+<details>
+<summary><b>DELETE</b> &nbsp; • &nbsp; /api/comment-likes/:id :lock: &nbsp; • &nbsp; Delete a comment-like searching for its id</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+
+"params": {
+    "id": "<string required> [Comment-Like id]",
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
 
 ```json
 

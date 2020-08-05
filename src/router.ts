@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 
 import commentRouter from './useCases/Comment';
+import commentLikeRouter from './useCases/CommentLike';
 import followRouter from './useCases/Follow';
 import postLikeRouter from './useCases/PostLike';
 import postRouter from './useCases/Post';
@@ -14,6 +15,7 @@ router.get('/ping', (_req: Request, res: Response) =>
 );
 
 router.use('/comments', commentRouter);
+router.use('/comment-likes', commentLikeRouter);
 router.use('/follows', followRouter);
 router.use('/post-likes', postLikeRouter);
 router.use('/posts', postRouter);

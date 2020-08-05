@@ -2,9 +2,9 @@ import PostLikesRepository from '../../../repositories/implementations/PostLikes
 import DeletePostLikeUseCase from './DeletePostLikeUseCase';
 import DeletePostLikeController from './DeletePostLikeController';
 
-const PostlikesRepository = new PostLikesRepository();
+const postLikesRepository = new PostLikesRepository();
 
-const deletePostLikeUseCase = new DeletePostLikeUseCase(PostlikesRepository);
+const deletePostLikeUseCase = new DeletePostLikeUseCase(postLikesRepository);
 const deletePostLikeController = new DeletePostLikeController(
   deletePostLikeUseCase,
 );

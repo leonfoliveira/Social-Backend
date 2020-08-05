@@ -73,6 +73,7 @@ export default class PostsRepository implements IPostsRepository {
       'comments',
       'posts.createdAt as post_createdAt',
       'posts.updatedAt as post_updatedAt',
+
       'author.id as author_id',
       'author.email as author_email',
       'author.name as author_name',

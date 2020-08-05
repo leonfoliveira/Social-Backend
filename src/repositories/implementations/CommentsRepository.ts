@@ -46,17 +46,20 @@ export default class CommentsRepository implements ICommentsRepository {
       'comments.text as comment_text',
       'comments.createdAt as comment_createdAt',
       'comments.updatedAt as comment_updatedAt',
+
       'user.id as user_id',
       'user.name as user_name',
       'user.tag as user_tag',
       'user.image as user_image',
       'user.createdAt as user_createdAt',
       'user.updatedAt as user_updatedAt',
+
       'post.id as post_id',
       'post.text as post_text',
       'post.image as post_image',
       'post.createdAt as post_createdAt',
       'post.updatedAt as post_updatedAt',
+
       'post_author.id as post_author_id',
       'post_author.name as post_author_name',
       'post_author.tag as post_author_tag',

@@ -8,7 +8,7 @@ import RequestError from '../../../utils/RequestError';
 
 export default class FindPostLikeUseCase {
   constructor(
-    private postlikesRepository: PostLikesRepository,
+    private postLikesRepository: PostLikesRepository,
     private usersRepository: UsersRepository,
     private postsRepository: PostsRepository,
   ) {}
@@ -25,15 +25,15 @@ export default class FindPostLikeUseCase {
       throw RequestError.POST_NOT_FOUND;
     }
 
-    const postlike = await this.postlikesRepository.findByPair(
+    const postLike = await this.postLikesRepository.findByPair(
       data.userId,
       data.postId,
     );
 
-    if (!postlike) {
+    if (!postLike) {
       throw RequestError.LIKE_NOT_FOUND;
     }
 
-    return postlike;
+    return postLike;
   }
 }

@@ -35,12 +35,14 @@ export default class FollowsRepository implements IFollowsRepository {
     .select<IFollowQuery[]>([
       'follows.id as follow_id',
       'follows.createdAt as follow_createdAt',
+
       'follower.id as follower_id',
       'follower.name as follower_name',
       'follower.tag as follower_tag',
       'follower.image as follower_image',
       'follower.createdAt as follower_createdAt',
       'follower.updatedAt as follower_updatedAt',
+
       'target.id as target_id',
       'target.name as target_name',
       'target.tag as target_tag',
