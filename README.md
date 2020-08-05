@@ -2,9 +2,11 @@
 
 A social network API based on twitter under development using solid design and clean arquitecture principles.
 
+:grin: [Try it](https://lfoliveira-social-api.herokuapp.com/)
+
 ## Disclaimer
 
-Developed just for academic reasons by a junior developer with little experience, feel free to correct any mistakes I make, I'll be glad to learn from you.
+:exclamation: Developed just for academic reasons by a junior developer with little experience, feel free to correct any mistakes I make, I'll be glad to learn from you.
 
 ## Scripts
 
