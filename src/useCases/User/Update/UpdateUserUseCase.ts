@@ -1,3 +1,4 @@
+import fs from 'fs';
 import UsersRepository from '../../../repositories/implementations/UsersRepository';
 import IUpdateUserDTO from './UpdateUserDTO';
 import User from '../../../entities/User';
@@ -10,12 +11,14 @@ export default class UpdateUserUseCase {
   async execute(
     data: IUpdateUserDTO,
   ): Promise<Omit<User, 'password' | 'salt'>> {
+    const oldUser = (await this.usersRepository.findById(data.id)) as User;
+
     if (data.authId !== data.id) {
       throw RequestError.UPDATE_USER_NOT_OWNER;
     }
     delete data.authId;
 
-    if (!data.email && !data.name && !data.password) {
+    if (!data.email && !data.name && !data.password && !data.image) {
       throw RequestError.EMPTY_UPDATE_BODY;
     }
 
@@ -29,13 +32,20 @@ export default class UpdateUserUseCase {
       }
     }
 
-    const user = new User(data);
+    const user = new User({
+      ...data,
+      image: data.image?.replace('public', 'static'),
+    });
     user.updatedAt = new Date();
 
     const updatedUser = await this.usersRepository.update(data.id, user);
 
     delete updatedUser.password;
     delete updatedUser.salt;
+
+    if (data.image && !oldUser.image.includes('default.png')) {
+      fs.unlinkSync(oldUser.image.replace('static', 'public'));
+    }
 
     return updatedUser;
   }

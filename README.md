@@ -45,6 +45,7 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string> [User email]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
+    "image": "<string> [User image url]",
     "followers": "<number> [User followers count]",
     "following": "<number> [User following count]",
     "createdAt": "<Date> [User date/time of creation]",
@@ -78,6 +79,7 @@ Developed just for academic reasons by a junior developer with little experience
         "email": "<string> [User email]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
         "followers": "<number> [User followers count]",
         "following": "<number> [User following count]",
         "createdAt": "<Date> [User date/time of creation]",
@@ -117,6 +119,7 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
         "followers": "<number> [User followers count]",
         "following": "<number> [User following count]",
         "createdAt": "<Date> [User date/time of creation]",
@@ -147,6 +150,7 @@ Developed just for academic reasons by a junior developer with little experience
     "id": "<string> [User id]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
+    "image": "<string> [User image url]",
     "followers": "<number> [User followers count]",
     "following": "<number> [User following count]",
     "createdAt": "<Date> [User date/time of creation]",
@@ -166,7 +170,8 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string email max=50 required> [User email]",
     "name": "<string max=50 required> [User name]",
     "tag": "<string alphanum max=30 required> [User tag]",
-    "password": "<string min=8 max=30 required> [User password]"
+    "password": "<string min=8 max=30 required> [User password]",
+    "image": "<image/(png|jpg|jpeg) max=1mb optional> [User picture]"
 }
 ```
 
@@ -180,6 +185,7 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string> [User email]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
+    "image": "<string> [User image url]",
     "followers": "<number> [User followers count]",
     "following": "<number> [User following count]",
     "createdAt": "<Date> [User date/time of creation]",
@@ -205,7 +211,8 @@ Developed just for academic reasons by a junior developer with little experience
 
 "body": {
     "email": "<string email max=50 required> [User email]",
-    "password": "<string min=8 max=30 required> [User password]"
+    "password": "<string min=8 max=30 required> [User password]",
+    "image": "<image/(png|jpg|jpeg) max=1mb optional> [User picture]"
 }
 ```
 
@@ -219,6 +226,7 @@ Developed just for academic reasons by a junior developer with little experience
     "email": "<string> [User email]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
+    "image": "<string> [User image url]",
     "followers": "<number> [User followers count]",
     "following": "<number> [User following count]",
     "createdAt": "<Date> [User date/time of creation]",
@@ -281,6 +289,7 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
         "followers": "<number> [User followers count]",
         "following": "<number> [User following count]",
         "createdAt": "<Date> [User date/time of creation]",
@@ -319,6 +328,7 @@ Developed just for academic reasons by a junior developer with little experience
             "id": "<string> [User follower id]",
             "name": "<string> [User follower name]",
             "tag": "<string> [User follower tag]",
+            "image": "<string> [User follower image url]",
             "createdAt": "<Date> [User follower date/time of creation]",
             "updatedAt": "<Date> [User follower date/time of last update]"
         },
@@ -326,6 +336,7 @@ Developed just for academic reasons by a junior developer with little experience
             "id": "<string> [User following id]",
             "name": "<string> [User following name]",
             "tag": "<string> [User following tag]",
+            "image": "<string> [User following image url]",
             "createdAt": "<Date> [User following date/time of creation]",
             "updatedAt": "<Date> [User following date/time of last update]"
         },
@@ -359,6 +370,7 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User follower id]",
         "name": "<string> [User follower name]",
         "tag": "<string> [User follower tag]",
+        "image": "<string> [User follower image url]",
         "createdAt": "<Date> [User follower date/time of creation]",
         "updatedAt": "<Date> [User follower date/time of last update]"
     },
@@ -366,6 +378,7 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User following id]",
         "name": "<string> [User following name]",
         "tag": "<string> [User following tag]",
+        "image": "<string> [User following image url]",
         "createdAt": "<Date> [User following date/time of creation]",
         "updatedAt": "<Date> [User following date/time of last update]"
     },
@@ -401,6 +414,7 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User follower id]",
         "name": "<string> [User follower name]",
         "tag": "<string> [User follower tag]",
+        "image": "<string> [User follower image url]",
         "createdAt": "<Date> [User follower date/time of creation]",
         "updatedAt": "<Date> [User follower date/time of last update]"
     },
@@ -408,6 +422,7 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User following id]",
         "name": "<string> [User following name]",
         "tag": "<string> [User following tag]",
+        "image": "<string> [User following image url]",
         "createdAt": "<Date> [User following date/time of creation]",
         "updatedAt": "<Date> [User following date/time of last update]"
     },
@@ -471,6 +486,7 @@ Developed just for academic reasons by a junior developer with little experience
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
         },
@@ -506,6 +522,7 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User author id]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
+        "image": "<string> [User author image url]",
         "createdAt": "<Date> [User author date/time of creation]",
         "updatedAt": "<Date> [User author date/time of last update]"
     },
@@ -545,6 +562,7 @@ Developed just for academic reasons by a junior developer with little experience
         "email": "<string> [User email]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
+        "image": "<string> [User author image url]",
         "createdAt": "<Date> [User author date/time of creation]",
         "updatedAt": "<Date> [User author date/time of last update]"
     },
@@ -588,6 +606,7 @@ Developed just for academic reasons by a junior developer with little experience
         "email": "<string> [User email]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
+        "image": "<string> [User author image url]",
         "createdAt": "<Date> [User author date/time of creation]",
         "updatedAt": "<Date> [User author date/time of last update]"
     },
@@ -657,6 +676,7 @@ Developed just for academic reasons by a junior developer with little experience
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
         },
@@ -695,6 +715,7 @@ Developed just for academic reasons by a junior developer with little experience
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
         },
@@ -734,6 +755,7 @@ Developed just for academic reasons by a junior developer with little experience
             "id": "<string> [User id]",
             "name": "<string> [User name]",
             "tag": "<string> [User tag]",
+            "image": "<string> [User image url]",
             "createdAt": "<Date> [User date/time of creation]",
             "updatedAt": "<Date> [User date/time of last update]"
         },
@@ -744,6 +766,7 @@ Developed just for academic reasons by a junior developer with little experience
                 "id": "<string> [User author id]",
                 "name": "<string> [User author name]",
                 "tag": "<string> [User author tag]",
+                "image": "<string> [User author image url]",
                 "createdAt": "<Date> [User author date/time of creation]",
                 "updatedAt": "<Date> [User author date/time of last update]"
             },
@@ -780,6 +803,7 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
     },
@@ -790,6 +814,7 @@ Developed just for academic reasons by a junior developer with little experience
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
         },
@@ -828,6 +853,7 @@ Developed just for academic reasons by a junior developer with little experience
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
     },
@@ -838,6 +864,7 @@ Developed just for academic reasons by a junior developer with little experience
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
         },

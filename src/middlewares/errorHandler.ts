@@ -1,13 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 import { isCelebrate } from 'celebrate';
+import fs from 'fs';
 import RequestError from '../utils/RequestError';
 
 export default (
   error: RequestError,
-  _req: Request,
+  req: Request,
   res: Response,
   next: NextFunction,
 ): Response | void => {
+  if (req.file) {
+    fs.unlinkSync(req.file.path);
+  }
+
   if (res.headersSent) {
     return next(error);
   }

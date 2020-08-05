@@ -3,4 +3,5 @@ export default interface ICreateUserDTO {
   email: string;
   tag: string;
   password: string;
+  image?: string;
 }

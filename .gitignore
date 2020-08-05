@@ -4,3 +4,6 @@ dist
 .env
 
 coverage
+
+public/images/*
+!public/images/default.png

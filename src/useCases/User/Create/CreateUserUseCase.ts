@@ -24,7 +24,10 @@ export default class CreateUserUseCase {
       throw RequestError.REPEATED_TAG;
     }
 
-    const user = new User(data);
+    const user = new User({
+      ...data,
+      image: data.image?.replace('public', 'static'),
+    });
 
     const createdUser = await this.usersRepository.save(user);
 

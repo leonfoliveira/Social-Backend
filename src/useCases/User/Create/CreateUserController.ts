@@ -11,12 +11,15 @@ export default class CreateUserController {
   ): Promise<Response | void> {
     const { email, tag, name, password } = request.body;
 
+    const file = request.file;
+
     try {
       const user = await this.createUserUseCase.execute({
         email,
         tag,
         name,
         password,
+        image: file?.path,
       });
 
       return response.status(201).send(user);

@@ -24,6 +24,8 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
+app.use('/static', express.static('public'));
+
 app.use('/api', router);
 
 app.use(errorHandlerMiddleware);

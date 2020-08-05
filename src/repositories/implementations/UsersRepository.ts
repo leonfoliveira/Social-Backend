@@ -9,6 +9,7 @@ interface UserQuery {
   tag: string;
   password: string;
   salt: string;
+  image: string;
   followers: string;
   following: string;
   createdAt: Date;
@@ -67,6 +68,7 @@ export default class UsersRepository implements IUsersRepository {
       'users.tag',
       'users.password',
       'users.salt',
+      'users.image',
       'followers',
       'following',
       'users.createdAt',
@@ -210,10 +212,12 @@ export default class UsersRepository implements IUsersRepository {
   async update(id: string, user: User): Promise<User> {
     await knex('users')
       .update({
-        email: user.email ?? user.email,
-        name: user.name ?? user.name,
-        password: user.password ?? user.password,
-        salt: user.salt ?? user.salt,
+        email: user.email,
+        name: user.name,
+        password: user.password,
+        salt: user.salt,
+        image: user.image,
+        updatedAt: user.updatedAt,
       })
       .where({ id, deletedAt: null });
 

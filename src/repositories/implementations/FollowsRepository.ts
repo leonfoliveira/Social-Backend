@@ -8,11 +8,13 @@ interface FollowQuery {
   follower_id: string;
   follower_name: string;
   follower_tag: string;
+  follower_image: string;
   follower_createdAt: Date;
   follower_updatedAt: Date;
   target_id: string;
   target_name: string;
   target_tag: string;
+  target_image: string;
   target_createdAt: Date;
   target_updatedAt: Date;
 }
@@ -36,11 +38,13 @@ export default class FollowsRepository implements IFollowsRepository {
       'follower.id as follower_id',
       'follower.name as follower_name',
       'follower.tag as follower_tag',
+      'follower.image as follower_image',
       'follower.createdAt as follower_createdAt',
       'follower.updatedAt as follower_updatedAt',
       'target.id as target_id',
       'target.name as target_name',
       'target.tag as target_tag',
+      'target.image as target_image',
       'target.createdAt as target_createdAt',
       'target.updatedAt as target_updatedAt',
     ]);
@@ -58,6 +62,7 @@ export default class FollowsRepository implements IFollowsRepository {
         id: follow.follower_id,
         name: follow.follower_name,
         tag: follow.follower_tag,
+        image: follow.follower_image,
         createdAt: follow.follower_createdAt,
         updatedAt: follow.follower_updatedAt,
       },
@@ -65,6 +70,7 @@ export default class FollowsRepository implements IFollowsRepository {
         id: follow.target_id,
         name: follow.target_name,
         tag: follow.target_tag,
+        image: follow.target_image,
         createdAt: follow.target_createdAt,
         updatedAt: follow.target_updatedAt,
       },

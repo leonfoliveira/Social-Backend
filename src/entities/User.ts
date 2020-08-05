@@ -10,6 +10,8 @@ export default class User {
   public password!: string;
   public salt!: string;
 
+  public image!: string;
+
   public followers!: number;
   public following!: number;
 

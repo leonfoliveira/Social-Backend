@@ -15,6 +15,8 @@ export default class UpdateUserController {
 
     const { id: authId } = JSON.parse(authorization as string);
 
+    const file = request.file;
+
     try {
       const user = await this.updateUserUseCase.execute({
         authId,
@@ -22,6 +24,7 @@ export default class UpdateUserController {
         email,
         name,
         password,
+        image: file?.path,
       });
 
       return response.send(user);

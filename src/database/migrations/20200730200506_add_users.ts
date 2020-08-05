@@ -10,6 +10,11 @@ export const up = async (knex: Knex): Promise<void> =>
     table.string('password', 64).notNullable();
     table.string('salt', 32).notNullable();
 
+    table
+      .string('image', 35)
+      .notNullable()
+      .defaultTo('static/images/default.png');
+
     table.timestamp('createdAt').notNullable().defaultTo(knex.fn.now());
     table.timestamp('updatedAt');
     table.timestamp('deletedAt');

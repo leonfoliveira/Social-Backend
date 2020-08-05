@@ -8,6 +8,7 @@ interface LikeQuery {
   user_id: string;
   user_name: string;
   user_tag: string;
+  user_image: string;
   user_createdAt: Date;
   user_updatedAt: Date;
   post_id: string;
@@ -17,6 +18,7 @@ interface LikeQuery {
   post_author_id: string;
   post_author_name: string;
   post_author_tag: string;
+  post_author_image: string;
   post_author_createdAt: Date;
   post_author_updatedAt: Date;
 }
@@ -42,6 +44,7 @@ export default class LikesRepository implements ILikesRepository {
       'user.id as user_id',
       'user.name as user_name',
       'user.tag as user_tag',
+      'user.image as user_image',
       'user.createdAt as user_createdAt',
       'user.updatedAt as user_updatedAt',
       'post.id as post_id',
@@ -51,6 +54,7 @@ export default class LikesRepository implements ILikesRepository {
       'post_author.id as post_author_id',
       'post_author.name as post_author_name',
       'post_author.tag as post_author_tag',
+      'post_author.image as post_author_image',
       'post_author.createdAt as post_author_createdAt',
       'post_author.updatedAt as post_author_updatedAt',
     ]);
@@ -68,6 +72,7 @@ export default class LikesRepository implements ILikesRepository {
         id: like.user_id,
         name: like.user_name,
         tag: like.user_tag,
+        image: like.user_image,
         createdAt: like.user_createdAt,
         updatedAt: like.user_updatedAt,
       },
@@ -80,6 +85,7 @@ export default class LikesRepository implements ILikesRepository {
           id: like.post_author_id,
           name: like.post_author_name,
           tag: like.post_author_tag,
+          image: like.post_author_image,
           createdAt: like.post_author_createdAt,
           updatedAt: like.post_author_updatedAt,
         },

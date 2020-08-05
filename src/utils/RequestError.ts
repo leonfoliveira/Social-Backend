@@ -22,6 +22,11 @@ export default class RequestError extends Error {
 
   static INVALID_TOKEN = new RequestError(401, 'invalid token');
 
+  static INVALID_FILE_EXTENSION = new RequestError(
+    400,
+    'file extension must be png, jpg or jpeg',
+  );
+
   static FOLLOW_ITSELF = new RequestError(400, 'cannot follow itself');
 
   static UPDATE_USER_NOT_OWNER = new RequestError(
