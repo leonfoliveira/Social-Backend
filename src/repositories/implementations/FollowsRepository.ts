@@ -2,7 +2,7 @@ import IFollowsRepository from '../IFollowsRepository';
 import Follow from '../../entities/Follow';
 import knex from '../../database';
 
-interface FollowQuery {
+interface IFollowQuery {
   follow_id: string;
   follow_createdAt: Date;
   follower_id: string;
@@ -32,7 +32,7 @@ export default class FollowsRepository implements IFollowsRepository {
 
   private baseSelectQuery = this.baseQuery
     .clone()
-    .select<FollowQuery[]>([
+    .select<IFollowQuery[]>([
       'follows.id as follow_id',
       'follows.createdAt as follow_createdAt',
       'follower.id as follower_id',
@@ -54,7 +54,7 @@ export default class FollowsRepository implements IFollowsRepository {
     .count()
     .first<{ count: number }>();
 
-  private parseFollow = (follow: FollowQuery): Follow =>
+  private parseFollow = (follow: IFollowQuery): Follow =>
     new Follow({
       id: follow.follow_id,
       createdAt: follow.follow_createdAt,
@@ -178,7 +178,7 @@ export default class FollowsRepository implements IFollowsRepository {
     const createdFollow = (await this.baseSelectQuery
       .clone()
       .where({ 'follows.id': id })
-      .first()) as FollowQuery;
+      .first()) as IFollowQuery;
 
     return this.parseFollow(createdFollow);
   }

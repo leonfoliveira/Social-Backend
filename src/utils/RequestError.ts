@@ -14,6 +14,7 @@ export default class RequestError extends Error {
   static TARGET_NOT_FOUND = new RequestError(404, 'target not found');
   static FOLLOW_NOT_FOUND = new RequestError(404, 'follow not found');
   static LIKE_NOT_FOUND = new RequestError(404, 'like not found');
+  static COMMENT_NOT_FOUND = new RequestError(404, 'comment not found');
 
   static INVALID_CREDENTIAL = new RequestError(
     401,
@@ -57,6 +58,16 @@ export default class RequestError extends Error {
   static DELETE_LIKE_NOT_OWNER = new RequestError(
     403,
     "cannot delete other user's like",
+  );
+
+  static UPDATE_COMMENT_NOT_OWNER = new RequestError(
+    403,
+    "cannot update other user's comment",
+  );
+
+  static DELETE_COMMENT_NOT_OWNER = new RequestError(
+    403,
+    "cannot delete other user's comment",
   );
 
   static EMPTY_CREATE_BODY = new RequestError(400, 'empty create body');

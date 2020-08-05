@@ -11,6 +11,7 @@ export default class Comment {
   public text!: string;
 
   public createdAt!: Date;
+  public updatedAt!: Date;
 
   constructor(props: Partial<Comment>) {
     Object.assign(this, props);

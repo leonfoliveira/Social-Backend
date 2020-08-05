@@ -913,3 +913,247 @@ Developed just for academic reasons by a junior developer with little experience
 ```
 
 </details>
+
+---
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/comments &nbsp; • &nbsp; Get a list of all comments</summary>
+
+### **Request**
+
+```json
+"query": {
+    "page": "<number integer positive optional default=1> [Page]",
+    "per-page": "<number integer positive optional max=30 default=10> [Posts per page]",
+    "user-id": "<string optional> [User id]",
+    "post-id": "<string optional> [Post id]"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": [
+    {
+        "id": "<string> [Comment id]",
+        "text": "<string> [Comment text]",
+        "user": {
+            "id": "<string> [User id]",
+            "name": "<string> [User name]",
+            "tag": "<string> [User tag]",
+            "image": "<string> [User image url]",
+            "createdAt": "<Date> [User date/time of creation]",
+            "updatedAt": "<Date> [User date/time of last update]"
+        },
+        "post": {
+            "id": "<string> [Post id]",
+            "text": "<string> [Post text]",
+            "image": "<string> [Post image]",
+            "author": {
+                "id": "<string> [User author id]",
+                "name": "<string> [User author name]",
+                "tag": "<string> [User author tag]",
+                "image": "<string> [User author image url]",
+                "createdAt": "<Date> [User author date/time of creation]",
+                "updatedAt": "<Date> [User author date/time of last update]"
+            },
+            "createdAt": "<Date> [Post date/time of creation]",
+            "updatedAt": "<Date> [Post date/time of last update]"
+        },
+        "createdAt": "<Date> [Comment date/time of creation]",
+        "updatedAt": "<Date> [Comment date/time of last update]"
+    }
+]
+```
+
+</details>
+
+<details>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/comments/:id &nbsp; • &nbsp; Get data from a specific comment searching for it's id</summary>
+
+### **Request**
+
+```json
+"params": {
+    "id": "<string required> [Comment id]"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+"body": {
+    "id": "<string> [Comment id]",
+    "text": "<string> [Comment text]",
+    "user": {
+        "id": "<string> [User id]",
+        "name": "<string> [User name]",
+        "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
+        "createdAt": "<Date> [User date/time of creation]",
+        "updatedAt": "<Date> [User date/time of last update]"
+    },
+    "post": {
+        "id": "<string> [Post id]",
+        "text": "<string> [Post text]",
+        "image": "<string> [Post image]",
+        "author": {
+            "id": "<string> [User author id]",
+            "name": "<string> [User author name]",
+            "tag": "<string> [User author tag]",
+            "image": "<string> [User author image url]",
+            "createdAt": "<Date> [User author date/time of creation]",
+            "updatedAt": "<Date> [User author date/time of last update]"
+        },
+        "createdAt": "<Date> [Post date/time of creation]",
+        "updatedAt": "<Date> [Post date/time of last update]"
+    },
+    "createdAt": "<Date> [Comment date/time of creation]",
+    "updatedAt": "<Date> [Comment date/time of last update]"
+}
+```
+
+</details>
+
+<details>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/comments :lock: &nbsp; • &nbsp; Create a new comment with the data provided and user from authentication</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+
+"body": {
+    "text": "<string max=256 optional> [Comment text]",
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+"body": {
+    "id": "<string> [Comment id]",
+    "text": "<string> [Comment text]",
+    "user": {
+        "id": "<string> [User id]",
+        "name": "<string> [User name]",
+        "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
+        "createdAt": "<Date> [User date/time of creation]",
+        "updatedAt": "<Date> [User date/time of last update]"
+    },
+    "post": {
+        "id": "<string> [Post id]",
+        "text": "<string> [Post text]",
+        "image": "<string> [Post image]",
+        "author": {
+            "id": "<string> [User author id]",
+            "name": "<string> [User author name]",
+            "tag": "<string> [User author tag]",
+            "image": "<string> [User author image url]",
+            "createdAt": "<Date> [User author date/time of creation]",
+            "updatedAt": "<Date> [User author date/time of last update]"
+        },
+        "createdAt": "<Date> [Post date/time of creation]",
+        "updatedAt": "<Date> [Post date/time of last update]"
+    },
+    "createdAt": "<Date> [Comment date/time of creation]",
+    "updatedAt": "<Date> [Comment date/time of last update]"
+}
+```
+
+</details>
+
+<details>
+<summary><b>PUT</b> &nbsp; • &nbsp; /api/comments/:id :lock: &nbsp; • &nbsp; Update a comment with the data provided</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+
+"params": {
+    "id": "<string required> [Comment id]"
+}
+
+"body": {
+    "text": "<string max=256 required> [Comment text]",
+}
+```
+
+### **Response**
+
+**Code** : `201 CREATED`
+
+```json
+"body": {
+    "id": "<string> [Comment id]",
+    "text": "<string> [Comment text]",
+    "user": {
+        "id": "<string> [User id]",
+        "name": "<string> [User name]",
+        "tag": "<string> [User tag]",
+        "image": "<string> [User image url]",
+        "createdAt": "<Date> [User date/time of creation]",
+        "updatedAt": "<Date> [User date/time of last update]"
+    },
+    "post": {
+        "id": "<string> [Post id]",
+        "text": "<string> [Post text]",
+        "image": "<string> [Post image]",
+        "author": {
+            "id": "<string> [User author id]",
+            "name": "<string> [User author name]",
+            "tag": "<string> [User author tag]",
+            "image": "<string> [User author image url]",
+            "createdAt": "<Date> [User author date/time of creation]",
+            "updatedAt": "<Date> [User author date/time of last update]"
+        },
+        "createdAt": "<Date> [Post date/time of creation]",
+        "updatedAt": "<Date> [Post date/time of last update]"
+    },
+    "createdAt": "<Date> [Comment date/time of creation]",
+    "updatedAt": "<Date> [Comment date/time of last update]"
+}
+```
+
+</details>
+
+<details>
+<summary><b>DELETE</b> &nbsp; • &nbsp; /api/comments/:id :lock: &nbsp; • &nbsp; Delete a comment searching for its id</summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+
+"params": {
+    "id": "<string required> [Comment id]"
+},
+
+"header": {
+    "authorization": "<string bearer token required> [Bearer JWT token]"
+},
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+
+```
+
+</details>

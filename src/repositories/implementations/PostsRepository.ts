@@ -2,7 +2,7 @@ import IPostsRepository from '../IPostsRepository';
 import Post from '../../entities/Post';
 import knex from '../../database';
 
-interface PostQuery {
+interface IPostQuery {
   post_id: string;
   post_text: string;
   post_image: string;
@@ -45,7 +45,7 @@ export default class PostsRepository implements IPostsRepository {
 
   private baseSelectQuery = this.baseQuery
     .clone()
-    .select<PostQuery[]>([
+    .select<IPostQuery[]>([
       'posts.id as post_id',
       'posts.text as post_text',
       'posts.image as post_image',
@@ -66,7 +66,7 @@ export default class PostsRepository implements IPostsRepository {
     .count()
     .first<{ count: number }>();
 
-  private parsePost = (post: PostQuery): Post =>
+  private parsePost = (post: IPostQuery): Post =>
     new Post({
       id: post.post_id,
       text: post.post_text,
@@ -238,7 +238,7 @@ export default class PostsRepository implements IPostsRepository {
     const createdPost = (await this.baseSelectQuery
       .clone()
       .where({ 'posts.id': id })
-      .first()) as PostQuery;
+      .first()) as IPostQuery;
 
     return this.parsePost(createdPost);
   }
@@ -254,7 +254,7 @@ export default class PostsRepository implements IPostsRepository {
     const updatedPost = (await this.baseSelectQuery
       .clone()
       .where({ 'posts.id': id })
-      .first()) as PostQuery;
+      .first()) as IPostQuery;
 
     return this.parsePost(updatedPost);
   }

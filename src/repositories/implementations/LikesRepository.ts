@@ -2,7 +2,7 @@ import ILikesRepository from '../ILikesRepository';
 import Like from '../../entities/Like';
 import knex from '../../database';
 
-interface LikeQuery {
+interface ILikeQuery {
   like_id: string;
   like_createdAt: Date;
   user_id: string;
@@ -39,7 +39,7 @@ export default class LikesRepository implements ILikesRepository {
 
   private baseSelectQuery = this.baseQuery
     .clone()
-    .select<LikeQuery[]>([
+    .select<ILikeQuery[]>([
       'likes.id as like_id',
       'likes.createdAt as like_createdAt',
       'user.id as user_id',
@@ -66,7 +66,7 @@ export default class LikesRepository implements ILikesRepository {
     .count()
     .first<{ count: number }>();
 
-  private parseLike = (like: LikeQuery): Like =>
+  private parseLike = (like: ILikeQuery): Like =>
     new Like({
       id: like.like_id,
       createdAt: like.like_createdAt,
@@ -198,7 +198,7 @@ export default class LikesRepository implements ILikesRepository {
     const createdLike = (await this.baseSelectQuery
       .clone()
       .where({ 'likes.id': id })
-      .first()) as LikeQuery;
+      .first()) as ILikeQuery;
 
     return this.parseLike(createdLike);
   }

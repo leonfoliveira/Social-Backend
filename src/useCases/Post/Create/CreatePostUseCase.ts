@@ -17,7 +17,7 @@ export default class CreatePostUseCase {
 
     const post = new Post({
       ...data,
-      author: author,
+      author,
       image: data.image?.replace('public', 'static'),
     });
 

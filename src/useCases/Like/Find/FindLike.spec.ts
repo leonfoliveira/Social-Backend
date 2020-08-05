@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../app';
 import knex from '../../../database';
 
-describe('Find Follow', () => {
+describe('Find Like', () => {
   let userId: string;
   let postId: string;
 

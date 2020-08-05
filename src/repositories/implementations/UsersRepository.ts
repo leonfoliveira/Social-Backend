@@ -2,7 +2,7 @@ import IUsersRepository from '../IUsersRepository';
 import User from '../../entities/User';
 import knex from '../../database';
 
-interface UserQuery {
+interface IUserQuery {
   id: string;
   email?: string;
   name: string;
@@ -61,7 +61,7 @@ export default class UsersRepository implements IUsersRepository {
 
   private baseSelectQuery = this.baseQuery
     .clone()
-    .select<UserQuery[]>([
+    .select<IUserQuery[]>([
       'users.id',
       'users.email',
       'users.name',
@@ -80,7 +80,7 @@ export default class UsersRepository implements IUsersRepository {
     .count()
     .first<{ count: number }>();
 
-  private parseUser = (user: UserQuery): User =>
+  private parseUser = (user: IUserQuery): User =>
     new User({
       ...user,
       followers: user.followers ? parseInt(user.followers, 10) : 0,
@@ -199,12 +199,12 @@ export default class UsersRepository implements IUsersRepository {
     const [id] = await knex
       .insert(user)
       .into('users')
-      .returning<UserQuery[]>('id');
+      .returning<IUserQuery[]>('id');
 
     const createdUser = (await this.baseSelectQuery
       .clone()
       .where({ 'users.id': id })
-      .first()) as UserQuery;
+      .first()) as IUserQuery;
 
     return this.parseUser(createdUser);
   }
@@ -224,7 +224,7 @@ export default class UsersRepository implements IUsersRepository {
     const updatedUser = (await this.baseSelectQuery
       .clone()
       .where({ 'users.id': id })
-      .first()) as UserQuery;
+      .first()) as IUserQuery;
 
     return this.parseUser(updatedUser);
   }
