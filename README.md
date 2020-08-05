@@ -737,7 +737,7 @@ Developed just for academic reasons by a junior developer with little experience
 ---
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/likes &nbsp; • &nbsp; Get list of all likes</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/post-likes &nbsp; • &nbsp; Get list of all post-likes</summary>
 
 ### **Request**
 
@@ -757,7 +757,7 @@ Developed just for academic reasons by a junior developer with little experience
 ```json
 "body": [
     {
-        "id": "<string> [Like id]",
+        "id": "<string> [Post-Like id]",
         "user": {
             "id": "<string> [User id]",
             "name": "<string> [User name]",
@@ -781,7 +781,7 @@ Developed just for academic reasons by a junior developer with little experience
             "createdAt": "<Date> [Post date/time of creation]",
             "updatedAt": "<Date> [Post date/time of last update]"
         },
-        "createdAt": "<Date> [Like date/time of creation]",
+        "createdAt": "<Date> [Post-Like date/time of creation]",
     }
 ]
 ```
@@ -789,7 +789,7 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
-<summary><b>GET</b> &nbsp; • &nbsp; /api/likes/:userId/:postId &nbsp; • &nbsp; Get data from a specific like</summary>
+<summary><b>GET</b> &nbsp; • &nbsp; /api/post-likes/:userId/:postId &nbsp; • &nbsp; Get data from a specific post-like</summary>
 
 ### **Request**
 
@@ -806,7 +806,7 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string> [Like id]",
+    "id": "<string> [Post-Like id]",
     "user": {
         "id": "<string> [User id]",
         "name": "<string> [User name]",
@@ -830,14 +830,14 @@ Developed just for academic reasons by a junior developer with little experience
         "createdAt": "<Date> [Post date/time of creation]",
         "updatedAt": "<Date> [Post date/time of last update]"
     },
-    "createdAt": "<Date> [Like date/time of creation]",
+    "createdAt": "<Date> [Post-Like date/time of creation]",
 }
 ```
 
 </details>
 
 <details>
-<summary><b>POST</b> &nbsp; • &nbsp; /api/likes :lock: &nbsp; • &nbsp; Create a new like from the user authenticated to a post provided</summary>
+<summary><b>POST</b> &nbsp; • &nbsp; /api/post-likes :lock: &nbsp; • &nbsp; Create a new post-like from the user authenticated to a post provided</summary>
 
 ### **Request**
 
@@ -857,7 +857,7 @@ Developed just for academic reasons by a junior developer with little experience
 
 ```json
 "body": {
-    "id": "<string> [Like id]",
+    "id": "<string> [Post-Like id]",
     "user": {
         "id": "<string> [User id]",
         "name": "<string> [User name]",
@@ -881,7 +881,7 @@ Developed just for academic reasons by a junior developer with little experience
         "createdAt": "<Date> [Post date/time of creation]",
         "updatedAt": "<Date> [Post date/time of last update]"
     },
-    "createdAt": "<Date> [Like date/time of creation]",
+    "createdAt": "<Date> [Post-Like date/time of creation]",
 }
 ```
 
@@ -890,7 +890,7 @@ Developed just for academic reasons by a junior developer with little experience
 </details>
 
 <details>
-<summary><b>DELETE</b> &nbsp; • &nbsp; /api/likes/:id :lock: &nbsp; • &nbsp; Delete a like searching for its id</summary>
+<summary><b>DELETE</b> &nbsp; • &nbsp; /api/post-likes/:id :lock: &nbsp; • &nbsp; Delete a post-like searching for its id</summary>
 
 ### **Request**
 

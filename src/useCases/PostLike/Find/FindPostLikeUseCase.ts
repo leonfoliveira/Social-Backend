@@ -1,19 +1,19 @@
-import LikesRepository from '../../../repositories/implementations/LikesRepository';
+import PostLikesRepository from '../../../repositories/implementations/PostLikesRepository';
 import UsersRepository from '../../../repositories/implementations/UsersRepository';
 import PostsRepository from '../../../repositories/implementations/PostsRepository';
-import IFindLikeDTO from './FindLikeDTO';
-import Like from '../../../entities/Like';
+import IFindPostLikeDTO from './FindPostLikeDTO';
+import PostLike from '../../../entities/PostLike';
 
 import RequestError from '../../../utils/RequestError';
 
-export default class FindLikeUseCase {
+export default class FindPostLikeUseCase {
   constructor(
-    private likesRepository: LikesRepository,
+    private postlikesRepository: PostLikesRepository,
     private usersRepository: UsersRepository,
     private postsRepository: PostsRepository,
   ) {}
 
-  async execute(data: IFindLikeDTO): Promise<Like | void> {
+  async execute(data: IFindPostLikeDTO): Promise<PostLike | void> {
     const user = await this.usersRepository.findById(data.userId);
     const post = await this.postsRepository.findById(data.postId);
 
@@ -25,15 +25,15 @@ export default class FindLikeUseCase {
       throw RequestError.POST_NOT_FOUND;
     }
 
-    const like = await this.likesRepository.findByPair(
+    const postlike = await this.postlikesRepository.findByPair(
       data.userId,
       data.postId,
     );
 
-    if (!like) {
+    if (!postlike) {
       throw RequestError.LIKE_NOT_FOUND;
     }
 
-    return like;
+    return postlike;
   }
 }

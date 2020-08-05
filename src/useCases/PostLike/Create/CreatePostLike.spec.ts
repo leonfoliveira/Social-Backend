@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../app';
 import knex from '../../../database';
 
-describe('Create Follow', () => {
+describe('Create PostLike', () => {
   let authorization: string;
   let userId: string;
   let postId: string;
@@ -22,7 +22,7 @@ describe('Create Follow', () => {
       .select('id')
       .from('posts')
       .whereNotIn('id', function () {
-        this.select('postId').from('likes').where({ userId });
+        this.select('postId').from('post_likes').where({ userId });
       })
       .first();
     postId = post.id;
@@ -35,7 +35,7 @@ describe('Create Follow', () => {
 
   it('Should be able to create a new like', async () => {
     const response = await request(app)
-      .post('/api/likes')
+      .post('/api/post-likes')
       .send({
         postId,
       })

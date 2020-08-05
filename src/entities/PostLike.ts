@@ -2,7 +2,7 @@ import { uuid } from 'uuidv4';
 import User from './User';
 import Post from './Post';
 
-export default class Like {
+export default class PostLike {
   public readonly id!: string;
 
   public user!: Partial<User>;
@@ -10,7 +10,7 @@ export default class Like {
 
   public createdAt!: Date;
 
-  constructor(props: Partial<Like>) {
+  constructor(props: Partial<PostLike>) {
     Object.assign(this, props);
 
     if (!props.id) {

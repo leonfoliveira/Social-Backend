@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import CreateLikeUseCase from './CreateLikeUseCase';
+import CreatePostLikeUseCase from './CreatePostLikeUseCase';
 
-export default class CreateLikeController {
-  constructor(private createLikeUseCase: CreateLikeUseCase) {}
+export default class CreatePostLikeController {
+  constructor(private createPostLikeUseCase: CreatePostLikeUseCase) {}
 
   async handle(
     request: Request,
@@ -15,12 +15,12 @@ export default class CreateLikeController {
     const { id: userId } = JSON.parse(authorization as string);
 
     try {
-      const like = await this.createLikeUseCase.execute({
+      const postLike = await this.createPostLikeUseCase.execute({
         userId,
         postId,
       });
 
-      return response.status(201).send(like);
+      return response.status(201).send(postLike);
     } catch (error) {
       return next(error);
     }

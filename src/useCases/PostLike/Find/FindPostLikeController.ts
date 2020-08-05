@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import FindLikeUseCase from './FindLikeUseCase';
+import FindPostLikeUseCase from './FindPostLikeUseCase';
 
-export default class FindLikeController {
-  constructor(private findLikeUseCase: FindLikeUseCase) {}
+export default class FindPostLikeController {
+  constructor(private findPostLikeUseCase: FindPostLikeUseCase) {}
 
   async handle(
     request: Request,
@@ -12,12 +12,12 @@ export default class FindLikeController {
     const { userId, postId } = request.params;
 
     try {
-      const like = await this.findLikeUseCase.execute({
+      const postlike = await this.findPostLikeUseCase.execute({
         userId,
         postId,
       });
 
-      return response.send(like);
+      return response.send(postlike);
     } catch (error) {
       return next(error);
     }

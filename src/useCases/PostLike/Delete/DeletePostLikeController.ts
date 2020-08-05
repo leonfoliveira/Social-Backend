@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import DeleteLikeUseCase from './DeleteLikeUseCase';
+import DeletePostLikeUseCase from './DeletePostLikeUseCase';
 
-export default class DeleteLikeController {
-  constructor(private deleteLikeUseCase: DeleteLikeUseCase) {}
+export default class DeletePostLikeController {
+  constructor(private deletePostLikeUseCase: DeletePostLikeUseCase) {}
 
   async handle(
     request: Request,
@@ -15,7 +15,7 @@ export default class DeleteLikeController {
     const { id: authId } = JSON.parse(authorization as string);
 
     try {
-      await this.deleteLikeUseCase.execute({
+      await this.deletePostLikeUseCase.execute({
         authId,
         id,
       });

@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../app';
 import knex from '../../../database';
 
-describe('Delete Follow', () => {
+describe('Delete PostLike', () => {
   let authorization: string;
   let userId: string;
   let likeId: string;
@@ -20,7 +20,7 @@ describe('Delete Follow', () => {
 
     const like = await knex
       .select('id')
-      .from('likes')
+      .from('post_likes')
       .where({
         userId,
       })
@@ -35,7 +35,7 @@ describe('Delete Follow', () => {
 
   it('Should be able to delete a like', async () => {
     const response = await request(app)
-      .delete(`/api/likes/${likeId}`)
+      .delete(`/api/post-likes/${likeId}`)
       .send()
       .set('authorization', authorization);
 

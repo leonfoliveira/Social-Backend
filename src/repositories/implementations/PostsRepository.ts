@@ -27,7 +27,7 @@ export default class PostsRepository implements IPostsRepository {
       knex
         .select('postId')
         .count('* as likes')
-        .from('likes as likes_counter')
+        .from('post_likes as likes_counter')
         .innerJoin(
           'users as likes_counter_user',
           'likes_counter_user.id',
@@ -198,7 +198,7 @@ export default class PostsRepository implements IPostsRepository {
         knex
           .select('postId')
           .count('* as last_likes')
-          .from('likes as last_likes_counter')
+          .from('post_likes as last_likes_counter')
           .innerJoin(
             'users as last_likes_counter_user',
             'last_likes_counter_user.id',

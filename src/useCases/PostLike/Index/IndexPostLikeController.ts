@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import IndexLikeUseCase from './IndexLikeUseCase';
+import IndexPostLikeUseCase from './IndexPostLikeUseCase';
 
-export default class IndexLikeController {
-  constructor(private indexLikeUseCase: IndexLikeUseCase) {}
+export default class IndexPostLikeController {
+  constructor(private indexPostLikeUseCase: IndexPostLikeUseCase) {}
 
   async handle(
     request: Request,
@@ -15,7 +15,11 @@ export default class IndexLikeController {
     const postId = request.query['post-id'];
 
     try {
-      const { likes, count, pages } = await this.indexLikeUseCase.execute({
+      const {
+        postLikes,
+        count,
+        pages,
+      } = await this.indexPostLikeUseCase.execute({
         page: parseInt(page as string, 10),
         perPage: parseInt(perPage as string, 10),
         userId: userId as string | undefined,
@@ -25,7 +29,7 @@ export default class IndexLikeController {
       response.header('X-Total-Count', count.toString());
       response.header('X-Total-Pages', pages.toString());
 
-      return response.send(likes);
+      return response.send(postLikes);
     } catch (error) {
       return next(error);
     }

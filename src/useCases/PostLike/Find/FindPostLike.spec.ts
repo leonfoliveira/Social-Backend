@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../app';
 import knex from '../../../database';
 
-describe('Find Like', () => {
+describe('Find PostLike', () => {
   let userId: string;
   let postId: string;
 
@@ -15,7 +15,7 @@ describe('Find Like', () => {
 
     const like = await knex
       .select('postId')
-      .from('likes')
+      .from('post_likes')
       .where({
         userId,
       })
@@ -30,7 +30,7 @@ describe('Find Like', () => {
 
   it('Should be able to delete a like', async () => {
     const response = await request(app)
-      .get(`/api/likes/${userId}/${postId}`)
+      .get(`/api/post-likes/${userId}/${postId}`)
       .send();
 
     expect(response.status).toBe(200);

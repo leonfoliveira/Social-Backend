@@ -22,7 +22,7 @@ describe('Create Comment', () => {
       .select('id')
       .from('posts')
       .whereNotIn('id', function () {
-        this.select('postId').from('likes').where({ userId });
+        this.select('postId').from('post_likes').where({ userId });
       })
       .first();
     postId = post.id;

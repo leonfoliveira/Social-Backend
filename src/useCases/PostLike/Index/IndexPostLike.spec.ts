@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../../app';
 import knex from '../../../database';
 
-describe('Index Like', () => {
+describe('Index PostLike', () => {
   let userId: string;
   let postId: string;
 
@@ -23,14 +23,14 @@ describe('Index Like', () => {
   });
 
   it('Should be able to get the index of likes', async () => {
-    const response = await request(app).get(`/api/likes`).send();
+    const response = await request(app).get(`/api/post-likes`).send();
 
     expect(response.status).toBe(200);
   });
 
   it('Should be able to get the index of likes by user', async () => {
     const response = await request(app)
-      .get(`/api/likes?user-id=${userId}`)
+      .get(`/api/post-likes?user-id=${userId}`)
       .send();
 
     expect(response.status).toBe(200);
@@ -38,7 +38,7 @@ describe('Index Like', () => {
 
   it('Should be able to get the index of likes by post', async () => {
     const response = await request(app)
-      .get(`/api/likes?post-id=${postId}`)
+      .get(`/api/post-likes?post-id=${postId}`)
       .send();
 
     expect(response.status).toBe(200);
@@ -46,7 +46,7 @@ describe('Index Like', () => {
 
   it('Should NOT be able to get the index of likes by user and post', async () => {
     const response = await request(app)
-      .get(`/api/likes?user-id=${userId}&post-id=${postId}`)
+      .get(`/api/post-likes?user-id=${userId}&post-id=${postId}`)
       .send();
 
     expect(response.status).toBe(400);

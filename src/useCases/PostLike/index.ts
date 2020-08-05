@@ -3,10 +3,10 @@ import { celebrate, Joi, Segments } from 'celebrate';
 
 import authParser from '../../middlewares/authParser';
 
-import { indexLikeController } from './Index';
-import { findLikeController } from './Find';
-import { createLikeController } from './Create';
-import { deleteLikeController } from './Delete';
+import { indexPostLikeController } from './Index';
+import { findPostLikeController } from './Find';
+import { createPostLikeController } from './Create';
+import { deletePostLikeController } from './Delete';
 
 const router = Router();
 
@@ -21,7 +21,7 @@ router.get(
     }).oxor('user-id', 'post-id'),
   }),
   async (request: Request, response: Response, next: NextFunction) =>
-    await indexLikeController.handle(request, response, next),
+    await indexPostLikeController.handle(request, response, next),
 );
 
 router.get(
@@ -33,7 +33,7 @@ router.get(
     },
   }),
   async (request: Request, response: Response, next: NextFunction) =>
-    await findLikeController.handle(request, response, next),
+    await findPostLikeController.handle(request, response, next),
 );
 
 router.post(
@@ -48,7 +48,7 @@ router.post(
   }),
   authParser,
   async (request: Request, response: Response, next: NextFunction) =>
-    await createLikeController.handle(request, response, next),
+    await createPostLikeController.handle(request, response, next),
 );
 
 router.delete(
@@ -63,7 +63,7 @@ router.delete(
   }),
   authParser,
   async (request: Request, response: Response, next: NextFunction) =>
-    await deleteLikeController.handle(request, response, next),
+    await deletePostLikeController.handle(request, response, next),
 );
 
 export default router;
