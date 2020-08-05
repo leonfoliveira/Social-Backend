@@ -9,6 +9,7 @@ interface IPostQuery {
   post_createdAt: Date;
   post_updatedAt: Date;
   likes: string;
+  comments: string;
   author_id: string;
   author_email: string;
   author_name: string;
@@ -41,6 +42,25 @@ export default class PostsRepository implements IPostsRepository {
       'likes_counter.postId',
       'posts.id',
     )
+    .leftJoin(
+      knex
+        .select('postId')
+        .count('* as comments')
+        .from('comments as comments_counter')
+        .innerJoin(
+          'users as comments_counter_user',
+          'comments_counter_user.id',
+          'comments_counter.userId',
+        )
+        .where({
+          'comments_counter.deletedAt': null,
+          'comments_counter_user.deletedAt': null,
+        })
+        .groupBy('postId')
+        .as('comments_counter'),
+      'comments_counter.postId',
+      'posts.id',
+    )
     .where({ 'posts.deletedAt': null, 'author.deletedAt': null });
 
   private baseSelectQuery = this.baseQuery
@@ -50,6 +70,7 @@ export default class PostsRepository implements IPostsRepository {
       'posts.text as post_text',
       'posts.image as post_image',
       'likes',
+      'comments',
       'posts.createdAt as post_createdAt',
       'posts.updatedAt as post_updatedAt',
       'author.id as author_id',
@@ -70,8 +91,9 @@ export default class PostsRepository implements IPostsRepository {
     new Post({
       id: post.post_id,
       text: post.post_text,
-      likes: post.likes ? parseInt(post.likes, 10) : 0,
       image: post.post_image,
+      likes: post.likes ? parseInt(post.likes, 10) : 0,
+      comments: post.comments ? parseInt(post.comments, 10) : 0,
       createdAt: post.post_createdAt,
       updatedAt: post.post_updatedAt,
       author: {

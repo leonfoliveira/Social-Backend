@@ -10,6 +10,7 @@ export default class Post {
   public image!: string;
 
   public likes!: number;
+  public comments!: number;
 
   public createdAt!: Date;
   public updatedAt!: Date;
@@ -23,6 +24,10 @@ export default class Post {
 
     if (!props.likes) {
       this.likes = 0;
+    }
+
+    if (!props.comments) {
+      this.comments = 0;
     }
   }
 }
