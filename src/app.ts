@@ -1,9 +1,10 @@
 import 'dotenv/config';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
 
 import errorHandlerMiddleware from './middlewares/errorHandler';
 
@@ -27,6 +28,10 @@ app.use(limiter);
 app.use('/static', express.static('public'));
 
 app.use('/api', router);
+
+app.get('/', (_req: Request, res: Response) =>
+  res.sendFile(path.resolve(__dirname, 'views/index.html')),
+);
 
 app.use(errorHandlerMiddleware);
 
