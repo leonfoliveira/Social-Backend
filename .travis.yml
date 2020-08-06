@@ -3,19 +3,16 @@ node_js:
   - 12
 services:
   - docker
+env:
+  - DOCKER_COMPOSE_VERSION=1.26.2
 before_install:
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - docker-compose up -d
-env:
-  global:
-    - DOCKER_COMPOSE_VERSION=3.8
-    - NODE_ENV=production
-    - PORT=4000
-    - DB_DIALECT=postgresql
-    - DB_HOST=db
-    secure: KsBHkge2PABGexcHimZlsHc09jaLtbLr/cHKvtv+S4EE7tX0M+8DB/9EWTBvD5pQKRSYCFk3D/nmFMkQ80zqyOTaWyoj09g46OIBI2JYJBoT/2uNcksTzXZs2zktUoy5yep+SkfMMe8n2RRwbI0KJC0aAeHG0udMEd2+Wy2lxgdtx+9FYWfWpOQ8iHhHJ46uUp0fMJLCtLLVOIUgd79pEq9tEIHdxW78HpopPJ+p+SjclQY63ISsnbIbNX3p2CW45/9xfG/ctEpigZ7wSUqibMqYBsUx6wXmBiYlcjjC0ax37aU9GRy+k6jAua4NEsKrSpRCpX9SyK1XmdXBDHyHxgO8/PilWXtoSRk6z76r1lQQ+jxLLCBzpStNp52QGiVYClYxKZSL6djZCgySmDJ0kasOyg1rsZ7yAqdDRi8dNCzZRV3c8S3dY5K3PooR481Li3tEZnp/+wmx1PNtXglwfCOOfXcNlBmAth+AlNBAvdi7gFRQB/75knOpAUtGtQABNmPkyqOCR79G6lH77vx4KJdV0LS4HYFI+giNzqkOaTPd/X3Cs1imHpYTiPy21ko6tX0GwT8d+Au4Kqp3yV+qNW/0BSNuYQkZMw2QxicUwUb7g5RifTViRC/bQUWJyBqUcdNumQxAQf2vrdvcmLBUEnLk01lhdwye7rS8zdDAKFA=
+before_script:
+  - docker-compose up -d --build
 scripts:
-  - bundle exec yarn test
+  - docker-compose exec app yarn test
+after_script:
+  - docker-compose down
