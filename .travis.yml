@@ -1,8 +1,17 @@
 language: node_js
 node_js:
   - 12
-deploy:
-  api_key:
-    secure: tLAJOZnw3EYor7SKfDm6+q8b+xXxxE1A0JLB01DJgARFzMo+7Gu0GtxzWMDgxV5SsrY7drV1OWla1ZBwxQgNiW4lzU9EjsypQ6cPQUyx1q/kvhPTwGh/mRXBAQ+k7fH112cylIigIsiBfKri4GLKeuQ2GhprzapZH4dVwWLXbCzIDDYe2kcWA1VKDvg4HttNEdWLQUuKHM/g7SwAfpwIrPvNYKtDDCpp7BotadfvU4mKTOTpS4mf+WRWDYs+iy7KnJwQzE4p5hBz6+7QTocQO36BiqqlBJfcFPz8pSp0x1riePabQNU5x1+6Y4lpdcXpwDSXA3XIpRYn8OvyB8vmRdtqMz0BCnqQzuflS7gkDiYQ5uWqxNuh49KmLaJvEtVVvEuz4u0yUaaKQ+kBXYCgOUNI0RiXdrDYOCB9N1lo9gA0CGVYVQJd61WHAJ1mkztGpZ66l+Kd+ejXOcN4X2i/hqUdGGsnN0JqjKgvrO/04594vT5yKrDMDaoPseH1klSMwhuSZR/2QNySJ32MzUE9Hdosx0ZOuYCeC+jAqjt6fZrlUWHvg557bE1LgusSk5wmg3Wxa0e5fkHZgbUNP79i4G+RnNjwjzVJUqddukok5RZPFFRrYzWlNdABOK56f4OlfZL7UmQimTpy09hxA6OT8nZLRI72afT7IqRyUtr5XW0=
-  app: lfoliveira-social-api
-  run: 'yarn knex migrate:latest'
+services:
+  - docker
+before_install:
+  - docker-compose up -d
+env:
+  matrix:
+    - NODE_ENV=production
+    - PORT=4000
+    - DB_DIALECT=postgresql
+    - DB_HOST=db
+  global:
+    secure: KsBHkge2PABGexcHimZlsHc09jaLtbLr/cHKvtv+S4EE7tX0M+8DB/9EWTBvD5pQKRSYCFk3D/nmFMkQ80zqyOTaWyoj09g46OIBI2JYJBoT/2uNcksTzXZs2zktUoy5yep+SkfMMe8n2RRwbI0KJC0aAeHG0udMEd2+Wy2lxgdtx+9FYWfWpOQ8iHhHJ46uUp0fMJLCtLLVOIUgd79pEq9tEIHdxW78HpopPJ+p+SjclQY63ISsnbIbNX3p2CW45/9xfG/ctEpigZ7wSUqibMqYBsUx6wXmBiYlcjjC0ax37aU9GRy+k6jAua4NEsKrSpRCpX9SyK1XmdXBDHyHxgO8/PilWXtoSRk6z76r1lQQ+jxLLCBzpStNp52QGiVYClYxKZSL6djZCgySmDJ0kasOyg1rsZ7yAqdDRi8dNCzZRV3c8S3dY5K3PooR481Li3tEZnp/+wmx1PNtXglwfCOOfXcNlBmAth+AlNBAvdi7gFRQB/75knOpAUtGtQABNmPkyqOCR79G6lH77vx4KJdV0LS4HYFI+giNzqkOaTPd/X3Cs1imHpYTiPy21ko6tX0GwT8d+Au4Kqp3yV+qNW/0BSNuYQkZMw2QxicUwUb7g5RifTViRC/bQUWJyBqUcdNumQxAQf2vrdvcmLBUEnLk01lhdwye7rS8zdDAKFA=
+scripts:
+  - bundle exec yarn test
