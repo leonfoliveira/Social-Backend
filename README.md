@@ -92,6 +92,31 @@ A social network API based on twitter under development using solid design and c
 
 </details>
 
+<details>
+<summary><b>DELETE</b> &nbsp; • &nbsp; /api/sessions/:token :lock: &nbsp; • &nbsp; Revoke a token </summary>
+
+### **Request**
+
+```json
+"header": {
+    "authorization": "<string required> [Bearer JWT token]"
+},
+
+"params": {
+    "token": "<string> [JWT token]",
+}
+```
+
+### **Response**
+
+**Code** : `200 OK`
+
+```json
+
+```
+
+</details>
+
 ---
 
 <details>

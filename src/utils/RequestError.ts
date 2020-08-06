@@ -22,6 +22,11 @@ export default class RequestError extends Error {
   );
 
   static INVALID_TOKEN = new RequestError(401, 'invalid token');
+  static TOKEN_REVOKED = new RequestError(401, 'token revoked');
+  static REVOKE_OTHER_TOKEN = new RequestError(
+    403,
+    'cannot revoke other token that is not the authorized',
+  );
 
   static INVALID_FILE_EXTENSION = new RequestError(
     400,

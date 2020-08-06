@@ -5,6 +5,7 @@ import authParser from '../../middlewares/authParser';
 
 import { findSessionController } from './Find';
 import { createSessionController } from './Create';
+import { deleteSessionController } from './Delete';
 
 const router = Router();
 
@@ -30,6 +31,21 @@ router.post(
   }),
   async (request: Request, response: Response, next: NextFunction) =>
     await createSessionController.handle(request, response, next),
+);
+
+router.delete(
+  '/:token',
+  celebrate({
+    [Segments.HEADERS]: Joi.object({
+      authorization: Joi.string().required(),
+    }).unknown(),
+    [Segments.PARAMS]: {
+      token: Joi.string().required(),
+    },
+  }),
+  authParser,
+  async (request: Request, response: Response, next: NextFunction) =>
+    await deleteSessionController.handle(request, response, next),
 );
 
 export default router;
