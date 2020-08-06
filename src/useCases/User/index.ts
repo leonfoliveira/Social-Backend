@@ -81,12 +81,9 @@ router.post(
 );
 
 router.put(
-  '/:id',
+  '/',
   imageUpload,
   celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().max(36).required(),
-    },
     [Segments.HEADERS]: Joi.object({
       authorization: Joi.string().required(),
     }).unknown(),
@@ -102,11 +99,8 @@ router.put(
 );
 
 router.delete(
-  '/:id',
+  '/',
   celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().max(36).required(),
-    },
     [Segments.HEADERS]: Joi.object({
       authorization: Joi.string().required(),
     }).unknown(),

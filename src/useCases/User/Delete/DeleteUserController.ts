@@ -9,14 +9,12 @@ export default class DeleteUserController {
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> {
-    const { id } = request.params;
     const { authorization } = request.headers;
 
-    const { id: authId } = JSON.parse(authorization as string);
+    const { id } = JSON.parse(authorization as string);
 
     try {
       await this.deleteUserUseCase.execute({
-        authId,
         id,
       });
 

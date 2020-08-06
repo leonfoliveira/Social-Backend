@@ -93,7 +93,7 @@ A social network API based on twitter under development using solid design and c
 </details>
 
 <details>
-<summary><b>DELETE</b> &nbsp; • &nbsp; /api/sessions/:token :lock: &nbsp; • &nbsp; Revoke a token </summary>
+<summary><b>DELETE</b> &nbsp; • &nbsp; /api/sessions :lock: &nbsp; • &nbsp; Revoke the authorization token </summary>
 
 ### **Request**
 
@@ -101,10 +101,6 @@ A social network API based on twitter under development using solid design and c
 "header": {
     "authorization": "<string required> [Bearer JWT token]"
 },
-
-"params": {
-    "token": "<string> [JWT token]",
-}
 ```
 
 ### **Response**
@@ -224,15 +220,11 @@ A social network API based on twitter under development using solid design and c
 </details>
 
 <details>
-<summary><b>PUT</b> &nbsp; • &nbsp; /api/users/:id :lock: &nbsp; • &nbsp; Update a user searching for its id</summary>
+<summary><b>PUT</b> &nbsp; • &nbsp; /api/users :lock: &nbsp; • &nbsp; Update the authorized user</summary>
 
 ### **Request**
 
 ```json
-"params": {
-    "id": "<string required> [User id]"
-},
-
 "header": {
     "authorization": "<string bearer token required> [Bearer JWT token]"
 },
@@ -265,15 +257,11 @@ A social network API based on twitter under development using solid design and c
 </details>
 
 <details>
-<summary><b>DELETE</b> &nbsp; • &nbsp; /api/users/:id :lock: &nbsp; • &nbsp; Delete a user searching for its id</summary>
+<summary><b>DELETE</b> &nbsp; • &nbsp; /api/users :lock: &nbsp; • &nbsp; Delete the authorized user</summary>
 
 ### **Request**
 
 ```json
-"params": {
-    "id": "<string required> [User id]"
-},
-
 "header": {
     "authorization": "<string bearer token required> [Bearer JWT token]"
 },

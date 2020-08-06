@@ -9,17 +9,15 @@ export default class UpdateUserController {
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> {
-    const { id } = request.params;
     const { authorization } = request.headers;
     const { email, name, password } = request.body;
 
-    const { id: authId } = JSON.parse(authorization as string);
+    const { id } = JSON.parse(authorization as string);
 
     const file = request.file;
 
     try {
       const user = await this.updateUserUseCase.execute({
-        authId,
         id,
         email,
         name,

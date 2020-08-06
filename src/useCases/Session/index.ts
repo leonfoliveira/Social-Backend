@@ -34,14 +34,11 @@ router.post(
 );
 
 router.delete(
-  '/:token',
+  '/',
   celebrate({
     [Segments.HEADERS]: Joi.object({
       authorization: Joi.string().required(),
     }).unknown(),
-    [Segments.PARAMS]: {
-      token: Joi.string().required(),
-    },
   }),
   authParser,
   async (request: Request, response: Response, next: NextFunction) =>

@@ -9,13 +9,11 @@ export default class DeleteSessionController {
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> {
-    const { token } = request.params;
-    const { token: authToken } = request.headers;
+    const { token } = request.headers;
 
     try {
       await this.deleteSessionUseCase.execute({
-        authToken: authToken as string,
-        token,
+        token: token as string,
       });
 
       return response.send();
