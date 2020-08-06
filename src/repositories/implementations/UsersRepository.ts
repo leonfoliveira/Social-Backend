@@ -7,6 +7,7 @@ interface IUserQuery {
   email?: string;
   name: string;
   tag: string;
+  description: string;
   password: string;
   salt: string;
   image: string;
@@ -66,6 +67,7 @@ export default class UsersRepository implements IUsersRepository {
       'users.email',
       'users.name',
       'users.tag',
+      'users.description',
       'users.password',
       'users.salt',
       'users.image',

@@ -10,7 +10,7 @@ export default class UpdateUserController {
     next: NextFunction,
   ): Promise<Response | void> {
     const { authorization } = request.headers;
-    const { email, name, password } = request.body;
+    const { email, name, description, password } = request.body;
 
     const { id } = JSON.parse(authorization as string);
 
@@ -21,6 +21,7 @@ export default class UpdateUserController {
         id,
         email,
         name,
+        description,
         password,
         image: file?.path,
       });

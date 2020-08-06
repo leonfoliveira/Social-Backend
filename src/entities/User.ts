@@ -7,6 +7,7 @@ export default class User {
   public name!: string;
   public email!: string;
   public tag!: string;
+  public description!: string;
   public password!: string;
   public salt!: string;
 

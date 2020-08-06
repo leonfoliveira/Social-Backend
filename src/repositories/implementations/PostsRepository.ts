@@ -14,6 +14,7 @@ interface IPostQuery {
   author_email: string;
   author_name: string;
   author_tag: string;
+  author_description: string;
   author_image: string;
   author_createdAt: Date;
   author_updatedAt: Date;
@@ -78,6 +79,7 @@ export default class PostsRepository implements IPostsRepository {
       'author.email as author_email',
       'author.name as author_name',
       'author.tag as author_tag',
+      'author.description as author_description',
       'author.image as author_image',
       'author.createdAt as author_createdAt',
       'author.updatedAt as author_updatedAt',
@@ -101,6 +103,7 @@ export default class PostsRepository implements IPostsRepository {
         id: post.author_id,
         name: post.author_name,
         tag: post.author_tag,
+        description: post.author_description,
         image: post.author_image,
         createdAt: post.author_createdAt,
         updatedAt: post.author_updatedAt,

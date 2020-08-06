@@ -9,7 +9,7 @@ export default class CreateUserController {
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> {
-    const { email, tag, name, password } = request.body;
+    const { email, name, tag, description, password } = request.body;
 
     const file = request.file;
 
@@ -18,6 +18,7 @@ export default class CreateUserController {
         email,
         tag,
         name,
+        description,
         password,
         image: file?.path,
       });

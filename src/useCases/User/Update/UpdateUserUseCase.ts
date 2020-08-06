@@ -13,7 +13,13 @@ export default class UpdateUserUseCase {
   ): Promise<Omit<User, 'password' | 'salt'>> {
     const oldUser = (await this.usersRepository.findById(data.id)) as User;
 
-    if (!data.email && !data.name && !data.password && !data.image) {
+    if (
+      !data.email &&
+      !data.name &&
+      !data.description &&
+      !data.password &&
+      !data.image
+    ) {
       throw RequestError.EMPTY_UPDATE_BODY;
     }
 

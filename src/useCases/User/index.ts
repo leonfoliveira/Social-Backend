@@ -73,6 +73,7 @@ router.post(
       email: Joi.string().email().max(50).required(),
       name: Joi.string().max(50).required(),
       tag: Joi.string().alphanum().max(30).required(),
+      description: Joi.string().max(256).optional(),
       password: Joi.string().min(8).max(30).required(),
     },
   }),
@@ -90,6 +91,7 @@ router.put(
     [Segments.BODY]: {
       email: Joi.string().email().max(50).optional(),
       name: Joi.string().max(50).optional(),
+      description: Joi.string().max(256).optional(),
       password: Joi.string().min(8).max(30).optional(),
     },
   }),

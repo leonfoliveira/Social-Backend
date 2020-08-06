@@ -50,6 +50,7 @@ A social network API based on twitter under development using solid design and c
     "email": "<string> [User email]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
+    "description": "<string> [User description]",
     "image": "<string> [User image url]",
     "followers": "<number> [User followers count]",
     "following": "<number> [User following count]",
@@ -84,6 +85,7 @@ A social network API based on twitter under development using solid design and c
         "email": "<string> [User email]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "followers": "<number> [User followers count]",
         "following": "<number> [User following count]",
@@ -146,6 +148,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "followers": "<number> [User followers count]",
         "following": "<number> [User following count]",
@@ -177,6 +180,7 @@ A social network API based on twitter under development using solid design and c
     "id": "<string> [User id]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
+    "description": "<string> [User description]",
     "image": "<string> [User image url]",
     "followers": "<number> [User followers count]",
     "following": "<number> [User following count]",
@@ -212,6 +216,7 @@ A social network API based on twitter under development using solid design and c
     "email": "<string> [User email]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
+    "description": "<string> [User description]",
     "image": "<string> [User image url]",
     "followers": "<number> [User followers count]",
     "following": "<number> [User following count]",
@@ -249,6 +254,7 @@ A social network API based on twitter under development using solid design and c
     "email": "<string> [User email]",
     "name": "<string> [User name]",
     "tag": "<string> [User tag]",
+    "description": "<string> [User description]",
     "image": "<string> [User image url]",
     "followers": "<number> [User followers count]",
     "following": "<number> [User following count]",
@@ -308,6 +314,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "followers": "<number> [User followers count]",
         "following": "<number> [User following count]",
@@ -347,17 +354,19 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User follower id]",
             "name": "<string> [User follower name]",
             "tag": "<string> [User follower tag]",
+            "description": "<string> [User follower description]",
             "image": "<string> [User follower image url]",
             "createdAt": "<Date> [User follower date/time of creation]",
             "updatedAt": "<Date> [User follower date/time of last update]"
         },
         "target": {
-            "id": "<string> [User following id]",
-            "name": "<string> [User following name]",
-            "tag": "<string> [User following tag]",
-            "image": "<string> [User following image url]",
-            "createdAt": "<Date> [User following date/time of creation]",
-            "updatedAt": "<Date> [User following date/time of last update]"
+            "id": "<string> [User target id]",
+            "name": "<string> [User target name]",
+            "tag": "<string> [User target tag]",
+            "description": "<string> [User target description]",
+            "image": "<string> [User target image url]",
+            "createdAt": "<Date> [User target date/time of creation]",
+            "updatedAt": "<Date> [User target date/time of last update]"
         },
         "createdAt": "<Date> [Follow date/time of creation]",
     }
@@ -389,17 +398,19 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User follower id]",
         "name": "<string> [User follower name]",
         "tag": "<string> [User follower tag]",
+        "description": "<string> [User follower description]",
         "image": "<string> [User follower image url]",
         "createdAt": "<Date> [User follower date/time of creation]",
         "updatedAt": "<Date> [User follower date/time of last update]"
     },
     "target": {
-        "id": "<string> [User following id]",
-        "name": "<string> [User following name]",
-        "tag": "<string> [User following tag]",
-        "image": "<string> [User following image url]",
-        "createdAt": "<Date> [User following date/time of creation]",
-        "updatedAt": "<Date> [User following date/time of last update]"
+        "id": "<string> [User target id]",
+        "name": "<string> [User target name]",
+        "tag": "<string> [User target tag]",
+        "description": "<string> [User target description]",
+        "image": "<string> [User target image url]",
+        "createdAt": "<Date> [User target date/time of creation]",
+        "updatedAt": "<Date> [User target date/time of last update]"
     },
     "createdAt": "<Date> [Follow date/time of creation]",
 }
@@ -433,17 +444,19 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User follower id]",
         "name": "<string> [User follower name]",
         "tag": "<string> [User follower tag]",
+        "description": "<string> [User follower description]",
         "image": "<string> [User follower image url]",
         "createdAt": "<Date> [User follower date/time of creation]",
         "updatedAt": "<Date> [User follower date/time of last update]"
     },
     "target": {
-        "id": "<string> [User following id]",
-        "name": "<string> [User following name]",
-        "tag": "<string> [User following tag]",
-        "image": "<string> [User following image url]",
-        "createdAt": "<Date> [User following date/time of creation]",
-        "updatedAt": "<Date> [User following date/time of last update]"
+        "id": "<string> [User target id]",
+        "name": "<string> [User target name]",
+        "tag": "<string> [User target tag]",
+        "description": "<string> [User target description]",
+        "image": "<string> [User target image url]",
+        "createdAt": "<Date> [User target date/time of creation]",
+        "updatedAt": "<Date> [User target date/time of last update]"
     },
     "createdAt": "<Date> [Follow date/time of creation]",
 }
@@ -507,6 +520,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "description": "<string> [User author description]",
             "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
@@ -544,6 +558,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User author id]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
+        "description": "<string> [User author description]",
         "image": "<string> [User author image url]",
         "createdAt": "<Date> [User author date/time of creation]",
         "updatedAt": "<Date> [User author date/time of last update]"
@@ -586,6 +601,7 @@ A social network API based on twitter under development using solid design and c
         "email": "<string> [User email]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
+        "description": "<string> [User author description]",
         "image": "<string> [User author image url]",
         "createdAt": "<Date> [User author date/time of creation]",
         "updatedAt": "<Date> [User author date/time of last update]"
@@ -631,6 +647,7 @@ A social network API based on twitter under development using solid design and c
         "email": "<string> [User email]",
         "name": "<string> [User author name]",
         "tag": "<string> [User author tag]",
+        "description": "<string> [User author description]",
         "image": "<string> [User author image url]",
         "createdAt": "<Date> [User author date/time of creation]",
         "updatedAt": "<Date> [User author date/time of last update]"
@@ -702,6 +719,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "description": "<string> [User author description]",
             "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
@@ -742,6 +760,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "description": "<string> [User author description]",
             "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
@@ -782,6 +801,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User id]",
             "name": "<string> [User name]",
             "tag": "<string> [User tag]",
+            "description": "<string> [User description]",
             "image": "<string> [User image url]",
             "createdAt": "<Date> [User date/time of creation]",
             "updatedAt": "<Date> [User date/time of last update]"
@@ -794,6 +814,7 @@ A social network API based on twitter under development using solid design and c
                 "id": "<string> [User author id]",
                 "name": "<string> [User author name]",
                 "tag": "<string> [User author tag]",
+                "description": "<string> [User author description]",
                 "image": "<string> [User author image url]",
                 "createdAt": "<Date> [User author date/time of creation]",
                 "updatedAt": "<Date> [User author date/time of last update]"
@@ -831,6 +852,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
@@ -843,6 +865,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "description": "<string> [User author description]",
             "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
@@ -882,6 +905,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
@@ -894,6 +918,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "description": "<string> [User author description]",
             "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
@@ -965,6 +990,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User id]",
             "name": "<string> [User name]",
             "tag": "<string> [User tag]",
+            "description": "<string> [User description]",
             "image": "<string> [User image url]",
             "createdAt": "<Date> [User date/time of creation]",
             "updatedAt": "<Date> [User date/time of last update]"
@@ -977,6 +1003,7 @@ A social network API based on twitter under development using solid design and c
                 "id": "<string> [User author id]",
                 "name": "<string> [User author name]",
                 "tag": "<string> [User author tag]",
+                "description": "<string> [User author description]",
                 "image": "<string> [User author image url]",
                 "createdAt": "<Date> [User author date/time of creation]",
                 "updatedAt": "<Date> [User author date/time of last update]"
@@ -1016,6 +1043,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
@@ -1028,6 +1056,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "description": "<string> [User author description]",
             "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
@@ -1070,6 +1099,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
@@ -1082,6 +1112,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "description": "<string> [User author description]",
             "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
@@ -1128,6 +1159,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
@@ -1140,6 +1172,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User author id]",
             "name": "<string> [User author name]",
             "tag": "<string> [User author tag]",
+            "description": "<string> [User author description]",
             "image": "<string> [User author image url]",
             "createdAt": "<Date> [User author date/time of creation]",
             "updatedAt": "<Date> [User author date/time of last update]"
@@ -1211,6 +1244,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User id]",
             "name": "<string> [User name]",
             "tag": "<string> [User tag]",
+            "description": "<string> [User description]",
             "image": "<string> [User image url]",
             "createdAt": "<Date> [User date/time of creation]",
             "updatedAt": "<Date> [User date/time of last update]"
@@ -1222,6 +1256,7 @@ A social network API based on twitter under development using solid design and c
                 "id": "<string> [User id]",
                 "name": "<string> [User name]",
                 "tag": "<string> [User tag]",
+                "description": "<string> [User description]",
                 "image": "<string> [User image url]",
                 "createdAt": "<Date> [User date/time of creation]",
                 "updatedAt": "<Date> [User date/time of last update]"
@@ -1234,6 +1269,7 @@ A social network API based on twitter under development using solid design and c
                     "id": "<string> [User author id]",
                     "name": "<string> [User author name]",
                     "tag": "<string> [User author tag]",
+                    "description": "<string> [User author description]",
                     "image": "<string> [User author image url]",
                     "createdAt": "<Date> [User author date/time of creation]",
                     "updatedAt": "<Date> [User author date/time of last update]"
@@ -1274,6 +1310,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
@@ -1285,6 +1322,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User id]",
             "name": "<string> [User name]",
             "tag": "<string> [User tag]",
+            "description": "<string> [User description]",
             "image": "<string> [User image url]",
             "createdAt": "<Date> [User date/time of creation]",
             "updatedAt": "<Date> [User date/time of last update]"
@@ -1297,6 +1335,7 @@ A social network API based on twitter under development using solid design and c
                 "id": "<string> [User author id]",
                 "name": "<string> [User author name]",
                 "tag": "<string> [User author tag]",
+                "description": "<string> [User author description]",
                 "image": "<string> [User author image url]",
                 "createdAt": "<Date> [User author date/time of creation]",
                 "updatedAt": "<Date> [User author date/time of last update]"
@@ -1339,6 +1378,7 @@ A social network API based on twitter under development using solid design and c
         "id": "<string> [User id]",
         "name": "<string> [User name]",
         "tag": "<string> [User tag]",
+        "description": "<string> [User description]",
         "image": "<string> [User image url]",
         "createdAt": "<Date> [User date/time of creation]",
         "updatedAt": "<Date> [User date/time of last update]"
@@ -1350,6 +1390,7 @@ A social network API based on twitter under development using solid design and c
             "id": "<string> [User id]",
             "name": "<string> [User name]",
             "tag": "<string> [User tag]",
+            "description": "<string> [User description]",
             "image": "<string> [User image url]",
             "createdAt": "<Date> [User date/time of creation]",
             "updatedAt": "<Date> [User date/time of last update]"
@@ -1362,6 +1403,7 @@ A social network API based on twitter under development using solid design and c
                 "id": "<string> [User author id]",
                 "name": "<string> [User author name]",
                 "tag": "<string> [User author tag]",
+                "description": "<string> [User author description]",
                 "image": "<string> [User author image url]",
                 "createdAt": "<Date> [User author date/time of creation]",
                 "updatedAt": "<Date> [User author date/time of last update]"

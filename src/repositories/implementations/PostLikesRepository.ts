@@ -8,6 +8,7 @@ interface IPostLikeQuery {
   user_id: string;
   user_name: string;
   user_tag: string;
+  user_description: string;
   user_image: string;
   user_createdAt: Date;
   user_updatedAt: Date;
@@ -19,6 +20,7 @@ interface IPostLikeQuery {
   post_author_id: string;
   post_author_name: string;
   post_author_tag: string;
+  post_author_description: string;
   post_author_image: string;
   post_author_createdAt: Date;
   post_author_updatedAt: Date;
@@ -46,6 +48,7 @@ export default class LikesRepository implements IPostLikesRepository {
       'user.id as user_id',
       'user.name as user_name',
       'user.tag as user_tag',
+      'user.description as user_description',
       'user.image as user_image',
       'user.createdAt as user_createdAt',
       'user.updatedAt as user_updatedAt',
@@ -59,6 +62,7 @@ export default class LikesRepository implements IPostLikesRepository {
       'post_author.id as post_author_id',
       'post_author.name as post_author_name',
       'post_author.tag as post_author_tag',
+      'post_author.description as post_author_description',
       'post_author.image as post_author_image',
       'post_author.createdAt as post_author_createdAt',
       'post_author.updatedAt as post_author_updatedAt',
@@ -77,6 +81,7 @@ export default class LikesRepository implements IPostLikesRepository {
         id: postLike.user_id,
         name: postLike.user_name,
         tag: postLike.user_tag,
+        description: postLike.user_description,
         image: postLike.user_image,
         createdAt: postLike.user_createdAt,
         updatedAt: postLike.user_updatedAt,
@@ -91,6 +96,7 @@ export default class LikesRepository implements IPostLikesRepository {
           id: postLike.post_author_id,
           name: postLike.post_author_name,
           tag: postLike.post_author_tag,
+          description: postLike.post_author_description,
           image: postLike.post_author_image,
           createdAt: postLike.post_author_createdAt,
           updatedAt: postLike.post_author_updatedAt,

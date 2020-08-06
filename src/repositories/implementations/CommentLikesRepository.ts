@@ -8,6 +8,7 @@ interface ICommentLikeQuery {
   user_id: string;
   user_name: string;
   user_tag: string;
+  user_description: string;
   user_image: string;
   user_createdAt: Date;
   user_updatedAt: Date;
@@ -18,6 +19,7 @@ interface ICommentLikeQuery {
   comment_user_id: string;
   comment_user_name: string;
   comment_user_tag: string;
+  comment_user_description: string;
   comment_user_image: string;
   comment_user_createdAt: Date;
   comment_user_updatedAt: Date;
@@ -29,6 +31,7 @@ interface ICommentLikeQuery {
   comment_post_author_id: string;
   comment_post_author_name: string;
   comment_post_author_tag: string;
+  comment_post_author_description: string;
   comment_post_author_image: string;
   comment_post_author_createdAt: Date;
   comment_post_author_updatedAt: Date;
@@ -64,6 +67,7 @@ export default class LikesRepository implements ICommentLikesRepository {
       'user.id as user_id',
       'user.name as user_name',
       'user.tag as user_tag',
+      'user.description as user_description',
       'user.image as user_image',
       'user.createdAt as user_createdAt',
       'user.updatedAt as user_updatedAt',
@@ -75,6 +79,7 @@ export default class LikesRepository implements ICommentLikesRepository {
       'comment_user.id as comment_user_id',
       'comment_user.name as comment_user_name',
       'comment_user.tag as comment_user_tag',
+      'comment_user.description as comment_user_description',
       'comment_user.image as comment_user_image',
       'comment_user.createdAt as comment_user_createdAt',
       'comment_user.updatedAt as comment_user_updatedAt',
@@ -87,6 +92,7 @@ export default class LikesRepository implements ICommentLikesRepository {
 
       'comment_post_author.id as comment_post_author_id',
       'comment_post_author.name as comment_post_author_name',
+      'comment_post_author.description as comment_post_author_description',
       'comment_post_author.tag as comment_post_author_tag',
       'comment_post_author.image as comment_post_author_image',
       'comment_post_author.createdAt as comment_post_author_createdAt',
@@ -105,6 +111,7 @@ export default class LikesRepository implements ICommentLikesRepository {
         id: commentLike.user_id,
         name: commentLike.user_name,
         tag: commentLike.user_tag,
+        description: commentLike.user_description,
         image: commentLike.user_image,
         createdAt: commentLike.user_createdAt,
         updatedAt: commentLike.user_updatedAt,
@@ -118,6 +125,7 @@ export default class LikesRepository implements ICommentLikesRepository {
           id: commentLike.comment_user_id,
           name: commentLike.comment_user_name,
           tag: commentLike.comment_user_tag,
+          description: commentLike.comment_user_description,
           image: commentLike.comment_user_image,
           createdAt: commentLike.comment_user_createdAt,
           updatedAt: commentLike.comment_user_updatedAt,
@@ -130,6 +138,7 @@ export default class LikesRepository implements ICommentLikesRepository {
             id: commentLike.comment_post_author_id,
             name: commentLike.comment_post_author_name,
             tag: commentLike.comment_post_author_tag,
+            description: commentLike.comment_post_author_description,
             image: commentLike.comment_post_author_image,
             createdAt: commentLike.comment_post_author_createdAt,
             updatedAt: commentLike.comment_post_author_updatedAt,
