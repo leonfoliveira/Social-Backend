@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "NODE_ENV=development tsnd --no-notify --transpile-only --respawn --ignore-watch node_modules src/server.ts",
-    "test": "NODE_ENV=test knex migrate:rollback && NODE_ENV=test jest --runInBand",
+    "test": "NODE_ENV=test knex migrate:rollback && NODE_ENV=test jest --runInBand --silent",
     "build": "tsc",
     "start": "node dist/src/server.js",
     "migrate": "knex migrate:latest"
