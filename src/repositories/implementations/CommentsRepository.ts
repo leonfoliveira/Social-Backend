@@ -244,6 +244,143 @@ export default class CommentsRepository implements ICommentsRepository {
     };
   }
 
+  async indexBySlug(
+    page: number,
+    perPage: number,
+    slug: string,
+  ): Promise<{
+    comments: Comment[];
+    count: number;
+    pages: number;
+  }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const comments = await this.baseSelectQuery
+      .clone()
+      .where('comments.text', 'like', `%${slug}%`)
+      .limit(limit)
+      .offset(offset);
+
+    const parsedComments = comments.map((comment) =>
+      this.parseComment(comment),
+    );
+
+    const { count } = await this.baseCountQuery
+      .clone()
+      .where('comments.text', 'like', `%${slug}%`);
+
+    return {
+      comments: parsedComments,
+      count,
+      pages: Math.ceil(count / perPage),
+    };
+  }
+
+  async indexByUserAndSlug(
+    page: number,
+    perPage: number,
+    userId: string,
+    slug: string,
+  ): Promise<{ comments: Comment[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const comments = await this.baseSelectQuery
+      .clone()
+      .where({ 'user.id': userId })
+      .andWhere('comments.text', 'like', `%${slug}%`)
+      .limit(limit)
+      .offset(offset);
+
+    const parsedComments = comments.map((comment) =>
+      this.parseComment(comment),
+    );
+
+    const { count } = await this.baseCountQuery
+      .clone()
+      .where({
+        'user.id': userId,
+      })
+      .andWhere('comments.text', 'like', `%${slug}%`);
+
+    return {
+      comments: parsedComments,
+      count,
+      pages: Math.ceil(count / perPage),
+    };
+  }
+
+  async indexByPostAndSlug(
+    page: number,
+    perPage: number,
+    postId: string,
+    slug: string,
+  ): Promise<{ comments: Comment[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const comments = await this.baseSelectQuery
+      .clone()
+      .where({ 'post.id': postId })
+      .andWhere('comments.text', 'like', `%${slug}%`)
+      .limit(limit)
+      .offset(offset);
+
+    const parsedComments = comments.map((comment) =>
+      this.parseComment(comment),
+    );
+
+    const { count } = await this.baseCountQuery
+      .clone()
+      .where({
+        'post.id': postId,
+      })
+      .andWhere('comments.text', 'like', `%${slug}%`);
+
+    return {
+      comments: parsedComments,
+      count,
+      pages: Math.ceil(count / perPage),
+    };
+  }
+
+  async indexByPairAndSlug(
+    page: number,
+    perPage: number,
+    userId: string,
+    postId: string,
+    slug: string,
+  ): Promise<{ comments: Comment[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const comments = await this.baseSelectQuery
+      .clone()
+      .where({ 'user.id': userId, 'post.id': postId })
+      .andWhere('comments.text', 'like', `%${slug}%`)
+      .limit(limit)
+      .offset(offset);
+
+    const parsedComments = comments.map((comment) =>
+      this.parseComment(comment),
+    );
+
+    const { count } = await this.baseCountQuery
+      .clone()
+      .where({
+        'user.id': userId,
+        'post.id': postId,
+      })
+      .andWhere('comments.text', 'like', `%${slug}%`);
+
+    return {
+      comments: parsedComments,
+      count,
+      pages: Math.ceil(count / perPage),
+    };
+  }
+
   async findById(id: string): Promise<Comment | undefined> {
     const comment = await this.baseSelectQuery
       .clone()

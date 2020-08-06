@@ -5,6 +5,16 @@ export default interface IUsersRepository {
     page: number,
     perPage: number,
   ): Promise<{ users: User[]; count: number; pages: number }>;
+  indexBySlug(
+    page: number,
+    perPage: number,
+    slug: string,
+  ): Promise<{ users: User[]; count: number; pages: number }>;
+  indexByTagSlug(
+    page: number,
+    perPage: number,
+    slug: string,
+  ): Promise<{ users: User[]; count: number; pages: number }>;
 
   trend(
     page: number,

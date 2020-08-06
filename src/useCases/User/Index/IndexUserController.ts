@@ -9,13 +9,14 @@ export default class IndexUserController {
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> {
-    const { page } = request.query;
+    const { page, slug } = request.query;
     const perPage = request.query['per-page'];
 
     try {
       const { users, count, pages } = await this.indexUserUseCase.execute({
         page: parseInt(page as string, 10),
         perPage: parseInt(perPage as string, 10),
+        slug: slug as string,
       });
 
       response.header('X-Total-Count', count.toString());

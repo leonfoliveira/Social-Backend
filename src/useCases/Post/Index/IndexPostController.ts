@@ -9,7 +9,7 @@ export default class IndexPostController {
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> {
-    const { page } = request.query;
+    const { page, slug } = request.query;
     const perPage = request.query['per-page'];
     const authorId = request.query['author-id'];
 
@@ -18,6 +18,7 @@ export default class IndexPostController {
         page: parseInt(page as string, 10),
         perPage: parseInt(perPage as string, 10),
         authorId: authorId ? (authorId as string) : undefined,
+        slug: slug as string,
       });
 
       response.header('X-Total-Count', count.toString());

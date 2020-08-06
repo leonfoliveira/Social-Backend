@@ -19,13 +19,30 @@ export default class IndexPostUseCase {
     };
 
     if (data.authorId) {
-      index = await this.postsRepository.indexByAuthor(
-        data.page,
-        data.perPage,
-        data.authorId,
-      );
+      if (data.slug) {
+        index = await this.postsRepository.indexByAuthorAndSlug(
+          data.page,
+          data.perPage,
+          data.authorId,
+          data.slug,
+        );
+      } else {
+        index = await this.postsRepository.indexByAuthor(
+          data.page,
+          data.perPage,
+          data.authorId,
+        );
+      }
     } else {
-      index = await this.postsRepository.index(data.page, data.perPage);
+      if (data.slug) {
+        index = await this.postsRepository.indexBySlug(
+          data.page,
+          data.perPage,
+          data.slug,
+        );
+      } else {
+        index = await this.postsRepository.index(data.page, data.perPage);
+      }
     }
 
     return index;

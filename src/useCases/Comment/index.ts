@@ -24,6 +24,7 @@ router.get(
         .default(10),
       'user-id': Joi.string().optional(),
       'post-id': Joi.string().optional(),
+      slug: Joi.string().optional(),
     },
   }),
   async (request: Request, response: Response, next: NextFunction) =>

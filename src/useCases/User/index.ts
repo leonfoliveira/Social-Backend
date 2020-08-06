@@ -47,6 +47,7 @@ router.get(
         .max(30)
         .optional()
         .default(10),
+      slug: Joi.string().max(50).optional(),
     },
   }),
   async (request: Request, response: Response, next: NextFunction) =>

@@ -12,23 +12,65 @@ export default class IndexCommentUseCase {
     count: number;
     pages: number;
   }> {
-    const { page, perPage, userId, postId } = data;
-
     let index;
 
-    if (userId && postId) {
-      index = await this.commentRepository.indexByPair(
-        page,
-        perPage,
-        userId,
-        postId,
-      );
-    } else if (userId) {
-      index = await this.commentRepository.indexByUser(page, perPage, userId);
-    } else if (postId) {
-      index = await this.commentRepository.indexByPost(page, perPage, postId);
+    if (data.userId && data.postId) {
+      if (data.slug) {
+        index = await this.commentRepository.indexByPairAndSlug(
+          data.page,
+          data.perPage,
+          data.userId,
+          data.postId,
+          data.slug,
+        );
+      } else {
+        index = await this.commentRepository.indexByPair(
+          data.page,
+          data.perPage,
+          data.userId,
+          data.postId,
+        );
+      }
+    } else if (data.userId) {
+      if (data.slug) {
+        index = await this.commentRepository.indexByUserAndSlug(
+          data.page,
+          data.perPage,
+          data.userId,
+          data.slug,
+        );
+      } else {
+        index = await this.commentRepository.indexByUser(
+          data.page,
+          data.perPage,
+          data.userId,
+        );
+      }
+    } else if (data.postId) {
+      if (data.slug) {
+        index = await this.commentRepository.indexByPostAndSlug(
+          data.page,
+          data.perPage,
+          data.postId,
+          data.slug,
+        );
+      } else {
+        index = await this.commentRepository.indexByPost(
+          data.page,
+          data.perPage,
+          data.postId,
+        );
+      }
     } else {
-      index = await this.commentRepository.index(page, perPage);
+      if (data.slug) {
+        index = await this.commentRepository.indexBySlug(
+          data.page,
+          data.perPage,
+          data.slug,
+        );
+      } else {
+        index = await this.commentRepository.index(data.page, data.perPage);
+      }
     }
 
     return index;

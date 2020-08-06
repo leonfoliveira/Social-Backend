@@ -102,7 +102,8 @@ A social network API based on twitter under development using solid design and c
 ```json
 "query": {
     "page": "<number integer positive optional default=1> [Page]",
-    "per-page": "<number integer positive max=30 optional default=10> [Users per page]"
+    "per-page": "<number integer positive max=30 optional default=10> [Users per page]",
+    "slug": "<string optional> [Search term to filter by name or by tag, (starts with \"@\" to filter only by tag)]"
 }
 ```
 
@@ -470,7 +471,8 @@ A social network API based on twitter under development using solid design and c
 "query": {
     "page": "<number integer positive optional default=1> [Page]",
     "per-page": "<number integer positive optional max=30 default=10> [Posts per page]",
-    "author-id": "<string optional> [User author id]"
+    "author-id": "<string optional> [User author id]",
+    "slug": "<string optional> [Search term to filter by text]"
 },
 ```
 
@@ -928,7 +930,8 @@ A social network API based on twitter under development using solid design and c
     "page": "<number integer positive optional default=1> [Page]",
     "per-page": "<number integer positive optional max=30 default=10> [Posts per page]",
     "user-id": "<string optional> [User id]",
-    "post-id": "<string optional> [Post id]"
+    "post-id": "<string optional> [Post id]",
+    "slug": "<string optional> [Search term to filter by text]"
 },
 ```
 

@@ -108,6 +108,70 @@ export default class UsersRepository implements IUsersRepository {
     };
   }
 
+  async indexBySlug(
+    page: number,
+    perPage: number,
+    slug: string,
+  ): Promise<{ users: User[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const users = await this.baseSelectQuery
+      .clone()
+      .orderByRaw('followers DESC NULLS LAST, users."createdAt" DESC')
+      .where(function () {
+        this.where('users.name', 'like', `%${slug}%`).orWhere(
+          'users.tag',
+          'like',
+          `%${slug}%`,
+        );
+      })
+      .limit(limit)
+      .offset(offset);
+
+    const { count } = await this.baseCountQuery
+      .where(function () {
+        this.where('users.name', 'like', `%${slug}%`).orWhere(
+          'users.tag',
+          'like',
+          `%${slug}%`,
+        );
+      })
+      .clone();
+
+    return {
+      users: users.map((user) => this.parseUser(user)),
+      count,
+      pages: Math.ceil(count / perPage),
+    };
+  }
+
+  async indexByTagSlug(
+    page: number,
+    perPage: number,
+    slug: string,
+  ): Promise<{ users: User[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const users = await this.baseSelectQuery
+      .clone()
+      .orderByRaw('followers DESC NULLS LAST, users."createdAt" DESC')
+      .where('users.tag', 'like', `%${slug}%`)
+      .limit(limit)
+      .offset(offset);
+
+    const { count } = await this.baseCountQuery
+      .where('users.tag', 'like', `%${slug}%`)
+      .clone();
+
+    return {
+      users: users.map((user) => this.parseUser(user)),
+      count,
+      pages: Math.ceil(count / perPage),
+    };
+  }
+
   async trend(
     page: number,
     perPage: number,
@@ -138,13 +202,11 @@ export default class UsersRepository implements IUsersRepository {
         'last_followers_counter.targetId',
         'users.id',
       )
-      .orderByRaw('last_followers DESC NULLS LAST, "createdAt" DESC')
+      .orderByRaw('last_followers DESC NULLS LAST, users."createdAt" DESC')
       .limit(limit)
       .offset(offset);
 
-    const { count } = await this.baseCountQuery
-      .whereNotNull('followers')
-      .clone();
+    const { count } = await this.baseCountQuery.clone();
 
     return {
       users: users.map((user) => this.parseUser(user)),

@@ -155,6 +155,64 @@ export default class PostsRepository implements IPostsRepository {
     return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
   }
 
+  async indexBySlug(
+    page: number,
+    perPage: number,
+    slug: string,
+  ): Promise<{ posts: Post[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const posts = await this.baseSelectQuery
+      .clone()
+      .orderByRaw('likes DESC NULLS LAST, posts."createdAt" DESC')
+      .where('posts.text', 'like', `%${slug}%`)
+      .limit(limit)
+      .offset(offset);
+
+    const parsedPosts = posts.map((post) => this.parsePost(post));
+
+    const { count } = await this.baseCountQuery
+      .clone()
+      .where('posts.text', 'like', `%${slug}%`);
+
+    return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
+  }
+
+  async indexByAuthorAndSlug(
+    page: number,
+    perPage: number,
+    authorId: string,
+    slug: string,
+  ): Promise<{ posts: Post[]; count: number; pages: number }> {
+    const limit = perPage;
+    const offset = (page - 1) * limit;
+
+    const posts = await this.baseSelectQuery
+      .clone()
+      .orderByRaw('likes DESC NULLS LAST, posts."createdAt" DESC')
+      .where(function () {
+        this.where({
+          'posts.authorId': authorId,
+        }).andWhere('posts.text', 'like', `%${slug}%`);
+      })
+      .limit(limit)
+      .offset(offset);
+
+    const parsedPosts = posts.map((post) => this.parsePost(post));
+
+    const { count } = await this.baseCountQuery
+      .clone()
+      .where(function () {
+        this.where({
+          'posts.authorId': authorId,
+        }).andWhere('posts.text', 'like', `%${slug}%`);
+      })
+      .where('posts.text', 'like', `%${slug}%`);
+
+    return { posts: parsedPosts, count, pages: Math.ceil(count / perPage) };
+  }
+
   async feed(
     page: number,
     perPage: number,

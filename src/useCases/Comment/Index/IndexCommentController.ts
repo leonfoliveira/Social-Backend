@@ -9,7 +9,7 @@ export default class IndexCommentController {
     response: Response,
     next: NextFunction,
   ): Promise<Response | void> {
-    const { page } = request.query;
+    const { page, slug } = request.query;
     const perPage = request.query['per-page'];
     const userId = request.query['user-id'];
     const postId = request.query['post-id'];
@@ -21,6 +21,7 @@ export default class IndexCommentController {
           perPage: parseInt(perPage as string, 10),
           userId: userId as string | undefined,
           postId: postId as string | undefined,
+          slug: slug as string,
         },
       );
 

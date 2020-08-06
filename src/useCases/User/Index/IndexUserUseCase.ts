@@ -12,7 +12,29 @@ export default class IndexUserUseCase {
     count: number;
     pages: number;
   }> {
-    const index = await this.userRepository.index(data.page, data.perPage);
+    let index: {
+      users: User[];
+      count: number;
+      pages: number;
+    };
+
+    if (data.slug) {
+      if (data.slug.startsWith('@')) {
+        index = await this.userRepository.indexByTagSlug(
+          data.page,
+          data.perPage,
+          data.slug.substr(1),
+        );
+      } else {
+        index = await this.userRepository.indexBySlug(
+          data.page,
+          data.perPage,
+          data.slug,
+        );
+      }
+    } else {
+      index = await this.userRepository.index(data.page, data.perPage);
+    }
 
     index.users = index.users.map((user) => {
       delete user.email;

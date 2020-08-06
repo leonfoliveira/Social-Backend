@@ -10,6 +10,17 @@ export default interface IPostsRepository {
     perPage: number,
     authorId: string,
   ): Promise<{ posts: Post[]; count: number; pages: number }>;
+  indexBySlug(
+    page: number,
+    perPage: number,
+    slug: string,
+  ): Promise<{ posts: Post[]; count: number; pages: number }>;
+  indexByAuthorAndSlug(
+    page: number,
+    perPage: number,
+    authorId: string,
+    slug: string,
+  ): Promise<{ posts: Post[]; count: number; pages: number }>;
 
   feed(
     page: number,

@@ -70,6 +70,7 @@ router.get(
         .optional()
         .default(10),
       'author-id': Joi.string().optional(),
+      slug: Joi.string().optional(),
     },
   }),
   async (request: Request, response: Response, next: NextFunction) =>

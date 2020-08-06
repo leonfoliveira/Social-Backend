@@ -22,6 +22,31 @@ export default interface ICommentsRepository {
     postId: string,
   ): Promise<{ comments: Comment[]; count: number; pages: number }>;
 
+  indexBySlug(
+    page: number,
+    perPage: number,
+    slug: string,
+  ): Promise<{ comments: Comment[]; count: number; pages: number }>;
+  indexByUserAndSlug(
+    page: number,
+    perPage: number,
+    userId: string,
+    slug: string,
+  ): Promise<{ comments: Comment[]; count: number; pages: number }>;
+  indexByPostAndSlug(
+    page: number,
+    perPage: number,
+    postId: string,
+    slug: string,
+  ): Promise<{ comments: Comment[]; count: number; pages: number }>;
+  indexByPairAndSlug(
+    page: number,
+    perPage: number,
+    userId: string,
+    postId: string,
+    slug: string,
+  ): Promise<{ comments: Comment[]; count: number; pages: number }>;
+
   findById(id: string): Promise<Comment | undefined>;
 
   save(comment: Comment): Promise<Comment>;

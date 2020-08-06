@@ -3,4 +3,5 @@ export default interface IIndexCommentDTO {
   perPage: number;
   userId?: string;
   postId?: string;
+  slug?: string;
 }
