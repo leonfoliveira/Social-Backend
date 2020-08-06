@@ -1,13 +1,16 @@
-language: node_js
-node_js:
-  - 12
 services:
   - docker
 env:
-  - DOCKER_COMPOSE_VERSION=1.26.2
+  global:
+    - DOCKER_COMPOSE_VERSION=1.26.2
+    - PORT=4000
+    - DB_DIALECT=postgresql
+    - DB_HOST=db
+    - secure: dauxpLZVfu2qCwEBIku9dsD7JKwhl/ZiYPPxsEKWYRp3cxEivBpvSqgGl/ujDEwug4osVOZanN9KUsuE2a/Trq0BQt/vQl2tHuxSRS033tzXY8KZ1c7ys7ywadZCJvKxyn4S6SpmlPdmShXLFz5Qi+zvMOirJzzKXVnE430agOJBlTDLX5MiASea3peB/qpRwQHM2babmzGD8G+66RtBOh8oVTqnFJ5l8XjUZOk+xEHdi2EPK1LYiumIKM63vW2rs7bXIBwi9yBlM6PRc0MncqCiG8Vrt8752D7fO5mqZboZ6NxDhwcOEaml2p33I9XH00LBE4SsKJEHB5CYFHngQbOpy2T8yD9zWmgG3m/lIEa2evxD5/xyz5ZhX1CFKw8zNSygeu6l34005/Sxkm5JSzxIS8yCNzXKSYb4by9f4eziTr60AV9lxGSvUqVAduQ+HxuE8q4YKnv7p5I0n8bvx/BzeZ+gflrNBXDQhNMUx7aj5fOPNfp4j9hwf7aARrOAnZHv6nYgD5kLLplWd5rM69+ayNJSRt81yboHVAg7dKAUKAKCdfCvbcFArvmNW+Jt5nJdBFJ3A1jMwVBMwa9NN4VCLTK0eNSG3rQy6MWRD+4LF3tMoyZLR7piwYqq2UCqUhMyRdCVIwIuSvCpm75sfNEwnqieKRqZSvPhaVUmszM=
 before_install:
   - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
+    -s`-`uname -m` > docker-compose
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 before_script:
