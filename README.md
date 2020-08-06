@@ -1,8 +1,11 @@
 # Social Backend
 
-A social network API based on twitter under development using solid design and clean arquitecture principles.
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![David DM](https://david-dm.org/leonfoliveira/social-backend.svg)](https://david-dm.org/leonfoliveira/social-backend)
+[![Travis CI](https://travis-ci.org/leonfoliveira/Social-Backend.svg?branch=master)](https://travis-ci.org/leonfoliveira/Social-Backend)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=lfoliveira-social-api)](https://lfoliveira-social-api.herokuapp.com/)
 
-:grin: [Try it](https://lfoliveira-social-api.herokuapp.com/)
+A social network API based on twitter under development using solid design and clean arquitecture principles.
 
 ## Disclaimer
 
