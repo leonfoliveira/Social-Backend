@@ -3,7 +3,6 @@ import app from '../../../app';
 import knex from '../../../database';
 
 describe('User Update', () => {
-  let id: string;
   let authorization: string;
 
   beforeAll(async () => {
@@ -14,7 +13,6 @@ describe('User Update', () => {
       email: 'person.a@mail.com',
       password: '12345678',
     });
-    id = response.body.user.id;
     authorization = `Bearer ${response.body.token}`;
   });
 
@@ -24,7 +22,7 @@ describe('User Update', () => {
   });
 
   it('Should not be able to update a user if not authorized', async () => {
-    const response = await request(app).put(`/api/users/${id}`).send({
+    const response = await request(app).put(`/api/users`).send({
       name: 'newName',
     });
 
@@ -34,7 +32,7 @@ describe('User Update', () => {
 
   it('Should not be able to update a user with invalid email', async () => {
     const response = await request(app)
-      .put(`/api/users/${id}`)
+      .put(`/api/users`)
       .send({
         email: 'notanemail',
       })
@@ -46,7 +44,7 @@ describe('User Update', () => {
 
   it('Should not be able to update a user with email longer than 50 characters', async () => {
     const response = await request(app)
-      .put(`/api/users/${id}`)
+      .put(`/api/users`)
       .send({
         email: 'too_long_email_____________________________@mail.com',
       })
@@ -60,7 +58,7 @@ describe('User Update', () => {
 
   it('Should not be able to update a user with repeated email', async () => {
     const response = await request(app)
-      .put(`/api/users/${id}`)
+      .put(`/api/users`)
       .send({
         email: 'person.b@mail.com',
       })
@@ -72,7 +70,7 @@ describe('User Update', () => {
 
   it('Should not be able to update a user with name longer than 50 characters', async () => {
     const response = await request(app)
-      .put(`/api/users/${id}`)
+      .put(`/api/users`)
       .send({
         name: 'too long name ________________________________________',
       })
@@ -86,7 +84,7 @@ describe('User Update', () => {
 
   it('Should not be able to update a user with password smaller than 8 characters', async () => {
     const response = await request(app)
-      .put(`/api/users/${id}`)
+      .put(`/api/users`)
       .send({
         password: '123',
       })
@@ -100,7 +98,7 @@ describe('User Update', () => {
 
   it('Should not be able to update a user with password longer than 30 characters', async () => {
     const response = await request(app)
-      .put(`/api/users/${id}`)
+      .put(`/api/users`)
       .send({
         email: 'sample@mail.com',
         name: 'name',
@@ -117,7 +115,7 @@ describe('User Update', () => {
 
   it('Should NOT be able to update a user with empty body', async () => {
     const response = await request(app)
-      .put(`/api/users/${id}`)
+      .put(`/api/users`)
       .send()
       .set('authorization', authorization);
 
@@ -127,7 +125,7 @@ describe('User Update', () => {
 
   it('Should be able to update a user with valid data', async () => {
     const response = await request(app)
-      .put(`/api/users/${id}`)
+      .put(`/api/users`)
       .send({
         email: 'person.a.updated@mail.com',
         name: 'Person A Updated',
@@ -142,7 +140,7 @@ describe('User Update', () => {
 
   it('Should be able to update a user without email', async () => {
     const response = await request(app)
-      .put(`/api/users/${id}`)
+      .put(`/api/users`)
       .send({
         name: 'Person A Updated 2',
         password: '87654321',
@@ -152,19 +150,5 @@ describe('User Update', () => {
     expect(response.status).toBe(200);
     expect(response.body.email).toBe('person.a.updated@mail.com');
     expect(response.body.name).toBe('Person A Updated 2');
-  });
-
-  it('Should not be able to update a user that is not the authorized', async () => {
-    const response = await request(app)
-      .put('/api/users/2')
-      .send({
-        email: 'person.a.updated@mail.com',
-        name: 'Person A Updated',
-        password: '87654321',
-      })
-      .set('authorization', authorization);
-
-    expect(response.status).toBe(403);
-    expect(response.body.error).toBe('cannot update other user');
   });
 });

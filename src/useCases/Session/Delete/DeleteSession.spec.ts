@@ -23,7 +23,7 @@ describe('Delete Session', () => {
 
   it('should be able to revoke a token', async () => {
     const response = await request(app)
-      .delete(`/api/sessions/${token}`)
+      .delete(`/api/sessions`)
       .set('authorization', `Bearer ${token}`);
 
     expect(response.status).toBe(200);
