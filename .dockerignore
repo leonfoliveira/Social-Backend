@@ -6,3 +6,9 @@
 !knexfile.ts
 !package.json
 !tsconfig.json
+
+public/*
+!public/index.html
+
+public/images/*
+!public/images/default.png
